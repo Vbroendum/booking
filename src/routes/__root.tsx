@@ -17,11 +17,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 function RootRouteWithLayout() {
   return (
     <>
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-      </div>
-      <hr />
+
       <Outlet />
       <TanStackRouterDevtools />
     </>
