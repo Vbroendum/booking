@@ -16,15 +16,20 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+<<<<<<< HEAD
 const InfopageklasseLokaleLazyImport = createFileRoute(
   '/infopageklasseLokale',
 )()
 const FrontpageLazyImport = createFileRoute('/frontpage')()
+=======
+const KlasseLazyImport = createFileRoute('/klasse')()
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
+<<<<<<< HEAD
 const InfopageklasseLokaleLazyRoute = InfopageklasseLokaleLazyImport.update({
   id: '/infopageklasseLokale',
   path: '/infopageklasseLokale',
@@ -38,6 +43,13 @@ const FrontpageLazyRoute = FrontpageLazyImport.update({
   path: '/frontpage',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/frontpage.lazy').then((d) => d.Route))
+=======
+const KlasseLazyRoute = KlasseLazyImport.update({
+  id: '/klasse',
+  path: '/klasse',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/klasse.lazy').then((d) => d.Route))
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
 
 const AboutLazyRoute = AboutLazyImport.update({
   id: '/about',
@@ -69,6 +81,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+<<<<<<< HEAD
     '/frontpage': {
       id: '/frontpage'
       path: '/frontpage'
@@ -81,6 +94,13 @@ declare module '@tanstack/react-router' {
       path: '/infopageklasseLokale'
       fullPath: '/infopageklasseLokale'
       preLoaderRoute: typeof InfopageklasseLokaleLazyImport
+=======
+    '/klasse': {
+      id: '/klasse'
+      path: '/klasse'
+      fullPath: '/klasse'
+      preLoaderRoute: typeof KlasseLazyImport
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
       parentRoute: typeof rootRoute
     }
   }
@@ -91,46 +111,73 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
+<<<<<<< HEAD
   '/frontpage': typeof FrontpageLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
+=======
+  '/klasse': typeof KlasseLazyRoute
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
+<<<<<<< HEAD
   '/frontpage': typeof FrontpageLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
+=======
+  '/klasse': typeof KlasseLazyRoute
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
+<<<<<<< HEAD
   '/frontpage': typeof FrontpageLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
+=======
+  '/klasse': typeof KlasseLazyRoute
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
+<<<<<<< HEAD
   fullPaths: '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
   id: '__root__' | '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
+=======
+  fullPaths: '/' | '/about' | '/klasse'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/about' | '/klasse'
+  id: '__root__' | '/' | '/about' | '/klasse'
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AboutLazyRoute: typeof AboutLazyRoute
+<<<<<<< HEAD
   FrontpageLazyRoute: typeof FrontpageLazyRoute
   InfopageklasseLokaleLazyRoute: typeof InfopageklasseLokaleLazyRoute
+=======
+  KlasseLazyRoute: typeof KlasseLazyRoute
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AboutLazyRoute: AboutLazyRoute,
+<<<<<<< HEAD
   FrontpageLazyRoute: FrontpageLazyRoute,
   InfopageklasseLokaleLazyRoute: InfopageklasseLokaleLazyRoute,
+=======
+  KlasseLazyRoute: KlasseLazyRoute,
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
 }
 
 export const routeTree = rootRoute
@@ -145,8 +192,12 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+<<<<<<< HEAD
         "/frontpage",
         "/infopageklasseLokale"
+=======
+        "/klasse"
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
       ]
     },
     "/": {
@@ -155,11 +206,16 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.lazy.jsx"
     },
+<<<<<<< HEAD
     "/frontpage": {
       "filePath": "frontpage.lazy.jsx"
     },
     "/infopageklasseLokale": {
       "filePath": "infopageklasseLokale.lazy.jsx"
+=======
+    "/klasse": {
+      "filePath": "klasse.lazy.jsx"
+>>>>>>> 7617ff19f633bb81e0fb99c0c3753f85483846a2
     }
   }
 }

@@ -38,7 +38,6 @@ function Demo(props) {
 
       <Button color="blue" fullWidth mt="md" radius="md" onClick={handleNavigate}>
       {props.button}
-      {props.color}
       </Button>
     </Card>
   );
