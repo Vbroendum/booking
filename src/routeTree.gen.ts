@@ -16,10 +16,28 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const InfopageklasseLokaleLazyImport = createFileRoute(
+  '/infopageklasseLokale',
+)()
+const FrontpageLazyImport = createFileRoute('/frontpage')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const InfopageklasseLokaleLazyRoute = InfopageklasseLokaleLazyImport.update({
+  id: '/infopageklasseLokale',
+  path: '/infopageklasseLokale',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/infopageklasseLokale.lazy').then((d) => d.Route),
+)
+
+const FrontpageLazyRoute = FrontpageLazyImport.update({
+  id: '/frontpage',
+  path: '/frontpage',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/frontpage.lazy').then((d) => d.Route))
 
 const AboutLazyRoute = AboutLazyImport.update({
   id: '/about',
@@ -51,6 +69,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/frontpage': {
+      id: '/frontpage'
+      path: '/frontpage'
+      fullPath: '/frontpage'
+      preLoaderRoute: typeof FrontpageLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/infopageklasseLokale': {
+      id: '/infopageklasseLokale'
+      path: '/infopageklasseLokale'
+      fullPath: '/infopageklasseLokale'
+      preLoaderRoute: typeof InfopageklasseLokaleLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -59,36 +91,46 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
+  '/frontpage': typeof FrontpageLazyRoute
+  '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
+  '/frontpage': typeof FrontpageLazyRoute
+  '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
+  '/frontpage': typeof FrontpageLazyRoute
+  '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
+  id: '__root__' | '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AboutLazyRoute: typeof AboutLazyRoute
+  FrontpageLazyRoute: typeof FrontpageLazyRoute
+  InfopageklasseLokaleLazyRoute: typeof InfopageklasseLokaleLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AboutLazyRoute: AboutLazyRoute,
+  FrontpageLazyRoute: FrontpageLazyRoute,
+  InfopageklasseLokaleLazyRoute: InfopageklasseLokaleLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -102,7 +144,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/about",
+        "/frontpage",
+        "/infopageklasseLokale"
       ]
     },
     "/": {
@@ -110,6 +154,12 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.lazy.jsx"
+    },
+    "/frontpage": {
+      "filePath": "frontpage.lazy.jsx"
+    },
+    "/infopageklasseLokale": {
+      "filePath": "infopageklasseLokale.lazy.jsx"
     }
   }
 }
