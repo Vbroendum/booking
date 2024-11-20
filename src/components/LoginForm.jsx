@@ -24,7 +24,7 @@ function LoginForm() {
       defaultChecked
       label="Husk mig"
     />
-    <Button style={{ marginTop: "24px" }} variant="filled" onClick={() => router.navigate({ to: "/about" })}>Log ind</Button>
+    <Button style={{ marginTop: "24px" }} variant="filled" onClick={() => router.navigate({ to: "/frontpage" })}>Log ind</Button>
     </div>
   );
 }
