@@ -90,7 +90,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', 
     minHeight: '100vh', // Makes the container fill the viewport height
     fontFamily: 'Arial, sans-serif',
   },

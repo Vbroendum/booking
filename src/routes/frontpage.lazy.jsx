@@ -19,15 +19,20 @@ function RouteComponent() {
 >
   <h1>Book et lokale eller se dine bookinger.</h1>
   <div style={{display: 'flex', gap: '150px', justifyContent: "space-evenly"}}>
-    <FlashCard 
-    title="Se dine bookinger"
-    button="Se booking" 
-    />
+  <FlashCard
+          title="Se dine bookinger"
+          button="Se booking"
+          color="blue"
+          navigation="/about"
+        />
 
-    <FlashCard 
-    title="Book et lokale"
-    button="Book (Skal være Grøn)"
-    />
+        {/* Second FlashCard */}
+        <FlashCard
+          title="Book et lokale"
+          button="Book"
+          color="green"
+          navigation="/startBooking.lazy.jsx"
+          />
   </div>
 </div>
 }

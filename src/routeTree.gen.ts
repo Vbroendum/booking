@@ -16,6 +16,8 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const StartBookingLazyImport = createFileRoute('/startBooking')()
+const KlasseLazyImport = createFileRoute('/klasse')()
 const InfopageklasseLokaleLazyImport = createFileRoute(
   '/infopageklasseLokale',
 )()
@@ -24,6 +26,18 @@ const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const StartBookingLazyRoute = StartBookingLazyImport.update({
+  id: '/startBooking',
+  path: '/startBooking',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/startBooking.lazy').then((d) => d.Route))
+
+const KlasseLazyRoute = KlasseLazyImport.update({
+  id: '/klasse',
+  path: '/klasse',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/klasse.lazy').then((d) => d.Route))
 
 const InfopageklasseLokaleLazyRoute = InfopageklasseLokaleLazyImport.update({
   id: '/infopageklasseLokale',
@@ -83,6 +97,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InfopageklasseLokaleLazyImport
       parentRoute: typeof rootRoute
     }
+    '/klasse': {
+      id: '/klasse'
+      path: '/klasse'
+      fullPath: '/klasse'
+      preLoaderRoute: typeof KlasseLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/startBooking': {
+      id: '/startBooking'
+      path: '/startBooking'
+      fullPath: '/startBooking'
+      preLoaderRoute: typeof StartBookingLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -93,6 +121,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
+  '/klasse': typeof KlasseLazyRoute
+  '/startBooking': typeof StartBookingLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -100,6 +130,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
+  '/klasse': typeof KlasseLazyRoute
+  '/startBooking': typeof StartBookingLazyRoute
 }
 
 export interface FileRoutesById {
@@ -108,14 +140,35 @@ export interface FileRoutesById {
   '/about': typeof AboutLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
+  '/klasse': typeof KlasseLazyRoute
+  '/startBooking': typeof StartBookingLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/frontpage'
+    | '/infopageklasseLokale'
+    | '/klasse'
+    | '/startBooking'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
-  id: '__root__' | '/' | '/about' | '/frontpage' | '/infopageklasseLokale'
+  to:
+    | '/'
+    | '/about'
+    | '/frontpage'
+    | '/infopageklasseLokale'
+    | '/klasse'
+    | '/startBooking'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/frontpage'
+    | '/infopageklasseLokale'
+    | '/klasse'
+    | '/startBooking'
   fileRoutesById: FileRoutesById
 }
 
@@ -124,6 +177,8 @@ export interface RootRouteChildren {
   AboutLazyRoute: typeof AboutLazyRoute
   FrontpageLazyRoute: typeof FrontpageLazyRoute
   InfopageklasseLokaleLazyRoute: typeof InfopageklasseLokaleLazyRoute
+  KlasseLazyRoute: typeof KlasseLazyRoute
+  StartBookingLazyRoute: typeof StartBookingLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -131,6 +186,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutLazyRoute: AboutLazyRoute,
   FrontpageLazyRoute: FrontpageLazyRoute,
   InfopageklasseLokaleLazyRoute: InfopageklasseLokaleLazyRoute,
+  KlasseLazyRoute: KlasseLazyRoute,
+  StartBookingLazyRoute: StartBookingLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -146,7 +203,9 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/frontpage",
-        "/infopageklasseLokale"
+        "/infopageklasseLokale",
+        "/klasse",
+        "/startBooking"
       ]
     },
     "/": {
@@ -160,6 +219,12 @@ export const routeTree = rootRoute
     },
     "/infopageklasseLokale": {
       "filePath": "infopageklasseLokale.lazy.jsx"
+    },
+    "/klasse": {
+      "filePath": "klasse.lazy.jsx"
+    },
+    "/startBooking": {
+      "filePath": "startBooking.lazy.jsx"
     }
   }
 }
