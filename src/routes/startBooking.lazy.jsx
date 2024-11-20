@@ -1,10 +1,13 @@
-import * as React from 'react'
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, useRouteContext } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/startBooking')({
-  component: RouteComponent,
+  component: StartBooking,
 })
 
-function RouteComponent() {
-  return 'Hello /startBooking!'
+function StartBooking() {
+  const context = useRouteContext({ from: "/startBooking" });
+  console.log(context);
+
+
+  return <div>Hello /startBooking!</div>
 }

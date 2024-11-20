@@ -31,7 +31,7 @@ function RouteComponent() {
           title="Book et lokale"
           button="Book"
           color="green"
-          navigation="/startBooking.lazy.jsx"
+          navigation="/startBooking"
           />
   </div>
 </div>
