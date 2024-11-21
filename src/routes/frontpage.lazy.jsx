@@ -1,7 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import FlashCard from "../components/FlashCard"
 import Header from "../components/Header"
-import Footer from '../components/Footer';
 
 export const Route = createLazyFileRoute('/frontpage')({
   component: RouteComponent,
@@ -39,7 +38,6 @@ function RouteComponent() {
           />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
