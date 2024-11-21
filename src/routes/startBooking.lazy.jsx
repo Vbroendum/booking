@@ -1,4 +1,5 @@
 import { createLazyFileRoute, useRouteContext } from '@tanstack/react-router'
+import LokaleForm from '../components/Lokaleform';
 
 export const Route = createLazyFileRoute('/startBooking')({
   component: StartBooking,
@@ -9,5 +10,7 @@ function StartBooking() {
   console.log(context);
 
 
-  return <div>Hello /startBooking!</div>
+  return <div>
+    <LokaleForm />
+  </div>
 }

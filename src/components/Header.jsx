@@ -1,4 +1,3 @@
-import React from 'react';
 import logo from '../assets/CPHBusiness_Logo.svg';
 import { Link } from '@tanstack/react-router';
 
