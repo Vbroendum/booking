@@ -38,6 +38,10 @@ function LokaleInput({ numberOfPeople }) {
 
   return (
     <Combobox
+      size='md'
+      label="Lokaletype"
+      description="Vælg hvilket type lokale I skal bruge."
+      withAsterisk
       store={combobox}
       onOptionSubmit={(val) => {
         setValue(val);
@@ -53,7 +57,7 @@ function LokaleInput({ numberOfPeople }) {
           rightSectionPointerEvents="none"
           onClick={() => combobox.toggleDropdown()}
         >
-          {value || <Input.Placeholder>Pick value</Input.Placeholder>}
+          {value || <Input.Placeholder>Vælg lokale</Input.Placeholder>}
         </InputBase>
       </Combobox.Target>
 
