@@ -1,5 +1,6 @@
 import { createLazyFileRoute, useRouteContext } from "@tanstack/react-router";
 import LoginForm from "../components/LoginForm";
+import LoginForm2 from "../components/LoginForm2";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -20,7 +21,7 @@ function Index() {
   return (
     <div style={{ display: "flex"}}>
       <img src="src/assets/image-2.webp" alt="" style={imageStyle} />
-      <LoginForm />
+      <LoginForm2 />
       </div>
   );
 }

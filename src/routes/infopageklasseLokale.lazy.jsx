@@ -2,6 +2,7 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 import FlashCard from '../components/FlashCard2';
 import { useState } from 'react';
+import Header from "../components/Header"
 
 // Define route
 export const Route = createLazyFileRoute('/infopageklasseLokale')({
@@ -33,52 +34,56 @@ function RouteComponent() {
   const filteredRooms = rooms.filter((room) => room.floor === selectedFloor);
 
   return (
-    <div style={styles.container}>
-      {/* Header Section */}
-      <header style={styles.header}>
-        <h1 style={styles.headerTitle}>Klasselokaler</h1>
-      </header>
+    <div>
+      <Header />
+      <div style={styles.container}>
+        {/* Header Section */}
+        <header style={styles.header}>
+          
+          <h1 style={styles.headerTitle}>Klasselokaler</h1>
+        </header>
 
-      <div style={styles.contentWrapper}>
-        {/* Main Content Section */}
-        <main style={styles.mainContent}>
-          {filteredRooms.map((room) => (
-            <FlashCard
-              key={room.id}
-              title={room.title}
-              description={
-                <ul>
-                  <li>Stor skærm</li>
-                  <li>Tavle</li>
-                  <li>Tuscher</li>
-                  <li>Papir</li>
-                </ul>
-              }
-            />
-          ))}
-        </main>
-
-        {/* Sidebar Section */}
-        <aside style={styles.sidebar}>
-          <h3>Etage</h3>
-          <form>
-            {[1, 2, 3, 4].map((floor) => (
-              <div key={floor}>
-                <input
-                  type="radio"
-                  id={`floor-${floor}`}
-                  name="floor"
-                  value={floor}
-                  checked={selectedFloor === floor}
-                  onChange={() => handleFloorChange(floor)}
-                />
-                <label htmlFor={`floor-${floor}`} style={styles.radioLabel}>
-                  {floor}. Etage
-                </label>
-              </div>
+        <div style={styles.contentWrapper}>
+          {/* Main Content Section */}
+          <main style={styles.mainContent}>
+            {filteredRooms.map((room) => (
+              <FlashCard
+                key={room.id}
+                title={room.title}
+                description={
+                  <ul>
+                    <li>Stor skærm</li>
+                    <li>Tavle</li>
+                    <li>Tuscher</li>
+                    <li>Papir</li>
+                  </ul>
+                }
+              />
             ))}
-          </form>
-        </aside>
+          </main>
+
+          {/* Sidebar Section */}
+          <aside style={styles.sidebar}>
+            <h3>Etage</h3>
+            <form>
+              {[1, 2, 3, 4].map((floor) => (
+                <div key={floor}>
+                  <input
+                    type="radio"
+                    id={`floor-${floor}`}
+                    name="floor"
+                    value={floor}
+                    checked={selectedFloor === floor}
+                    onChange={() => handleFloorChange(floor)}
+                  />
+                  <label htmlFor={`floor-${floor}`} style={styles.radioLabel}>
+                    {floor}. Etage
+                  </label>
+                </div>
+              ))}
+            </form>
+          </aside>
+        </div>
       </div>
     </div>
   );
