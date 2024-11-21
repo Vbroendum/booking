@@ -2,7 +2,9 @@ import { Calendar } from '@mantine/dates';
 
 
 function CustomCalendar() {
-  return <Calendar />;
+  return <Calendar 
+  size='xl'
+  />;
 }
 
 export default CustomCalendar;

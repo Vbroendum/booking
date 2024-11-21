@@ -2,27 +2,63 @@ import { NumberInput, Button  } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
 import LokaleInput from './LokaleInput';
 import { useState } from 'react';
+import BookingAlert from './BookingAlert';
 
 export default LokaleForm
 
 function LokaleForm() {
     const router = useRouter();
     const [numberOfPeople, setNumberOfPeople] = useState(1);
-
-  return (
-    <div>
+    const [selectedLokale, setSelectedLokale] = useState(null);
+  
+    const inputStyle = {
+      padding: "0px 24px",
+      width: "30%",
+    };
+  
+    const handleNextClick = () => {
+      if (!selectedLokale) {
+        alert("Vælg venligst et lokale først."); // Prevent navigation if no selection
+        return;
+      }
+  
+      // Map lokale names to their corresponding routes
+      const routeMap = {
+        Gruppelokale: "/gruppeLokaleBooking",
+        Klasselokale: "/klasselokaleBooking",
+        "Open Learning": "/openLearningBooking",
+        Diverse: "/diverseBooking",
+      };
+  
+      const selectedRoute = routeMap[selectedLokale];
+      router.navigate({ to: selectedRoute });
+    };
+  
+    return (
+      <div style={inputStyle}>
         <NumberInput
-            size="md"
-            label="Antal personer"
-            withAsterisk
-            description="Vælg hvor mange personer i skal være i lokalet."
-            placeholder="Antal personer i lokalet"
-            min={1}
-            value={numberOfPeople}
-            onChange={(value) => setNumberOfPeople(value)}
+          size="md"
+          label="Antal personer"
+          withAsterisk
+          description="Vælg hvor mange personer i skal være i lokalet."
+          placeholder="Antal personer i lokalet"
+          min={1}
+          value={numberOfPeople}
+          onChange={(value) => setNumberOfPeople(value)}
         />
-        <LokaleInput numberOfPeople={numberOfPeople} />
-        <Button style={{ marginTop: "24px" }} variant="filled" onClick={() => router.navigate({ to: "/frontpage" })}>Log ind</Button>
-     </div>
-  );
-}
+        <LokaleInput
+          numberOfPeople={numberOfPeople}
+          onLokaleSelect={setSelectedLokale} // Pass callback to get selected lokale
+        />
+        <BookingAlert />
+        <Button
+          style={{ marginTop: "24px", alignContent: "end" }}
+          variant="filled"
+          onClick={handleNextClick}
+        >
+          Næste
+        </Button>
+      </div>
+    );
+  }
+  

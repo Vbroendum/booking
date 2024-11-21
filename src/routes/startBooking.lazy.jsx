@@ -12,9 +12,18 @@ function StartBooking() {
   const context = useRouteContext({ from: "/startBooking" });
   console.log(context);
 
+  const bookingStyle = {
+    display: "flex",
+    margin: "24px",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: "100vh"
+  }
 
-  return <div>
-    <LokaleForm />
+
+  return <div style={bookingStyle}>
     <CustomCalendar />
+    <LokaleForm  />
   </div>
 }
