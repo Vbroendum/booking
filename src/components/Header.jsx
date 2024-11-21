@@ -10,14 +10,14 @@ function Header() {
         
         <div><Link to="/" 
         style={{textDecoration: 'none', color: 'white', fontWeight: '500'}}
-        onMouseOver={(e) => (e.target.style.color = 'black')}
-        onMouseOut={(e) => (e.target.style.color = 'white')}
+        onMouseOver={(e) => (e.target.style.textDecoration = 'underline')}
+        onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
         >Forside</Link></div>
 
         <div><Link to="/" 
         style={{textDecoration: 'none', color: 'white', fontWeight: '500'}} 
-        onMouseOver={(e) => (e.target.style.color = 'black')}
-        onMouseOut={(e) => (e.target.style.color = 'white')}
+        onMouseOver={(e) => (e.target.style.textDecoration = 'underline')}
+        onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
         >Mine bookinger</Link></div>
       </div>
     </div>
