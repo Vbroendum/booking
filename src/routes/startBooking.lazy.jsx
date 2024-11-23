@@ -30,7 +30,7 @@ function StartBooking() {
 
     <div style={bookingStyle}>
 
-    <CustomCalendar />
+    <CustomCalendar style={{ marginLeft: "24px" }} />
     <LokaleForm  />
 
     </div>
