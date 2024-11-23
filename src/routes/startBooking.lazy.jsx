@@ -2,6 +2,8 @@ import { createLazyFileRoute, useRouteContext } from '@tanstack/react-router'
 
 import CustomCalendar from '../components/CustomCalendar';
 import LokaleForm from '../components/Lokaleform';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 
 export const Route = createLazyFileRoute('/startBooking')({
@@ -18,12 +20,21 @@ function StartBooking() {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "100vh"
+    height: "85vh"
   }
 
 
-  return <div style={bookingStyle}>
+  return (
+    <div>
+      <Header />
+
+    <div style={bookingStyle}>
+
     <CustomCalendar />
     <LokaleForm  />
+
+    </div>
+    <Footer />
   </div>
+  )
 }
