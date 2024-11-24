@@ -3,22 +3,18 @@ import { useState } from 'react';
 import { Calendar } from '@mantine/dates';
 
 function CustomCalendar() {
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(null); // Store a single date instead of an array
 
   const handleSelect = (date) => {
-    const isSelected = selected.some((s) => dayjs(date).isSame(s, 'date'));
-    if (isSelected) {
-      setSelected((current) => current.filter((d) => !dayjs(d).isSame(date, 'date')));
-    } else if (selected.length < 1) {
-      setSelected((current) => [...current, date]);
-    }
+    setSelected(date); // Always set the selected date to the newly clicked date
+    console.log('Date selected:', dayjs(date).format('YYYY-MM-DD'));
   };
 
   return (
     <Calendar
-      size='xl'
+      size="xl"
       getDayProps={(date) => ({
-        selected: selected.some((s) => dayjs(date).isSame(s, 'date')),
+        selected: selected && dayjs(date).isSame(selected, 'date'), // Highlight the selected date
         onClick: () => handleSelect(date),
       })}
     />

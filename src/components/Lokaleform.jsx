@@ -1,4 +1,4 @@
-import { NumberInput, Button  } from '@mantine/core';
+import { NumberInput, Button, Group  } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
 import LokaleInput from './LokaleInput';
 import { useState } from 'react';
@@ -51,6 +51,7 @@ function LokaleForm() {
           onLokaleSelect={setSelectedLokale} // Pass callback to get selected lokale
         />
         <BookingAlert />
+        <Group justify="flex-end" mt="md">
         <Button
           style={{ marginTop: "24px", alignContent: "end" }}
           variant="filled"
@@ -58,6 +59,7 @@ function LokaleForm() {
         >
           Næste
         </Button>
+        </Group>
       </div>
     );
   }

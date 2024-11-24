@@ -45,7 +45,7 @@ function LoginForm2() {
 
         
                 <Checkbox
-                defaultChecked
+                
                 style={{ marginTop: "24px" }}
                 mt="md"
                 label="Husk mig"
