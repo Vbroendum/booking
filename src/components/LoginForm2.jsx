@@ -24,7 +24,10 @@ function LoginForm2() {
     const { email, password } = values;
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ 
+        email, 
+        password,
+      options: { remember: values.remember } });
       if (error) throw error;
       
       // Redirect to the frontpage on successful login
@@ -64,6 +67,7 @@ function LoginForm2() {
                 style={{ marginTop: "24px" }}
                 mt="md"
                 label="Husk mig"
+                {...form.getInputProps('remember', { type: 'checkbox' })}
                 />
         
                 <Group justify="flex-end" mt="md">
