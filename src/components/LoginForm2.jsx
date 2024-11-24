@@ -1,34 +1,50 @@
 import { Button, Checkbox, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useRouter } from '@tanstack/react-router';
+import { getSupabaseClient } from '../supabase/getSupabaseClient';
 
 export default LoginForm2
 
 function LoginForm2() {
-    const router = useRouter();
-    const form = useForm({
-      mode: 'uncontrolled',
-      initialValues: {
-        email: '',
-        termsOfService: false,
-      },
-  
-      validate: {
-        email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      },
-    });
+  const router = useRouter();
+  const form = useForm({
+    initialValues: {
+      email: '',
+      password: '',
+      remember: false, // If you want to use "Husk mig" functionality
+    },
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'ugyldig email'),
+      password: (value) => (value.length > 0 ? null : 'Adgangskode kan ikke være tom'),
+    },
+  });
+
+  const handleLogin = async (values) => {
+    const supabase = getSupabaseClient();
+    const { email, password } = values;
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      
+      // Redirect to the frontpage on successful login
+      router.navigate({ to: '/frontpage' });
+    } catch (error) {
+      console.error('Login error:', error.message);
+      alert('Login failed: ' + error.message);
+    }
+  };
   
     return (
         <div style={{width: "100%", margin: "24px", alignContent: "center"}}>
             <h1>EFIF</h1>
             <h3>Log på</h3>
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+            <form onSubmit={form.onSubmit(handleLogin)}>
                 <TextInput
                 withAsterisk
                 required
                 label="Brugernavn"
                 placeholder="Indtast brugernavn"
-                key={form.key('email')}
                 {...form.getInputProps('email')}
                 />
 
@@ -38,7 +54,6 @@ function LoginForm2() {
                 withAsterisk
                 label="Password"
                 placeholder="Indtast kodeord"
-                key={form.key('password')}
                 {...form.getInputProps('password')}
                 />
 
@@ -56,7 +71,6 @@ function LoginForm2() {
                 style={{ marginTop: "24px" }}
                 type="submit"
                 variant='filled'
-                onClick={() => router.navigate({ to: "/frontpage" })}
                 >Log ind</Button>
                 </Group>
             </form>
