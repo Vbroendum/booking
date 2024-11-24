@@ -3,6 +3,7 @@ import { useRouter } from '@tanstack/react-router';
 import LokaleInput from './LokaleInput';
 import { useState } from 'react';
 import BookingAlert from './BookingAlert';
+import TimeRangePicker from './TimeInput';
 
 export default LokaleForm
 
@@ -50,6 +51,7 @@ function LokaleForm() {
           numberOfPeople={numberOfPeople}
           onLokaleSelect={setSelectedLokale} // Pass callback to get selected lokale
         />
+        <TimeRangePicker />
         <BookingAlert />
         <Group justify="flex-end" mt="md">
         <Button
