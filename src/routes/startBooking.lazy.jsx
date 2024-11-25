@@ -27,26 +27,33 @@ function StartBooking() {
     height: "85vh"
   }
 
+  const stepperStyle = {
+    marginTop: "24px", 
+    marginBottom: "24px", 
+    width: "70%",
+    alignContent: "center",
+    marginLeft: "auto",
+    marginRight: "auto"
+  }
 
   const steps = [
-    {
-      label: "Step 1",
-    },
-    {
-      label: "Step 2",
-    },
-    {
-      label: "Step 3",
-    },
-    {
-      label: "Step 4",
-    },
+    { label: 'Step 1' },
+    { label: 'Step 2'},
+    { label: 'Step 3' },
+    { label: 'Step 4' },
   ];
+
 
   return (
     <div>
       <Header />
-      <StepperComponent steps={steps} activeStep={activeStep} setActiveStep={setActiveStep} style={{ margin: "24px" }}/>
+      <div style={stepperStyle}>
+      <StepperComponent 
+      steps={steps}
+      activeStep={activeStep} 
+      setActiveStep={setActiveStep} 
+      />
+      </div>
     <div style={bookingStyle}>
 
     <CustomCalendar style={{ marginLeft: "24px" }} />

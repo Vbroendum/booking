@@ -1,4 +1,3 @@
-import React from 'react';
 import { Stepper, Button, Group } from '@mantine/core';
 
 export default function StepperComponent({ steps, activeStep, setActiveStep }) {
@@ -6,26 +5,26 @@ export default function StepperComponent({ steps, activeStep, setActiveStep }) {
   const handlePreviousStep = () => setActiveStep((current) => Math.max(current - 1, 0));
 
   return (
-    <div>
-      {/* Stepper Component */}
+    <div style={{ margin: '40px auto', width: '70%', textAlign: 'center' }}>
+      {/* Stepper with only icons */}
       <Stepper
         active={activeStep}
         onStepClick={setActiveStep}
-        orientation="horizontal" // Default orientation
-        iconPosition="top" // Moves the label below the icon
-        size='md'
-        breakpoint="sm"
+        styles={{
+          stepLabel: {
+            display: 'none', // Hides the labels
+          },
+          stepBody: {
+            display: 'none', // Hides the content
+          },
+        }}
       >
-        {steps.map((step, index) => (
-          <Stepper.Step key={index} label={step.label}>
-            {step.content}
-          </Stepper.Step>
+        {steps.map((_, index) => (
+          <Stepper.Step key={index} />
         ))}
-        <Stepper.Completed>
-          <h2>All steps completed!</h2>
-          <p>You can now proceed further.</p>
-        </Stepper.Completed>
+        <Stepper.Completed />
       </Stepper>
+
     </div>
   );
 }

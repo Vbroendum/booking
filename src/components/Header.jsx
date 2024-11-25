@@ -7,13 +7,13 @@ function Header() {
         <Link style={{lineHeight: "normal", paddingTop: "2px"}} to="/frontpage"><img src={logo} alt="CPH Business Logo" width="100" /></Link>
       <div style={{ display: 'flex', gap: '20px' }}>
         
-        <div><Link to="/" 
+        <div><Link to="/Frontpage" 
         style={{textDecoration: 'none', color: 'white', fontWeight: '500'}}
         onMouseOver={(e) => (e.target.style.textDecoration = 'underline')}
         onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
         >Forside</Link></div>
 
-        <div><Link to="/" 
+        <div><Link to="/mineBookinger" 
         style={{textDecoration: 'none', color: 'white', fontWeight: '500'}} 
         onMouseOver={(e) => (e.target.style.textDecoration = 'underline')}
         onMouseOut={(e) => (e.target.style.textDecoration = 'none')}

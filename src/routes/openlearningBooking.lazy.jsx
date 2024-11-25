@@ -1,9 +1,12 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
+import Header from '../components/header'
 
 export const Route = createLazyFileRoute('/openlearningBooking')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return 'Hello /openlearningBooking!'
+  return <div>
+    <Header />
+  </div>
 }
