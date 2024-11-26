@@ -11,12 +11,13 @@ const containerStyling = {
 function EtageSelector() {
   return (
       <div style={containerStyling}>
-      <Radio.Group 
+      <Radio.Group
+      withAsterisk 
       name="Etagevælger"
       label="Etage"
       description="Vælg den etage du vil være på"
     >
-    <Group mt="xs">
+    <Group mt="xl">
       <Radio value="1" label="1. etage" />  
       <Radio value="2" label="2. etage" />  
       <Radio value="3" label="3. etage" />  

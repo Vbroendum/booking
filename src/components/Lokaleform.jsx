@@ -2,7 +2,7 @@ import { NumberInput, Button, Group  } from '@mantine/core';
 import LokaleInput from './LokaleInput';
 import { useState } from 'react';
 import BookingAlert from './BookingAlert';
-import TimeRangePicker from './TimeInput';
+import TimeSelect from './timeSelect';
 
 export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
     const [numberOfPeople, setNumberOfPeople] = useState(1);
@@ -29,7 +29,7 @@ export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
           numberOfPeople={numberOfPeople}
           onLokaleSelect={setSelectedLokale} // Pass callback to get selected lokale
         />
-        <TimeRangePicker />
+        <TimeSelect />
         <BookingAlert />
         <Group justify="flex-end" mt="md">
         <Button
