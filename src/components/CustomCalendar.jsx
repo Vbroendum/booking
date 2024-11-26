@@ -7,12 +7,13 @@ function CustomCalendar() {
 
   const handleSelect = (date) => {
     setSelected(date); // Always set the selected date to the newly clicked date
-    console.log('Date selected:', dayjs(date).format('YYYY-MM-DD'));
+    console.log('Date selected:', dayjs(date).format('DD-MM-YYYY'));
   };
 
   return (
     <Calendar
       size="xl"
+      minDate={new Date()}
       getDayProps={(date) => ({
         selected: selected && dayjs(date).isSame(selected, 'date'), // Highlight the selected date
         onClick: () => handleSelect(date),
