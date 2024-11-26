@@ -1,6 +1,6 @@
 import { Radio, Group } from '@mantine/core';
 
-export default EtageSelector
+
 
 const containerStyling = {
     display: "flex",
@@ -8,7 +8,7 @@ const containerStyling = {
     margin: "24px"
 }
 
-function EtageSelector() {
+export default function EtageSelector ({ setSelectedEtage }) {
   return (
       <div style={containerStyling}>
       <Radio.Group
@@ -16,6 +16,7 @@ function EtageSelector() {
       name="Etagevælger"
       label="Etage"
       description="Vælg den etage du vil være på"
+      onChange={(value) => setSelectedEtage(value)}
     >
     <Group mt="xl">
       <Radio value="1" label="1. etage" />  
