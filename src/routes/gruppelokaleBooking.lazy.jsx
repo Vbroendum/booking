@@ -81,7 +81,8 @@ function RouteComponent() {
                 Gruppelokale
               </Title>
               <Grid gutter="lg" marginRight="32px">
-                {lokaler.map((lokale) => (
+                {lokaler.length > 0 ? (
+                lokaler.map((lokale) => (
                   <Grid.Col span={4} key={lokale.id}>
                     <FlashCard
                       title={`Lokale ${lokale.lokalenr}`}
@@ -91,7 +92,14 @@ function RouteComponent() {
                       navigation={`/lokale/${lokale.id}`}
                     />
                   </Grid.Col>
-                ))}
+                ))
+              ) :(
+                <Grid.Col span={12}>
+            <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
+            Ingen lokaler tilgængelig
+            </Title>
+            </Grid.Col>
+              )}
               </Grid>
             </Grid.Col>
     
