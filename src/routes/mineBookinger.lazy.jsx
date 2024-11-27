@@ -37,8 +37,7 @@ function Minebooking() {
             time="10:15 - 12:30"
             room="3.3 3. etage"
             people="4"
-            buttonText="Afmelding booking"
-            cancelPath="/afmledBookinger" // Path for cancellation
+            buttonText="Afmeld booking"
             imageSrc="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png" // Image source
             altText="Room Booking"
           />
