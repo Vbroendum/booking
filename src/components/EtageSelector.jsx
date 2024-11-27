@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Radio, Group } from '@mantine/core';
 
 

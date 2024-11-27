@@ -13,7 +13,6 @@ export const Route = createLazyFileRoute('/klasselokaleBooking')({
   component: RouteComponent,
 })
 
-
 function RouteComponent() {
   const [lokaler, setLokaler] = useState([]);
   const [selectedEtage, setSelectedEtage] = useState('');
@@ -53,10 +52,6 @@ useEffect(() => {
 }, [selectedEtage])
 
 
-
-const handleBackButtonClick = () => {
-  navigate('/startBooking')
-}
 
 return (
   <div>

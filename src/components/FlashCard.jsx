@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Card, Image, Text, Button, Group } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
 import PropTypes from 'prop-types';

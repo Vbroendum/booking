@@ -1,10 +1,11 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, useRouter } from '@tanstack/react-router'
 import { getSupabaseClient } from '../supabase/getSupabaseClient'
 import Header from '../components/Header'
 import { useState, useEffect } from 'react'
 import FlashCard from '../components/FlashCard'
 import EtageSelector from '../components/EtageSelector'
-import { Grid, Title, Box } from '@mantine/core'
+import { Grid, Title, Box, Group, Button } from '@mantine/core'
+import StepperComponent from '../components/Steps'
 
 const supabase = getSupabaseClient();
 
@@ -15,6 +16,8 @@ export const Route = createLazyFileRoute('/openlearningBooking')({
 function RouteComponent() {
   const [lokaler, setLokaler] = useState([]);
   const [selectedEtage, setSelectedEtage] = useState('');
+  const [activeStep, setActiveStep] = useState(1);
+  const router = useRouter();
 
   useEffect(() => {
     // Fetch data from the backend
@@ -49,6 +52,26 @@ function RouteComponent() {
   return (
     <div>
       <Header />
+
+      <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
+        <Group position="apart" style={{ width: '100%' }}>
+          {/* Tilbage Button */}
+          <Button 
+            variant="light" 
+            onClick={() => router.navigate({to: '/startBooking'})}
+            style={{ margin: '0 16px' }}>
+            Tilbage
+          </Button>
+
+          {/* Stepper */}
+          <div style={{ display: 'flex', justifyContent: 'center', width: '90%' }}>
+            <StepperComponent 
+              activeStep={activeStep} 
+              setActiveStep={setActiveStep} 
+            />
+          </div>
+        </Group>
+      </div>
         <Grid gutter="md" style={{ alignItems: 'flex-start' }}>
           {/* Left side: FlashCards */}
           <Grid.Col span={10}>
