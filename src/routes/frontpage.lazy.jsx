@@ -27,12 +27,14 @@ function RouteComponent() {
         <div style={{display: 'flex', gap: '150px', justifyContent: "space-evenly"}}>
           <FlashCard
             title="Se dine bookinger"
+            imageUrl={'https://epgjtuypadrnxeldurle.supabase.co/storage/v1/object/public/lokale-images/gruppelokale.webp?'}
             button="Se booking"
             color="blue"
-            navigation="/about"
+            navigation="/mineBookinger"
           />
           <FlashCard
             title="Book et lokale"
+            imageUrl={'https://epgjtuypadrnxeldurle.supabase.co/storage/v1/object/public/lokale-images/gruppelokale.webp'}
             button="Book"
             color="green"
             navigation="/startBooking"

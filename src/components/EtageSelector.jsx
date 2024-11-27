@@ -1,22 +1,24 @@
 import { Radio, Group } from '@mantine/core';
 
-export default EtageSelector
+
 
 const containerStyling = {
     display: "flex",
-    width: "13%",
-    margin: "24px"
+    marginLeft: "24px",
+    flexDirection: "column"
 }
 
-function EtageSelector() {
+export default function EtageSelector ({ setSelectedEtage }) {
   return (
       <div style={containerStyling}>
-      <Radio.Group 
+      <Radio.Group
+      withAsterisk 
       name="Etagevælger"
       label="Etage"
       description="Vælg den etage du vil være på"
+      onChange={(value) => setSelectedEtage(value)}
     >
-    <Group mt="xs">
+    <Group mt="xl" style={{flexDirection: "column", justifyContent:"flex-start"}}>
       <Radio value="1" label="1. etage" />  
       <Radio value="2" label="2. etage" />  
       <Radio value="3" label="3. etage" />  

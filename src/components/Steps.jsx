@@ -1,15 +1,25 @@
-import { Stepper, Button, Group } from '@mantine/core';
+import { Stepper } from '@mantine/core';
+import { useNavigate } from '@tanstack/react-router';
 
-export default function StepperComponent({ steps, activeStep, setActiveStep }) {
-  const handleNextStep = () => setActiveStep((current) => Math.min(current + 1, steps.length - 1));
-  const handlePreviousStep = () => setActiveStep((current) => Math.max(current - 1, 0));
+export default function StepperComponent({ activeStep, setActiveStep,  }) {
+  const navigate = useNavigate();
+  
+  const handleStepClick = (step) => {
+    if (step === 0) {
+      // If it's the first step, navigate to the previous page
+      navigate(-1);  // Go back to the previous page
+    } else {
+      setActiveStep(step);  // Otherwise, just change the active step
+    }
+  };
+  
 
   return (
     <div style={{ margin: '40px auto', width: '70%', textAlign: 'center' }}>
       {/* Stepper with only icons */}
       <Stepper
         active={activeStep}
-        onStepClick={setActiveStep}
+        onStepClick={handleStepClick}
         styles={{
           stepLabel: {
             display: 'none', // Hides the labels
@@ -19,9 +29,10 @@ export default function StepperComponent({ steps, activeStep, setActiveStep }) {
           },
         }}
       >
-        {steps.map((_, index) => (
-          <Stepper.Step key={index} />
-        ))}
+        <Stepper.Step />
+        <Stepper.Step />
+        <Stepper.Step />
+        <Stepper.Step />
         <Stepper.Completed />
       </Stepper>
 

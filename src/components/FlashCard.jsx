@@ -9,26 +9,28 @@ const stylingCard = {
   justifyContent: 'center', // Centers content vertically
   alignItems: 'left',    // Aligns content to the left
   textAlign: "left",
-  width: "30%",
 };
 
 // Capitalize the component name
-function FlashCard({ title, button, color, navigation }) {
+function FlashCard({ title, imageUrl, description = [], button, color, navigation }) {
   const router = useRouter();  // Now this is inside a properly named component
 
   return (
     <Card style={stylingCard} shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
-        <Image
-          src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-          height={200}
-          alt="Card image"
-        />
+        <Image src={imageUrl} height={200} alt='lokale image'/>
       </Card.Section>
 
       <Group justify="space-between" mt="md" mb="xs">
         <Text fw={500} size="18px">{title}</Text>
       </Group>
+      <Text size="sm" mb="md">
+        {description.length > 0 ? (
+        description.map((item, index) => (
+          <li key={index}>{item}</li>
+        )) 
+      ): null}
+      </Text>
 
       <Button
         color={color || "blue"}
