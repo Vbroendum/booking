@@ -5,7 +5,7 @@ import LokaleForm from '../components/Lokaleform';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import StepperComponent from '../components/Steps';
-import { Group, Button} from '@mantine/core'
+import { Group, Button, Flex} from '@mantine/core'
 
 export const Route = createLazyFileRoute('/startBooking')({
   component: StartBooking,
@@ -41,7 +41,9 @@ function StartBooking() {
 
   const bookingStyle = {
     display: "flex",
-    margin: "24px",
+    marginLeft: "300px",
+    marginRight: "40px",
+    paddingBottom: "150px",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

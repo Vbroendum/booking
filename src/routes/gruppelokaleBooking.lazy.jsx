@@ -52,11 +52,11 @@ function RouteComponent() {
   }, [selectedEtage])
 
     return (
-      <div>
+      <div style={{ height: '100vh', overflowX: 'hidden' }}> {/* Make the container non-scrollable */}
         <Header />
 
         <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
-        <Group position="apart" style={{ width: '100%' }}>
+        <Group position="apart" style={{ width: '100%'}}>
           {/* Tilbage Button */}
           <Button 
             variant="light" 
