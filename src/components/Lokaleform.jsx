@@ -12,6 +12,8 @@ export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
       padding: "0px 24px",
       width: "30%",
     };
+
+    console.log('antal personer', numberOfPeople)
     
     return (
       <div style={inputStyle}>

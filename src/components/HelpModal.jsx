@@ -101,3 +101,5 @@ function HelpPopover() {
     </div>
   );
 }
+
+export default HelpPopover
