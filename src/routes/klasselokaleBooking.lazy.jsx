@@ -20,7 +20,6 @@ function RouteComponent() {
   const [activeStep, setActiveStep] = useState(1);
   const router = useRouter();
 
-<<<<<<< HEAD
   useEffect(() => {
     // Fetch data from the backend
     const fetchLokaler = async () => {
@@ -34,17 +33,6 @@ function RouteComponent() {
         if (selectedEtage) {
           query = query.eq('etage', selectedEtage);
         }
-=======
-useEffect(() => {
-  // Fetch data from the backend
-  const fetchLokaler = async () => {
-    try {
-       let query = supabase
-      .from('lokale')
-      .select('id, lokalenr, lokaleimage, description, etage')
-      .eq('lokaletype', 'klasselokale')
-      .order('lokalenr', { ascending: true });
->>>>>>> 52f555ead663ba9e083fcb3afd55adf10f2fd035
 
         const { data, error } = await query;
 

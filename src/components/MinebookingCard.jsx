@@ -3,6 +3,7 @@ import { Card, Image, Text, Button } from '@mantine/core';
 import { useState } from 'react';
 import BookingModal from './ModalAnnuller';  // First modal component
 import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
+import PropTypes from 'prop-types'
 
 // Card styling for the main container
 const cardStyles = {
@@ -84,7 +85,7 @@ function MinebookingCard(props) {
 
           {/* Button Section */}
           <div>
-            <Button color="red" fullWidth radius="md" onClick={openModal}>
+            <Button color="red" fullWidth radius="md"  onClick={openModal}>
               {props.buttonText || 'Afmeld booking'}
             </Button>
           </div>
@@ -108,5 +109,11 @@ function MinebookingCard(props) {
     </>
   );
 }
+
+MinebookingCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  button: PropTypes.string.isRequired,
+  color: PropTypes.string,
+};
 
 export default MinebookingCard;

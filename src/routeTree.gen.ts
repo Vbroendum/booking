@@ -17,6 +17,7 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const StartBookingLazyImport = createFileRoute('/startBooking')()
+const ProgressLazyImport = createFileRoute('/progress')()
 const OpenlearningBookingLazyImport = createFileRoute('/openlearningBooking')()
 const MineBookingerLazyImport = createFileRoute('/mineBookinger')()
 const KlasselokaleBookingLazyImport = createFileRoute('/klasselokaleBooking')()
@@ -24,6 +25,7 @@ const KlasseLazyImport = createFileRoute('/klasse')()
 const InfopageklasseLokaleLazyImport = createFileRoute(
   '/infopageklasseLokale',
 )()
+const HelpLazyImport = createFileRoute('/help')()
 const GruppelokaleBookingLazyImport = createFileRoute('/gruppelokaleBooking')()
 const GruppelokaleLazyImport = createFileRoute('/gruppelokale')()
 const FrontpageLazyImport = createFileRoute('/frontpage')()
@@ -40,6 +42,12 @@ const StartBookingLazyRoute = StartBookingLazyImport.update({
   path: '/startBooking',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/startBooking.lazy').then((d) => d.Route))
+
+const ProgressLazyRoute = ProgressLazyImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/progress.lazy').then((d) => d.Route))
 
 const OpenlearningBookingLazyRoute = OpenlearningBookingLazyImport.update({
   id: '/openlearningBooking',
@@ -76,6 +84,12 @@ const InfopageklasseLokaleLazyRoute = InfopageklasseLokaleLazyImport.update({
 } as any).lazy(() =>
   import('./routes/infopageklasseLokale.lazy').then((d) => d.Route),
 )
+
+const HelpLazyRoute = HelpLazyImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/help.lazy').then((d) => d.Route))
 
 const GruppelokaleBookingLazyRoute = GruppelokaleBookingLazyImport.update({
   id: '/gruppelokaleBooking',
@@ -193,6 +207,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GruppelokaleBookingLazyImport
       parentRoute: typeof rootRoute
     }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/infopageklasseLokale': {
       id: '/infopageklasseLokale'
       path: '/infopageklasseLokale'
@@ -228,6 +249,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpenlearningBookingLazyImport
       parentRoute: typeof rootRoute
     }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/startBooking': {
       id: '/startBooking'
       path: '/startBooking'
@@ -249,11 +277,13 @@ export interface FileRoutesByFullPath {
   '/frontpage': typeof FrontpageLazyRoute
   '/gruppelokale': typeof GruppelokaleLazyRoute
   '/gruppelokaleBooking': typeof GruppelokaleBookingLazyRoute
+  '/help': typeof HelpLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
   '/klasse': typeof KlasseLazyRoute
   '/klasselokaleBooking': typeof KlasselokaleBookingLazyRoute
   '/mineBookinger': typeof MineBookingerLazyRoute
   '/openlearningBooking': typeof OpenlearningBookingLazyRoute
+  '/progress': typeof ProgressLazyRoute
   '/startBooking': typeof StartBookingLazyRoute
 }
 
@@ -266,11 +296,13 @@ export interface FileRoutesByTo {
   '/frontpage': typeof FrontpageLazyRoute
   '/gruppelokale': typeof GruppelokaleLazyRoute
   '/gruppelokaleBooking': typeof GruppelokaleBookingLazyRoute
+  '/help': typeof HelpLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
   '/klasse': typeof KlasseLazyRoute
   '/klasselokaleBooking': typeof KlasselokaleBookingLazyRoute
   '/mineBookinger': typeof MineBookingerLazyRoute
   '/openlearningBooking': typeof OpenlearningBookingLazyRoute
+  '/progress': typeof ProgressLazyRoute
   '/startBooking': typeof StartBookingLazyRoute
 }
 
@@ -284,11 +316,13 @@ export interface FileRoutesById {
   '/frontpage': typeof FrontpageLazyRoute
   '/gruppelokale': typeof GruppelokaleLazyRoute
   '/gruppelokaleBooking': typeof GruppelokaleBookingLazyRoute
+  '/help': typeof HelpLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
   '/klasse': typeof KlasseLazyRoute
   '/klasselokaleBooking': typeof KlasselokaleBookingLazyRoute
   '/mineBookinger': typeof MineBookingerLazyRoute
   '/openlearningBooking': typeof OpenlearningBookingLazyRoute
+  '/progress': typeof ProgressLazyRoute
   '/startBooking': typeof StartBookingLazyRoute
 }
 
@@ -303,11 +337,13 @@ export interface FileRouteTypes {
     | '/frontpage'
     | '/gruppelokale'
     | '/gruppelokaleBooking'
+    | '/help'
     | '/infopageklasseLokale'
     | '/klasse'
     | '/klasselokaleBooking'
     | '/mineBookinger'
     | '/openlearningBooking'
+    | '/progress'
     | '/startBooking'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -319,11 +355,13 @@ export interface FileRouteTypes {
     | '/frontpage'
     | '/gruppelokale'
     | '/gruppelokaleBooking'
+    | '/help'
     | '/infopageklasseLokale'
     | '/klasse'
     | '/klasselokaleBooking'
     | '/mineBookinger'
     | '/openlearningBooking'
+    | '/progress'
     | '/startBooking'
   id:
     | '__root__'
@@ -335,11 +373,13 @@ export interface FileRouteTypes {
     | '/frontpage'
     | '/gruppelokale'
     | '/gruppelokaleBooking'
+    | '/help'
     | '/infopageklasseLokale'
     | '/klasse'
     | '/klasselokaleBooking'
     | '/mineBookinger'
     | '/openlearningBooking'
+    | '/progress'
     | '/startBooking'
   fileRoutesById: FileRoutesById
 }
@@ -353,11 +393,13 @@ export interface RootRouteChildren {
   FrontpageLazyRoute: typeof FrontpageLazyRoute
   GruppelokaleLazyRoute: typeof GruppelokaleLazyRoute
   GruppelokaleBookingLazyRoute: typeof GruppelokaleBookingLazyRoute
+  HelpLazyRoute: typeof HelpLazyRoute
   InfopageklasseLokaleLazyRoute: typeof InfopageklasseLokaleLazyRoute
   KlasseLazyRoute: typeof KlasseLazyRoute
   KlasselokaleBookingLazyRoute: typeof KlasselokaleBookingLazyRoute
   MineBookingerLazyRoute: typeof MineBookingerLazyRoute
   OpenlearningBookingLazyRoute: typeof OpenlearningBookingLazyRoute
+  ProgressLazyRoute: typeof ProgressLazyRoute
   StartBookingLazyRoute: typeof StartBookingLazyRoute
 }
 
@@ -370,11 +412,13 @@ const rootRouteChildren: RootRouteChildren = {
   FrontpageLazyRoute: FrontpageLazyRoute,
   GruppelokaleLazyRoute: GruppelokaleLazyRoute,
   GruppelokaleBookingLazyRoute: GruppelokaleBookingLazyRoute,
+  HelpLazyRoute: HelpLazyRoute,
   InfopageklasseLokaleLazyRoute: InfopageklasseLokaleLazyRoute,
   KlasseLazyRoute: KlasseLazyRoute,
   KlasselokaleBookingLazyRoute: KlasselokaleBookingLazyRoute,
   MineBookingerLazyRoute: MineBookingerLazyRoute,
   OpenlearningBookingLazyRoute: OpenlearningBookingLazyRoute,
+  ProgressLazyRoute: ProgressLazyRoute,
   StartBookingLazyRoute: StartBookingLazyRoute,
 }
 
@@ -396,11 +440,13 @@ export const routeTree = rootRoute
         "/frontpage",
         "/gruppelokale",
         "/gruppelokaleBooking",
+        "/help",
         "/infopageklasseLokale",
         "/klasse",
         "/klasselokaleBooking",
         "/mineBookinger",
         "/openlearningBooking",
+        "/progress",
         "/startBooking"
       ]
     },
@@ -428,6 +474,9 @@ export const routeTree = rootRoute
     "/gruppelokaleBooking": {
       "filePath": "gruppelokaleBooking.lazy.jsx"
     },
+    "/help": {
+      "filePath": "help.lazy.jsx"
+    },
     "/infopageklasseLokale": {
       "filePath": "infopageklasseLokale.lazy.jsx"
     },
@@ -442,6 +491,9 @@ export const routeTree = rootRoute
     },
     "/openlearningBooking": {
       "filePath": "openlearningBooking.lazy.jsx"
+    },
+    "/progress": {
+      "filePath": "progress.lazy.jsx"
     },
     "/startBooking": {
       "filePath": "startBooking.lazy.jsx"
