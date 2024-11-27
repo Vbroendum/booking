@@ -1,16 +1,19 @@
-import { createLazyFileRoute, useRouteContext } from "@tanstack/react-router";
-import TimeSelect from "../components/timeSelect";
+import React from "react";
+import HelpModal from "../components/HelpModal";
 
+// The component itself (exported as default)
+const AboutPage = () => {
+  return (
+    <div>
+      <h1>About Us</h1>
+      <HelpModal />
+    </div>
+  );
+};
 
-export const Route = createLazyFileRoute("/about")({
-  component: About,
+// Lazy load the AboutPage using React.lazy
+export const AboutRoute = createLazyFileRoute("/about")({
+  component: React.lazy(() => import("./about.lazy.jsx")), // Dynamically imports the default export from this file
 });
 
-function About() {
-  const context = useRouteContext({ from: "/about" });
-  console.log(context);
-
-  return <div>
-    Hello from About!
-  </div>;
-}
+export default AboutPage; // Keep default export for the AboutPage component
