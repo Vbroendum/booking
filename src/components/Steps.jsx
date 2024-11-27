@@ -1,10 +1,18 @@
 import { Stepper } from '@mantine/core';
+import { useNavigate } from '@tanstack/react-router';
 
-export default function StepperComponent({ activeStep, setActiveStep, handleNavigate }) {
+export default function StepperComponent({ activeStep, setActiveStep,  }) {
+  const navigate = useNavigate();
+  
   const handleStepClick = (step) => {
-      setActiveStep(step);
-      handleNavigate();
-  }
+    if (step === 0) {
+      // If it's the first step, navigate to the previous page
+      navigate(-1);  // Go back to the previous page
+    } else {
+      setActiveStep(step);  // Otherwise, just change the active step
+    }
+  };
+  
 
   return (
     <div style={{ margin: '40px auto', width: '70%', textAlign: 'center' }}>

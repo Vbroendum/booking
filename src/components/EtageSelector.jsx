@@ -4,8 +4,8 @@ import { Radio, Group } from '@mantine/core';
 
 const containerStyling = {
     display: "flex",
-    width: "13%",
-    margin: "24px"
+    marginLeft: "24px",
+    flexDirection: "column"
 }
 
 export default function EtageSelector ({ setSelectedEtage }) {
@@ -18,7 +18,7 @@ export default function EtageSelector ({ setSelectedEtage }) {
       description="Vælg den etage du vil være på"
       onChange={(value) => setSelectedEtage(value)}
     >
-    <Group mt="xl">
+    <Group mt="xl" style={{flexDirection: "column", justifyContent:"flex-start"}}>
       <Radio value="1" label="1. etage" />  
       <Radio value="2" label="2. etage" />  
       <Radio value="3" label="3. etage" />  

@@ -1,9 +1,11 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, useRouter } from '@tanstack/react-router'
 import { getSupabaseClient } from '../supabase/getSupabaseClient'
 import Header from '../components/Header'
 import { useState, useEffect } from 'react'
 import FlashCard from '../components/FlashCard'
 import EtageSelector from '../components/EtageSelector'
+import { Grid, Title, Box, Group, Button } from '@mantine/core'
+import StepperComponent from '../components/Steps'
 
 const supabase = getSupabaseClient()
 
@@ -15,6 +17,9 @@ export const Route = createLazyFileRoute('/klasselokaleBooking')({
 function RouteComponent() {
   const [lokaler, setLokaler] = useState([]);
   const [selectedEtage, setSelectedEtage] = useState('');
+  const [activeStep, setActiveStep] = useState(1);
+  const router = useRouter();
+
 
 useEffect(() => {
   // Fetch data from the backend
@@ -47,25 +52,64 @@ useEffect(() => {
   fetchLokaler();
 }, [selectedEtage])
 
+
+
+const handleBackButtonClick = () => {
+  navigate('/startBooking')
+}
+
 return (
-  <div><Header/>
-    <div> 
-      <EtageSelector
-      setSelectedEtage={setSelectedEtage}
-      />
-      <h1>Klasselokaler</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {lokaler.map((lokale) => (
-          <FlashCard
-            key={lokale.id}
-            title={`Lokale ${lokale.lokalenr}`}
-            imageUrl={lokale.lokaleimage} // Pass image URL
-            description={lokale.description} // Pass description array
-            button="Vælg"
-            navigation={`/lokale/${lokale.id}`} // Example route
-          />
-        ))}
+  <div>
+    <Header />
+
+    {/* Stepper and Back Button */}
+    <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
+        <Group position="apart" style={{ width: '100%' }}>
+          {/* Tilbage Button */}
+          <Button 
+            variant="light" 
+            onClick={() => router.navigate({to: '/startBooking'})}
+            style={{ margin: '0 16px' }}>
+            Tilbage
+          </Button>
+
+          {/* Stepper */}
+          <div style={{ display: 'flex', justifyContent: 'center', width: '90%' }}>
+            <StepperComponent 
+              activeStep={activeStep} 
+              setActiveStep={setActiveStep} 
+            />
+          </div>
+        </Group>
       </div>
-    </div>
+      <Grid gutter="md" style={{ alignItems: 'flex-start' }}>
+        {/* Left side: FlashCards */}
+        <Grid.Col span={10}>
+          <Title order={1} align="left" style={{ marginBottom: '16px', marginLeft: '32px' }}>
+            Klasselokale
+          </Title>
+          <Grid gutter="lg">
+            {lokaler.map((lokale) => (
+              <Grid.Col span={4} key={lokale.id}>
+                <FlashCard
+                  title={`Lokale ${lokale.lokalenr}`}
+                  imageUrl={lokale.lokaleimage}
+                  description={lokale.description}
+                  button="Vælg"
+                  navigation={`/lokale/${lokale.id}`}
+                />
+              </Grid.Col>
+            ))}
+          </Grid>
+        </Grid.Col>
+
+        {/* Right side: EtageSelector */}
+        <Grid.Col span={2}>
+          <Box style={{ position: 'sticky', top: '16px' }}>
+            <EtageSelector setSelectedEtage={setSelectedEtage} />
+          </Box>
+        </Grid.Col>
+      </Grid>
   </div>
-)}
+);
+}

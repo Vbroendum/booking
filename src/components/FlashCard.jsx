@@ -9,11 +9,10 @@ const stylingCard = {
   justifyContent: 'center', // Centers content vertically
   alignItems: 'left',    // Aligns content to the left
   textAlign: "left",
-  width: "25%",
 };
 
 // Capitalize the component name
-function FlashCard({ title, imageUrl, description, button, color, navigation }) {
+function FlashCard({ title, imageUrl, description = [], button, color, navigation }) {
   const router = useRouter();  // Now this is inside a properly named component
 
   return (
@@ -26,9 +25,11 @@ function FlashCard({ title, imageUrl, description, button, color, navigation }) 
         <Text fw={500} size="18px">{title}</Text>
       </Group>
       <Text size="sm" mb="md">
-        {description.map((item, index) => (
+        {description.length > 0 ? (
+        description.map((item, index) => (
           <li key={index}>{item}</li>
-        ))}
+        )) 
+      ): null}
       </Text>
 
       <Button
