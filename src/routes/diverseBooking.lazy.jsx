@@ -17,7 +17,7 @@ function RouteComponent() {
   const [lokaler, setLokaler] = useState([]);
   const [selectedEtage, setSelectedEtage] = useState('');
   const [activeStep, setActiveStep] = useState(1);
-  const router = useRouter; 
+  const router = useRouter(); 
 
   useEffect(() => {
     // Fetch data from the backend
@@ -88,7 +88,7 @@ function RouteComponent() {
                     imageUrl={lokale.lokaleimage}
                     description={lokale.description}
                     button="Vælg"
-                    navigation={`/lokale/${lokale.id}`}
+                    navigation={`/bekræftBooking`}
                   />
                 </Grid.Col>
               ))

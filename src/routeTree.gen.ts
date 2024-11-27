@@ -25,8 +25,10 @@ const InfopageklasseLokaleLazyImport = createFileRoute(
   '/infopageklasseLokale',
 )()
 const GruppelokaleBookingLazyImport = createFileRoute('/gruppelokaleBooking')()
+const GruppelokaleLazyImport = createFileRoute('/gruppelokale')()
 const FrontpageLazyImport = createFileRoute('/frontpage')()
 const DiverseBookingLazyImport = createFileRoute('/diverseBooking')()
+const BekrftBookingLazyImport = createFileRoute('/bekræftBooking')()
 const AfmeldBookingerLazyImport = createFileRoute('/afmeldBookinger')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
@@ -83,6 +85,12 @@ const GruppelokaleBookingLazyRoute = GruppelokaleBookingLazyImport.update({
   import('./routes/gruppelokaleBooking.lazy').then((d) => d.Route),
 )
 
+const GruppelokaleLazyRoute = GruppelokaleLazyImport.update({
+  id: '/gruppelokale',
+  path: '/gruppelokale',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/gruppelokale.lazy').then((d) => d.Route))
+
 const FrontpageLazyRoute = FrontpageLazyImport.update({
   id: '/frontpage',
   path: '/frontpage',
@@ -95,6 +103,14 @@ const DiverseBookingLazyRoute = DiverseBookingLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./routes/diverseBooking.lazy').then((d) => d.Route),
+)
+
+const BekrftBookingLazyRoute = BekrftBookingLazyImport.update({
+  id: '/bekræftBooking',
+  path: '/bekræftBooking',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/bekræftBooking.lazy').then((d) => d.Route),
 )
 
 const AfmeldBookingerLazyRoute = AfmeldBookingerLazyImport.update({
@@ -142,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AfmeldBookingerLazyImport
       parentRoute: typeof rootRoute
     }
+    '/bekræftBooking': {
+      id: '/bekræftBooking'
+      path: '/bekræftBooking'
+      fullPath: '/bekræftBooking'
+      preLoaderRoute: typeof BekrftBookingLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/diverseBooking': {
       id: '/diverseBooking'
       path: '/diverseBooking'
@@ -154,6 +177,13 @@ declare module '@tanstack/react-router' {
       path: '/frontpage'
       fullPath: '/frontpage'
       preLoaderRoute: typeof FrontpageLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/gruppelokale': {
+      id: '/gruppelokale'
+      path: '/gruppelokale'
+      fullPath: '/gruppelokale'
+      preLoaderRoute: typeof GruppelokaleLazyImport
       parentRoute: typeof rootRoute
     }
     '/gruppelokaleBooking': {
@@ -214,8 +244,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/afmeldBookinger': typeof AfmeldBookingerLazyRoute
+  '/bekræftBooking': typeof BekrftBookingLazyRoute
   '/diverseBooking': typeof DiverseBookingLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
+  '/gruppelokale': typeof GruppelokaleLazyRoute
   '/gruppelokaleBooking': typeof GruppelokaleBookingLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
   '/klasse': typeof KlasseLazyRoute
@@ -229,8 +261,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/afmeldBookinger': typeof AfmeldBookingerLazyRoute
+  '/bekræftBooking': typeof BekrftBookingLazyRoute
   '/diverseBooking': typeof DiverseBookingLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
+  '/gruppelokale': typeof GruppelokaleLazyRoute
   '/gruppelokaleBooking': typeof GruppelokaleBookingLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
   '/klasse': typeof KlasseLazyRoute
@@ -245,8 +279,10 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/afmeldBookinger': typeof AfmeldBookingerLazyRoute
+  '/bekræftBooking': typeof BekrftBookingLazyRoute
   '/diverseBooking': typeof DiverseBookingLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
+  '/gruppelokale': typeof GruppelokaleLazyRoute
   '/gruppelokaleBooking': typeof GruppelokaleBookingLazyRoute
   '/infopageklasseLokale': typeof InfopageklasseLokaleLazyRoute
   '/klasse': typeof KlasseLazyRoute
@@ -262,8 +298,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/afmeldBookinger'
+    | '/bekræftBooking'
     | '/diverseBooking'
     | '/frontpage'
+    | '/gruppelokale'
     | '/gruppelokaleBooking'
     | '/infopageklasseLokale'
     | '/klasse'
@@ -276,8 +314,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/afmeldBookinger'
+    | '/bekræftBooking'
     | '/diverseBooking'
     | '/frontpage'
+    | '/gruppelokale'
     | '/gruppelokaleBooking'
     | '/infopageklasseLokale'
     | '/klasse'
@@ -290,8 +330,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/afmeldBookinger'
+    | '/bekræftBooking'
     | '/diverseBooking'
     | '/frontpage'
+    | '/gruppelokale'
     | '/gruppelokaleBooking'
     | '/infopageklasseLokale'
     | '/klasse'
@@ -306,8 +348,10 @@ export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AboutLazyRoute: typeof AboutLazyRoute
   AfmeldBookingerLazyRoute: typeof AfmeldBookingerLazyRoute
+  BekrftBookingLazyRoute: typeof BekrftBookingLazyRoute
   DiverseBookingLazyRoute: typeof DiverseBookingLazyRoute
   FrontpageLazyRoute: typeof FrontpageLazyRoute
+  GruppelokaleLazyRoute: typeof GruppelokaleLazyRoute
   GruppelokaleBookingLazyRoute: typeof GruppelokaleBookingLazyRoute
   InfopageklasseLokaleLazyRoute: typeof InfopageklasseLokaleLazyRoute
   KlasseLazyRoute: typeof KlasseLazyRoute
@@ -321,8 +365,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AboutLazyRoute: AboutLazyRoute,
   AfmeldBookingerLazyRoute: AfmeldBookingerLazyRoute,
+  BekrftBookingLazyRoute: BekrftBookingLazyRoute,
   DiverseBookingLazyRoute: DiverseBookingLazyRoute,
   FrontpageLazyRoute: FrontpageLazyRoute,
+  GruppelokaleLazyRoute: GruppelokaleLazyRoute,
   GruppelokaleBookingLazyRoute: GruppelokaleBookingLazyRoute,
   InfopageklasseLokaleLazyRoute: InfopageklasseLokaleLazyRoute,
   KlasseLazyRoute: KlasseLazyRoute,
@@ -345,8 +391,10 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/afmeldBookinger",
+        "/bekræftBooking",
         "/diverseBooking",
         "/frontpage",
+        "/gruppelokale",
         "/gruppelokaleBooking",
         "/infopageklasseLokale",
         "/klasse",
@@ -365,11 +413,17 @@ export const routeTree = rootRoute
     "/afmeldBookinger": {
       "filePath": "afmeldBookinger.lazy.jsx"
     },
+    "/bekræftBooking": {
+      "filePath": "bekræftBooking.lazy.jsx"
+    },
     "/diverseBooking": {
       "filePath": "diverseBooking.lazy.jsx"
     },
     "/frontpage": {
       "filePath": "frontpage.lazy.jsx"
+    },
+    "/gruppelokale": {
+      "filePath": "gruppelokale.lazy.jsx"
     },
     "/gruppelokaleBooking": {
       "filePath": "gruppelokaleBooking.lazy.jsx"
