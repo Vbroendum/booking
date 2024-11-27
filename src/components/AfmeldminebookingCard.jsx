@@ -5,10 +5,10 @@ import { useNavigate } from '@tanstack/react-router';
 const cardStyles = {
   margin: '20px',
   display: 'flex',
-  flexDirection: 'row', // Side-by-side layout for the image and content
+  flexDirection: "row" , // Side-by-side layout for the image and content
   alignItems: 'center',
   textAlign: 'left',
-  width: '100%',
+  maxWidth: '50%',
   padding: '10px',
 };
 
@@ -26,7 +26,7 @@ const titleStyles = {
   textAlign: 'center',
 };
 
-function MinebookingCard(props) {
+function afmeldBooking (props) {
   const navigate = useNavigate();
 
   // Handle navigation on button click
@@ -74,7 +74,7 @@ function MinebookingCard(props) {
         {/* Button Section (Separate Div) */}
         <div>
           <Button color="red" fullWidth radius="md" onClick={handleCancelBooking}>
-            {props.buttonText || 'Afmelding booking'}
+            {props.buttonText || 'Bekræft afmelding af booking'}
           </Button>
         </div>
       </div>
@@ -82,4 +82,4 @@ function MinebookingCard(props) {
   );
 }
 
-export default MinebookingCard;
+export default afmeldBooking;
