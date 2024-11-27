@@ -1,5 +1,8 @@
+// MinebookingCard.jsx
 import { Card, Image, Text, Button } from '@mantine/core';
-import { useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
+import BookingModal from './ModalAnnuller';  // First modal component
+import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
 
 // Card styling for the main container
 const cardStyles = {
@@ -27,58 +30,82 @@ const titleStyles = {
 };
 
 function MinebookingCard(props) {
-  const navigate = useNavigate();
+  const [opened, setOpened] = useState(false); // State for the first modal (Booking Confirmation)
+  const [cancelledOpened, setCancelledOpened] = useState(false); // State for the second modal (Booking Cancelled)
 
-  // Handle navigation on button click
-  const handleCancelBooking = () => {
-    navigate(props.cancelPath || '/afmeldBooking');
+  // Toggle the first modal
+  const openModal = () => setOpened(true);
+  const closeModal = () => setOpened(false);
+
+  // Function to open the second modal after confirmation
+  const openCancelledModal = () => {
+    setOpened(false); // Close the first modal
+    setCancelledOpened(true); // Open the second modal
   };
 
+  const closeCancelledModal = () => setCancelledOpened(false);
+
   return (
-    <Card style={cardStyles} shadow="sm" radius="md" withBorder>
-      {/* Image Section */}
-      <div style={{ flex: '1' }}>
-        <Image
-          src={props.imageSrc || 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png'}
-          height={300}
-          fit="cover"
-          alt={props.altText || 'Selected Room'}
-        />
-      </div>
-
-      {/* Content Section */}
-      <div style={contentStyles}>
-        {/* Title (Separate Div) */}
-        <div style={titleStyles}>
-          <Text fw={600} size="30px ">
-            {props.title || 'Valgt Lokale'}
-          </Text>
+    <>
+      <Card style={cardStyles} shadow="sm" radius="md" withBorder>
+        {/* Image Section */}
+        <div style={{ flex: '1' }}>
+          <Image
+            src={props.imageSrc || 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png'}
+            height={300}
+            fit="cover"
+            alt={props.altText || 'Selected Room'}
+          />
         </div>
 
-        {/* Booking Details (Separate Div) */}
-        <div>
-          <Text size="sm" c="dimmed" mb="sm">
-            <b>Dato:</b> {props.date || 'Ikke angivet'}
-          </Text>
-          <Text size="sm" c="dimmed" mb="sm">
-            <b>Tidspunkt:</b> {props.time || 'Ikke angivet'}
-          </Text>
-          <Text size="sm" c="dimmed" mb="sm">
-            <b>Lokale:</b> {props.room || 'Ikke angivet'}
-          </Text>
-          <Text size="sm" c="dimmed" mb="lg">
-            <b>Antal personer:</b> {props.people || 'Ikke angivet'}
-          </Text>
-        </div>
+        {/* Content Section */}
+        <div style={contentStyles}>
+          <div style={titleStyles}>
+            <Text fw={600} size="30px">
+              {props.title || 'Valgt Lokale'}
+            </Text>
+          </div>
 
-        {/* Button Section (Separate Div) */}
-        <div>
-          <Button color="red" fullWidth radius="md" onClick={handleCancelBooking}>
-            {props.buttonText || 'Afmelding booking'}
-          </Button>
+          {/* Booking Details */}
+          <div>
+            <Text size="sm" c="dimmed" mb="sm">
+              <b>Dato:</b> {props.date || 'Ikke angivet'}
+            </Text>
+            <Text size="sm" c="dimmed" mb="sm">
+              <b>Tidspunkt:</b> {props.time || 'Ikke angivet'}
+            </Text>
+            <Text size="sm" c="dimmed" mb="sm">
+              <b>Lokale:</b> {props.room || 'Ikke angivet'}
+            </Text>
+            <Text size="sm" c="dimmed" mb="lg">
+              <b>Antal personer:</b> {props.people || 'Ikke angivet'}
+            </Text>
+          </div>
+
+          {/* Button Section */}
+          <div>
+            <Button color="red" fullWidth radius="md" onClick={openModal}>
+              {props.buttonText || 'Afmeld booking'}
+            </Button>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+
+      {/* Render the first modal for cancellation confirmation */}
+      <BookingModal
+        opened={opened}
+        onClose={closeModal}
+        onConfirm={openCancelledModal}  // Pass the function that opens the second modal
+        title="Er du sikker på, at du vil annullere din booking?"
+        bodyContent="Du skal bestille en ny tid, hvis du ombestemmer dig"
+      />
+
+      {/* Render the second modal to show cancellation success */}
+      <BookingCancelledModal
+        opened={cancelledOpened}
+        onClose={closeCancelledModal}
+      />
+    </>
   );
 }
 

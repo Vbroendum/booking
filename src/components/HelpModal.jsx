@@ -1,37 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Popover, TextInput, Button } from '@mantine/core';
 
 function HelpPopover() {
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [buttonTop, setButtonTop] = useState(0);
-
-  // Track the scroll position and page height
-  useEffect(() => {
-    const updateButtonPosition = () => {
-      const pageHeight = document.documentElement.scrollHeight; // Total page height
-      const screenHeight = window.innerHeight; // Height of the visible window (viewport)
-      
-      // Calculate 75% of the total page height
-      const targetPosition = pageHeight * 0.75;
-
-      // The button's position will always be 75% of the total page height (relative to the viewport)
-      setButtonTop(targetPosition - screenHeight * 0.75); // Adjust so it stays 75% down
-    };
-
-    // Update button position on window resize or page scroll
-    window.addEventListener('scroll', updateButtonPosition);
-    window.addEventListener('resize', updateButtonPosition);
-
-    // Call once on mount to set the initial position
-    updateButtonPosition();
-
-    // Cleanup listeners
-    return () => {
-      window.removeEventListener('scroll', updateButtonPosition);
-      window.removeEventListener('resize', updateButtonPosition);
-    };
-  }, []);
 
   const togglePopover = () => setPopoverOpen((prev) => !prev);
 
@@ -41,28 +13,29 @@ function HelpPopover() {
       <Popover
         opened={isPopoverOpen}
         onClose={() => setPopoverOpen(false)}
-        position="fixed" // Popover appears to the right of the button
+        position="right" // Popover appears to the right of the button
         withArrow
         width={350} // Increase the modal width for better fit
         style={{
           position: 'absolute',
-          top: buttonTop, // Position popover based on scroll
+          top: '75vh', // Position button to 75% from top of the viewport
           right: '25px',
           zIndex: 1001,
           backgroundColor: '#228BE6',
           color: 'white',
-          height: '75px',
+          height: '75px'
+           // Ensure the popover appears above other content
         }}
       >
         <Popover.Target>
           <Button
             onClick={togglePopover}
             style={{
-              position: 'absolute', // Fixed position relative to the viewport
-              top: buttonTop, // Position the button at 75% of the total page height
+              position: 'fixed', // Fix the button relative to the viewport
+              top: '75vh', // Fixed position of the button
               right: '25px', // Align it to the right
-              padding: '15px',
-              backgroundColor: '#228BE6',
+              padding: '25px',
+              backgroundColor: 'blue',
               color: 'white',
               border: 'none',
               cursor: 'pointer',
@@ -82,7 +55,7 @@ function HelpPopover() {
         {/* Popover Dropdown */}
         <Popover.Dropdown
           style={{
-            backgroundColor: '#228BE6',
+            backgroundColor: '#228BE6', 
             padding: '20px',
             borderRadius: '8px',
             width: '30%',
@@ -109,7 +82,7 @@ function HelpPopover() {
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Skriv din besked her..."
             style={{
-              backgroundColor: '#D9D9D9 !important', // Set the background color of the text input to match the modal
+              backgroundColor: '#D9D9D9 !important', // Set the background color of the text input to match the moda
               color: '#868E96', // Text color inside the input field
               fontSize: '16px',
               height: '75px',
@@ -128,5 +101,3 @@ function HelpPopover() {
     </div>
   );
 }
-
-export default HelpPopover;

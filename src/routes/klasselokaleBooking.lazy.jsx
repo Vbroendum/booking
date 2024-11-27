@@ -20,6 +20,7 @@ function RouteComponent() {
   const [activeStep, setActiveStep] = useState(1);
   const router = useRouter();
 
+<<<<<<< HEAD
   useEffect(() => {
     // Fetch data from the backend
     const fetchLokaler = async () => {
@@ -33,6 +34,17 @@ function RouteComponent() {
         if (selectedEtage) {
           query = query.eq('etage', selectedEtage);
         }
+=======
+useEffect(() => {
+  // Fetch data from the backend
+  const fetchLokaler = async () => {
+    try {
+       let query = supabase
+      .from('lokale')
+      .select('id, lokalenr, lokaleimage, description, etage')
+      .eq('lokaletype', 'klasselokale')
+      .order('lokalenr', { ascending: true });
+>>>>>>> 52f555ead663ba9e083fcb3afd55adf10f2fd035
 
         const { data, error } = await query;
 
@@ -83,19 +95,28 @@ function RouteComponent() {
             Klasselokale
           </Title>
           <Grid gutter="lg">
-            {lokaler.map((lokale) => (
+            {lokaler.length > 0 ? (
+              lokaler.map((lokale) => (
               <Grid.Col span={4} key={lokale.id}>
                 <FlashCard
                   title={`Lokale ${lokale.lokalenr}`}
                   imageUrl={lokale.lokaleimage}
                   description={lokale.description}
                   button="Vælg"
-                  navigation={`/lokale/${lokale.id}`}
+                  navigation={`/bekræftBooking`}
                 />
               </Grid.Col>
-            ))}
+            ))
+          ) :(
+            <Grid.Col span={12}>
+            <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
+            Ingen lokaler tilgængelig
+            </Title>
+            </Grid.Col>
+          )}
           </Grid>
         </Grid.Col>
+
 
         {/* Right side: EtageSelector */}
         <Grid.Col span={2}>

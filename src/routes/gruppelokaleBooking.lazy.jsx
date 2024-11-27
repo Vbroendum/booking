@@ -17,7 +17,7 @@ function RouteComponent() {
   const [lokaler, setLokaler] = useState([]);
   const [selectedEtage, setSelectedEtage] = useState('');
   const [activeStep, setActiveStep] = useState(1);
-  const router = useRouter;
+  const router = useRouter();
   
 
   useEffect(() => {
@@ -52,11 +52,11 @@ function RouteComponent() {
   }, [selectedEtage])
 
     return (
-      <div>
+      <div style={{ height: '100vh', overflowX: 'hidden' }}> {/* Make the container non-scrollable */}
         <Header />
 
         <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
-        <Group position="apart" style={{ width: '100%' }}>
+        <Group position="apart" style={{ width: '100%'}}>
           {/* Tilbage Button */}
           <Button 
             variant="light" 
@@ -81,17 +81,25 @@ function RouteComponent() {
                 Gruppelokale
               </Title>
               <Grid gutter="lg" marginRight="32px">
-                {lokaler.map((lokale) => (
+                {lokaler.length > 0 ? (
+                lokaler.map((lokale) => (
                   <Grid.Col span={4} key={lokale.id}>
                     <FlashCard
                       title={`Lokale ${lokale.lokalenr}`}
                       imageUrl={lokale.lokaleimage}
                       description={lokale.description}
                       button="Vælg"
-                      navigation={`/lokale/${lokale.id}`}
+                      navigation={`/bekræftBooking`}
                     />
                   </Grid.Col>
-                ))}
+                ))
+              ) :(
+                <Grid.Col span={12}>
+            <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
+            Ingen lokaler tilgængelig
+            </Title>
+            </Grid.Col>
+              )}
               </Grid>
             </Grid.Col>
     

@@ -5,6 +5,7 @@ import LokaleForm from '../components/Lokaleform';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import StepperComponent from '../components/Steps';
+import { Group, Button, Flex} from '@mantine/core'
 
 export const Route = createLazyFileRoute('/startBooking')({
   component: StartBooking,
@@ -40,7 +41,9 @@ function StartBooking() {
 
   const bookingStyle = {
     display: "flex",
-    margin: "24px",
+    marginLeft: "300px",
+    marginRight: "40px",
+    paddingBottom: "150px",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -67,12 +70,24 @@ function StartBooking() {
   return (
     <div>
       <Header />
-      <div style={stepperStyle}>
-      <StepperComponent 
-      activeStep={activeStep} 
-      setActiveStep={setActiveStep}
-      handleNavigate={handleNavigate} 
-      />
+      <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
+        <Group position="apart" style={{ width: '100%' }}>
+          {/* Tilbage Button */}
+          <Button 
+            variant="light" 
+            onClick={() => router.navigate({to: '/frontpage'})}
+            style={{ margin: '0 16px' }}>
+            Tilbage
+          </Button>
+
+          {/* Stepper */}
+          <div style={{ display: 'flex', justifyContent: 'center', width: '90%' }}>
+            <StepperComponent 
+              activeStep={activeStep} 
+              setActiveStep={setActiveStep} 
+            />
+          </div>
+        </Group>
       </div>
     <div style={bookingStyle}>
 

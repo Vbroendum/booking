@@ -79,17 +79,25 @@ function RouteComponent() {
               Open learning Lokale
             </Title>
             <Grid gutter="lg" marginRight="32px">
-              {lokaler.map((lokale) => (
+            {lokaler.length > 0 ? (
+              lokaler.map((lokale) => (
                 <Grid.Col span={4} key={lokale.id}>
                   <FlashCard
                     title={`Lokale ${lokale.lokalenr}`}
                     imageUrl={lokale.lokaleimage}
                     description={lokale.description}
                     button="Vælg"
-                    navigation={`/lokale/${lokale.id}`}
+                    navigation={`/bekræktBooking`}
                   />
                 </Grid.Col>
-              ))}
+              ))
+            ) :(
+              <Grid.Col span={12}>
+            <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
+            Ingen lokaler tilgængelig
+            </Title>
+            </Grid.Col>
+            )}
             </Grid>
           </Grid.Col>
   
