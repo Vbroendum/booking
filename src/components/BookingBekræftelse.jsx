@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Modal, Text, Group, Button, Title, Stack } from '@mantine/core';
-import { Link } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 
 function BookingBekræftelse() {
   const [opened, setOpened] = useState(false);
+  const router = useRouter();
+
+
+
 
   return (
     <>
       {/* Button to open the modal */}
       <Group position="center">
-        <Button onClick={() => setOpened(true)}>Open Modal</Button>
+        <Button onClick={() => setOpened(true)}>Bekræft</Button>
       </Group>
 
       {/* Modal content */}
@@ -52,7 +56,10 @@ function BookingBekræftelse() {
     
     </div>
 
-    <Button><Link to="/mineBookinger" style={{textDecoration: 'none', color: 'white'}}>Mine bookinger</Link></Button>
+    <Button 
+    onClick={() => router.navigate ({to: '/Minebookinger'})}>
+      Mine bookinger
+    </Button>
     
   </div>
 </Modal>
