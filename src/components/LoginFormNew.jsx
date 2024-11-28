@@ -3,9 +3,7 @@ import { useForm } from '@mantine/form';
 import { useRouter } from '@tanstack/react-router';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';
 
-export default LoginForm2
-
-function LoginForm2() {
+export default function LoginForm2() {
   const router = useRouter();
   const form = useForm({
     initialValues: {

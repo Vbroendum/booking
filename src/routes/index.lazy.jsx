@@ -1,6 +1,5 @@
 import { createLazyFileRoute, useRouteContext } from "@tanstack/react-router";
-import LoginForm from "../components/LoginForm";
-import LoginForm2 from "../components/LoginForm2";
+import LoginForm2 from '../components/LoginFormNew'
 
 export const Route = createLazyFileRoute("/")({
   component: Index,

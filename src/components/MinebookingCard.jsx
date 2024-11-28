@@ -3,7 +3,8 @@ import { Card, Image, Text, Button } from '@mantine/core';
 import { useState } from 'react';
 import BookingModal from './ModalAnnuller';  // First modal component
 import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
-import PropTypes from 'prop-types'
+import { useRouteContext } from '@tanstack/react-router';
+
 
 // Card styling for the main container
 const cardStyles = {
@@ -46,6 +47,10 @@ function MinebookingCard(props) {
 
   const closeCancelledModal = () => setCancelledOpened(false);
 
+  const context = useRouteContext({to: "/bekræftBooking"})
+  console.log(context)
+
+
   return (
     <>
       <Card style={cardStyles} shadow="sm" radius="md" withBorder>
@@ -70,23 +75,23 @@ function MinebookingCard(props) {
           {/* Booking Details */}
           <div>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Dato:</b> {props.date || 'Ikke angivet'}
+              <b>Dato:</b> {context.dateInfo.selected.toString() || 'Ikke angivet'}
             </Text>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Tidspunkt:</b> {props.time || 'Ikke angivet'}
+              <b>Tidspunkt:</b> {context.startTimeInfo.startTime || 'Ikke angivet'} - {context.endTimeInfo.endTime}
             </Text>
             <Text size="sm" c="dimmed" mb="sm">
               <b>Lokale:</b> {props.room || 'Ikke angivet'}
             </Text>
             <Text size="sm" c="dimmed" mb="lg">
-              <b>Antal personer:</b> {props.people || 'Ikke angivet'}
+              <b>Antal personer:</b> {context.numberOfPeopleInfo.numberOfPeople|| 'Ikke angivet'}
             </Text>
           </div>
 
           {/* Button Section */}
           <div>
-            <Button color="red" fullWidth radius="md"  onClick={openModal}>
-              {props.buttonText || 'Afmeld booking'}
+            <Button color={props.color} fullWidth radius="md"  onClick={openModal}>
+              {props.buttonText}
             </Button>
           </div>
         </div>
@@ -109,11 +114,5 @@ function MinebookingCard(props) {
     </>
   );
 }
-
-MinebookingCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  button: PropTypes.string.isRequired,
-  color: PropTypes.string,
-};
 
 export default MinebookingCard;

@@ -3,18 +3,26 @@ import LokaleInput from './LokaleInput';
 import { useState } from 'react';
 import BookingAlert from './BookingAlert';
 import TimeSelect from './timeSelect';
+import { useRouteContext } from '@tanstack/react-router';
 
 export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
     const [numberOfPeople, setNumberOfPeople] = useState(1);
 
-  
+    const context = useRouteContext({from : "/startBooking"})
+
     const inputStyle = {
       padding: "0px 24px",
       width: "30%",
     };
 
     console.log('antal personer', numberOfPeople)
-    
+
+  const numberOfPeopleInfo = {
+    numberOfPeople
+  }
+
+
+    context.setNumberOfPeopleInfo(numberOfPeopleInfo)
     return (
       <div style={inputStyle}>
         <NumberInput

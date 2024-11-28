@@ -87,7 +87,7 @@ function RouteComponent() {
                     imageUrl={lokale.lokaleimage}
                     description={lokale.description}
                     button="Vælg"
-                    navigation={`/bekræktBooking`}
+                    navigation={`/bekræftBooking`}
                   />
                 </Grid.Col>
               ))

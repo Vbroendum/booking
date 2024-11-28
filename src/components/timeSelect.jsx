@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Select, Group } from '@mantine/core';
+import { useRouteContext } from '@tanstack/react-router';
 
 // Generate an array of time options in 24-hour format with 15-minute intervals and specified restrictions
 const generateTimeOptions = (minTime, maxTime) => {
@@ -38,6 +39,20 @@ function TimeSelect() {
     setEndTime(value);
     console.log('End Time:', value); // Log the selected end time
   };
+
+  const context = useRouteContext({from: "/startBooking"})
+
+  const startTimeInfo = {
+    startTime
+  }
+
+  context.setStartTimeInfo(startTimeInfo)
+
+  const endTimeInfo = {
+    endTime
+  }
+
+  context.setEndTimeInfo(endTimeInfo)
 
   return (
     <Group style={{flexDirection: "row", justifyContent: "center, width"}}>

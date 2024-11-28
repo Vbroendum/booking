@@ -4,14 +4,19 @@ import StepperComponent from '../components/Steps'
 import { useState } from 'react'
 import { Group, Button } from '@mantine/core'
 import MinebookingCard from '../components/MinebookingCard'
+import { useRouteContext } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/bekræftBooking')({
   component: RouteComponent,
 })
 
+
+
 function RouteComponent() {
     const router = useRouter();
     const [activeStep, setActiveStep] = useState(2);
+
+    const context = useRouteContext({from: '/bekræftBooking'})
 
   return (
     <div>
@@ -53,6 +58,9 @@ function RouteComponent() {
           <MinebookingCard 
           buttonText={'Bekræft booking'}
           color="blue"
+          date={context.setDateInfo}
+          time={context.setStartTimeInfo}
+          people={context.setNumberOfPeopleInfo}
           />
         </div>
       </div>
