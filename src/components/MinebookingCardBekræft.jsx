@@ -1,9 +1,10 @@
 // MinebookingCard.jsx
 import { Card, Image, Text, Button } from '@mantine/core';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from './BookingBekræftelse';  // First modal component
 import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
 import PropTypes from 'prop-types'
+import { useRouteContext } from '@tanstack/react-router';
 
 // Card styling for the main container
 const cardStyles = {
@@ -30,10 +31,9 @@ const titleStyles = {
   textAlign: 'center',
 };
 
-function MinebookingCardBekræft(props) {
+function MinebookingCardBekræft(props, lokale) {
   const [opened, setOpened] = useState(false); // State for the first modal (Booking Confirmation)
   const [cancelledOpened, setCancelledOpened] = useState(false); // State for the second modal (Booking Cancelled)
-
   // Toggle the first modal
   const openModal = () => setOpened(true);
   const closeModal = () => setOpened(false);
@@ -45,6 +45,15 @@ function MinebookingCardBekræft(props) {
   };
 
   const closeCancelledModal = () => setCancelledOpened(false);
+
+  const context = useRouteContext({to: "/bekræftBooking"})
+  console.log(context)
+
+  const handleConfirmBooking = () => {
+    console.log('Confirming booking...');
+    // Ensure this function is called correctly
+    props.onConfirmBooking(); // This calls the handleBookingConfirmation in RouteComponent
+  };
 
   return (
     <>
@@ -70,35 +79,28 @@ function MinebookingCardBekræft(props) {
           {/* Booking Details */}
           <div>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Dato:</b> {props.date || 'Ikke angivet'}
+              <b>Dato:</b> {context.dateInfo.selected.toString() || 'Ikke angivet'}
             </Text>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Tidspunkt:</b> {props.time || 'Ikke angivet'}
+              <b>Tidspunkt:</b> {context.startTimeInfo.startTime || 'Ikke angivet'} - {context.endTimeInfo.endTime}
             </Text>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Lokale:</b> {props.room || 'Ikke angivet'}
+              <b>Lokale:</b> {props.lokale}
             </Text>
             <Text size="sm" c="dimmed" mb="lg">
-              <b>Antal personer:</b> {props.people || 'Ikke angivet'}
+              <b>Antal personer:</b> {context.numberOfPeopleInfo.numberOfPeople|| 'Ikke angivet'}
             </Text>
           </div>
 
           {/* Button Section */}
           <div>
-            <Modal color="blue" fullWidth radius="md"  onClick={openModal}>
+            <Modal color="blue" fullWidth radius="md"  onClick={handleConfirmBooking}>
               {props.buttonText || 'Bekræft booking'}
             </Modal>
           </div>
         </div>
       </Card>
       </> 
-  );
-}
-
-MinebookingCardBekræft.propTypes = {
-  title: PropTypes.string.isRequired,
-  button: PropTypes.string.isRequired,
-  color: PropTypes.string,
-};
+  )};
 
 export default MinebookingCardBekræft;

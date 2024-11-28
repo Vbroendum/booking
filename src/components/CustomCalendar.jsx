@@ -1,7 +1,11 @@
 import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
 import { useState } from 'react';
 import { Calendar } from '@mantine/dates';
 import { useRouteContext } from '@tanstack/react-router';
+
+dayjs.extend(localeData);
+dayjs.locale('da');
 
 function CustomCalendar() {
   const [selected, setSelected] = useState(null); // Store a single date instead of an array
@@ -9,12 +13,13 @@ function CustomCalendar() {
   const context = useRouteContext({to: "/bekræftBooking"})
 
   const handleSelect = (date) => {
-    setSelected(date); // Always set the selected date to the newly clicked date
-    console.log('Date selected:', dayjs(date).format('DD-MM-YYYY'));
+    const formattedDate = dayjs(date).format('D. MMMM YYYY')
+    setSelected(formattedDate); // Always set the selected date to the newly clicked date
+    console.log('Date selected:', formattedDate)
   };
 
   const dateInfo = {
-    selected
+    selected,
   }
 
   context.setDateInfo(dateInfo)
@@ -25,7 +30,7 @@ function CustomCalendar() {
       size="xl"
       minDate={new Date()}
       getDayProps={(date) => ({
-        selected: selected && dayjs(date).isSame(selected, 'date'), // Highlight the selected date
+        selected: selected && dayjs(date).format('D. MMMM YYYY') === selected, // Highlight the selected date
         onClick: () => handleSelect(date),
       })}
     />

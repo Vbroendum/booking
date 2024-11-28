@@ -81,7 +81,7 @@ function MinebookingCard(props) {
               <b>Tidspunkt:</b> {context.startTimeInfo.startTime || 'Ikke angivet'} - {context.endTimeInfo.endTime}
             </Text>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Lokale:</b> {props.room || 'Ikke angivet'}
+              <b>Lokale:</b> {lokale.lokalenr || 'Ikke angivet'}
             </Text>
             <Text size="sm" c="dimmed" mb="lg">
               <b>Antal personer:</b> {context.numberOfPeopleInfo.numberOfPeople|| 'Ikke angivet'}
@@ -97,20 +97,8 @@ function MinebookingCard(props) {
         </div>
       </Card>
 
-      {/* Render the first modal for cancellation confirmation */}
-      <BookingModal
-        opened={opened}
-        onClose={closeModal}
-        onConfirm={openCancelledModal}  // Pass the function that opens the second modal
-        title="Er du sikker på, at du vil annullere din booking?"
-        bodyContent="Du skal bestille en ny tid, hvis du ombestemmer dig"
-      />
+      
 
-      {/* Render the second modal to show cancellation success */}
-      <BookingCancelledModal
-        opened={cancelledOpened}
-        onClose={closeCancelledModal}
-      />
     </>
   );
 }

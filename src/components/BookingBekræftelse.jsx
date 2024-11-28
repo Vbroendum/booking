@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Text, Group, Button, Title, Stack } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
 import CalendarIcon from '../assets/calendar.svg';
@@ -6,14 +6,17 @@ import ClockIcon from '../assets/clock.svg';
 import LocationIcon from '../assets/home.svg';
 import UserIcon from '../assets/user.svg';
 import GitIcon from '../assets/git-pull.svg';
+import { useRouteContext } from '@tanstack/react-router';
+import MinebookingCardBekræft from './MinebookingCardBekræft';
 
-function BookingBekræftelse() {
+function BookingBekræftelse( onClose, lokale) {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
 
+  const context = useRouteContext({to: "/bekræftBooking"})
+  console.log(context)
 
-
-
+  console.log("Lokale prop: ", lokale); // Check what data you are passing
   return (
     <>
       {/* Button to open the modal */}
@@ -45,23 +48,23 @@ function BookingBekræftelse() {
         <Title style={{marginLeft: '106px', fontWeight: '500', fontSize: '24px'}}>Detaljer:</Title>
         <Text>
             <img src={CalendarIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Dato:</strong> 12.12.2021
+            <strong>Dato:</strong> {context.dateInfo.selected.toString()}
         </Text>
         <Text>
             <img src={ClockIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Tidspunkt:</strong> 12:00 - 14:00
+            <strong>Tidspunkt:</strong> {context.startTimeInfo.startTime} - {context.endTimeInfo.endTime}
         </Text>
         <Text>
             <img src={LocationIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Lokale:</strong> 3.3, 3. etage
+            <strong>Lokale: </strong> {lokale || 'ikke angivet'}
         </Text>
         <Text>
             <img src={UserIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Antal personer:</strong> 4
+            <strong>{context.numberOfPeopleInfo.numberOfPeople}</strong> 
         </Text>
         <Text>
             <img src={GitIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Booket af:</strong> Underviser
+            <strong>Booket af:</strong> 
         </Text>
     </Stack>
     
