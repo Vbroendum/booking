@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import StepperComponent from '../components/Steps'
 import { useState } from 'react'
 import { Group, Button } from '@mantine/core'
-import MinebookingCard from '../components/MinebookingCard'
+import MinebookingCardBekræft from '../components/MinebookingCardBekræft'
 import { useRouteContext } from '@tanstack/react-router'
 
 export const Route = createLazyFileRoute('/bekræftBooking')({
@@ -55,7 +55,7 @@ function RouteComponent() {
             maxWidth: '90%',     // Prevent overflow on smaller screens
           }}
         >
-          <MinebookingCard 
+          <MinebookingCardBekræft 
           buttonText={'Bekræft booking'}
           color="blue"
           date={context.setDateInfo}
