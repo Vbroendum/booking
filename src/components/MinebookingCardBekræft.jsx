@@ -94,9 +94,9 @@ function MinebookingCardBekræft(props, lokale) {
 
           {/* Button Section */}
           <div>
-            <Modal color="blue" fullWidth radius="md"  onClick={handleConfirmBooking}>
+            <Button color="blue" fullWidth radius="md"  onClick={handleConfirmBooking}>
               {props.buttonText || 'Bekræft booking'}
-            </Modal>
+            </Button>
           </div>
         </div>
       </Card>

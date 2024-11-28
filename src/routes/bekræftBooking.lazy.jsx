@@ -35,37 +35,55 @@ function RouteComponent() {
 
       const handleBookingConfirmation = async () => {
         try {
-          // Assuming user_id is available from the logged-in user (Supabase auth)
-          const user = supabase.auth.user();  // Get the logged-in user
-          const userId = user?.id;  // Get user ID or handle if not logged in
-      
-          // Check if user is logged in
-          if (!userId) {
-            console.error('User not logged in');
+          // Ensure that Supabase client is correctly initialized
+          if (!supabase) {
+            console.error('Supabase client is not initialized');
             return;
           }
       
+          // Check if user is logged in (with the new method)
+          const { data: user, error: userError } = await supabase.auth.getUser();  // Correct method for v2.x.x
+          if (userError) {
+            console.error('Error getting user:', userError.message);
+            return;
+          }
+      
+          if (!user) {
+            console.error('No user is logged in');
+            return;
+          }
+      
+          // Insert booking data
           const { data, error } = await supabase
             .from('bookings')
             .insert([
               {
-                start_time: context.startTimeInfo.startTime,  // Start time from context
-                end_time: context.endTimeInfo.endTime,  // End time from context
-                number_of_people: context.numberOfPeopleInfo.numberOfPeople,  // Number of people from context
+                start_time: context.startTimeInfo.startTime,
+                end_time: context.endTimeInfo.endTime,
+                number_of_people: context.numberOfPeopleInfo.numberOfPeople,
                 lokale: lokalenr,  // Room number from URL
               }
             ]);
       
+          // Handle errors from the insert
           if (error) {
-            console.error('Error inserting booking:', error);
+            console.error('Error inserting booking:', error.message);
           } else {
             console.log('Booking successful:', data);
-            router.navigate({ to: '/bookingSuccess' }); // Navigate to a success page after booking
+            router.navigate({ to: '/mineBookinger' }); // Navigate to a success page
           }
         } catch (error) {
-          console.error('Unexpected error while booking:', error);
+          console.error('Unexpected error while booking:', error.message);
         }
       };
+      
+
+    console.log('Supabase client initialized:', supabase);
+
+    const confirmBooking = () => {
+        console.log('Confirm booking clicked');
+        handleBookingConfirmation(); // Ensure this gets called
+    };
 
   return (
     <div>

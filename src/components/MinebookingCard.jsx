@@ -3,7 +3,7 @@ import { Card, Image, Text, Button } from '@mantine/core';
 import { useState } from 'react';
 import BookingModal from './ModalAnnuller';  // First modal component
 import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
-import { useRouteContext } from '@tanstack/react-router';
+import PropTypes from 'prop-types'
 
 
 // Card styling for the main container
@@ -47,9 +47,6 @@ function MinebookingCard(props) {
 
   const closeCancelledModal = () => setCancelledOpened(false);
 
-  const context = useRouteContext({to: "/bekræftBooking"})
-  console.log(context)
-
 
   return (
     <>
@@ -75,32 +72,50 @@ function MinebookingCard(props) {
           {/* Booking Details */}
           <div>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Dato:</b> {context.dateInfo.selected.toString() || 'Ikke angivet'}
+              <b>Dato:</b> {props.date || 'Ikke angivet'}
             </Text>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Tidspunkt:</b> {context.startTimeInfo.startTime || 'Ikke angivet'} - {context.endTimeInfo.endTime}
+              <b>Tidspunkt:</b> {props.time || 'Ikke angivet'}
             </Text>
             <Text size="sm" c="dimmed" mb="sm">
-              <b>Lokale:</b> {lokale.lokalenr || 'Ikke angivet'}
+              <b>Lokale:</b> {props.room || 'Ikke angivet'}
             </Text>
             <Text size="sm" c="dimmed" mb="lg">
-              <b>Antal personer:</b> {context.numberOfPeopleInfo.numberOfPeople|| 'Ikke angivet'}
+              <b>Antal personer:</b> {props.people || 'Ikke angivet'}
             </Text>
           </div>
 
           {/* Button Section */}
           <div>
-            <Button color={props.color} fullWidth radius="md"  onClick={openModal}>
-              {props.buttonText}
+            <Button color="red" fullWidth radius="md"  onClick={openModal}>
+              {props.buttonText || 'Afmeld booking'}
             </Button>
           </div>
         </div>
       </Card>
 
-      
+      {/* Render the first modal for cancellation confirmation */}
+      <BookingModal
+        opened={opened}
+        onClose={closeModal}
+        onConfirm={openCancelledModal}  // Pass the function that opens the second modal
+        title="Er du sikker på, at du vil annullere din booking?"
+        bodyContent="Du skal bestille en ny tid, hvis du ombestemmer dig"
+      />
 
+      {/* Render the second modal to show cancellation success */}
+      <BookingCancelledModal
+        opened={cancelledOpened}
+        onClose={closeCancelledModal}
+      />
     </>
   );
 }
+
+MinebookingCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  button: PropTypes.string.isRequired,
+  color: PropTypes.string,
+};
 
 export default MinebookingCard;

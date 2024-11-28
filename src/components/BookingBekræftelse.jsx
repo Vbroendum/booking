@@ -7,16 +7,16 @@ import LocationIcon from '../assets/home.svg';
 import UserIcon from '../assets/user.svg';
 import GitIcon from '../assets/git-pull.svg';
 import { useRouteContext } from '@tanstack/react-router';
-import MinebookingCardBekræft from './MinebookingCardBekræft';
 
-function BookingBekræftelse( onClose, lokale) {
+
+function BookingBekræftelse( { lokale }, props) {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
 
   const context = useRouteContext({to: "/bekræftBooking"})
   console.log(context)
 
-  console.log("Lokale prop: ", lokale); // Check what data you are passing
+  console.log('Received lokale:', lokale);
   return (
     <>
       {/* Button to open the modal */}
@@ -56,7 +56,7 @@ function BookingBekræftelse( onClose, lokale) {
         </Text>
         <Text>
             <img src={LocationIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Lokale: </strong> {lokale || 'ikke angivet'}
+            <strong>Lokale: </strong> {props.lokalenr || 'ikke angivet'}
         </Text>
         <Text>
             <img src={UserIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
