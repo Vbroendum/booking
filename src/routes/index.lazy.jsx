@@ -23,7 +23,7 @@ function Index() {
         style={{
           width: '100%',
           height: '100vh',
-          backgroundImage: 'url("public/assets/image-2.webp")',
+          backgroundImage: 'url("https://epgjtuypadrnxeldurle.supabase.co/storage/v1/object/public/lokale-images/image-2.webp")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
