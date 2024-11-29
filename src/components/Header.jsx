@@ -1,4 +1,4 @@
-import logo from '../assets/CPHBusiness_Logo.svg';
+import logo from '/public/assets/CPHBusiness_logo.svg';
 import { Link } from '@tanstack/react-router';
 
 function Header() {

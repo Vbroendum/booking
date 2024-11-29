@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Modal, Text, Group, Button, Title, Stack } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
-import CalendarIcon from '../assets/calendar.svg';
-import ClockIcon from '../assets/clock.svg';
-import LocationIcon from '../assets/home.svg';
-import UserIcon from '../assets/user.svg';
-import GitIcon from '../assets/git-pull.svg';
+import CalendarIcon from '/public/assets/calendar.svg';
+import ClockIcon from '/public/assets/clock.svg';
+import LocationIcon from '/public/assets/home.svg';
+import UserIcon from '/public/assets/user.svg';
+import GitIcon from '/public/assets/git-pull.svg';
 import { useRouteContext } from '@tanstack/react-router';
 
 
