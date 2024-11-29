@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar } from '@mantine/dates';
 import { useRouteContext } from '@tanstack/react-router';
 
@@ -18,13 +18,12 @@ function CustomCalendar() {
     console.log('Date selected:', formattedDate)
   };
 
-  const dateInfo = {
-    selected,
-  }
-
-  context.setDateInfo(dateInfo)
-
-
+  useEffect(() => {
+    if (selected) {
+      context.setDateInfo({ selected }); // Update the date info in context
+    }
+  }, [selected, context]);
+  
   return (
     <Calendar
       size="xl"

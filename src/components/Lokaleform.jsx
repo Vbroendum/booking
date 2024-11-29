@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { NumberInput, Button, Group  } from '@mantine/core';
 import LokaleInput from './LokaleInput';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BookingAlert from './BookingAlert';
 import TimeSelect from './timeSelect';
 import { useRouteContext } from '@tanstack/react-router';
@@ -17,12 +18,10 @@ export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
 
     console.log('antal personer', numberOfPeople)
 
-  const numberOfPeopleInfo = {
-    numberOfPeople
-  }
-
-
-    context.setNumberOfPeopleInfo(numberOfPeopleInfo)
+    useEffect(() => {
+      // Update context when numberOfPeople changes
+      context.setNumberOfPeopleInfo({ numberOfPeople });
+    }, [numberOfPeople, context]);
     return (
       <div style={inputStyle}>
         <NumberInput

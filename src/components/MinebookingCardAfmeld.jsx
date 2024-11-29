@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Card, Image, Text, Button } from '@mantine/core';
 import { useNavigate } from '@tanstack/react-router';
 

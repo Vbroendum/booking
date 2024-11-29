@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Select, Group } from '@mantine/core';
 import { useRouteContext } from '@tanstack/react-router';
 
@@ -27,32 +27,33 @@ const endTimeOptions = generateTimeOptions('08:00', '17:00');
 function TimeSelect() {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const context = useRouteContext({ from: "/startBooking" });
+
+  // Update context with startTime
+  useEffect(() => {
+    if (startTime) {
+      context.setStartTimeInfo({ startTime });
+    }
+  }, [startTime, context]);
+
+  // Update context with endTime
+  useEffect(() => {
+    if (endTime) {
+      context.setEndTimeInfo({ endTime });
+    }
+  }, [endTime, context]);
 
   // Handler for start time change
   const handleStartTimeChange = (value) => {
     setStartTime(value);
-    console.log('Start Time:', value); // Log the selected start time
+    console.log('Start Time:', value);
   };
 
   // Handler for end time change
   const handleEndTimeChange = (value) => {
     setEndTime(value);
-    console.log('End Time:', value); // Log the selected end time
+    console.log('End Time:', value);
   };
-
-  const context = useRouteContext({from: "/startBooking"})
-
-  const startTimeInfo = {
-    startTime
-  }
-
-  context.setStartTimeInfo(startTimeInfo)
-
-  const endTimeInfo = {
-    endTime
-  }
-
-  context.setEndTimeInfo(endTimeInfo)
 
   return (
     <Group style={{flexDirection: "row", justifyContent: "center, width"}}>

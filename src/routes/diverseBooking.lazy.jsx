@@ -79,7 +79,7 @@ function RouteComponent() {
             <Title order={1} align="left" style={{ marginBottom: '16px', marginLeft: '32px' }}>
               Diverse lokaler
             </Title>
-            <Grid gutter="lg" marginRight="32px">
+            <Grid gutter="lg">
               {lokaler.length > 0 ? (
               lokaler.map((lokale) => (
                 <Grid.Col span={4} key={lokale.id}>
