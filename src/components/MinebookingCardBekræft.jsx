@@ -1,4 +1,3 @@
-// MinebookingCard.jsx
 import { Card, Image, Text, Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import Modal from './BookingBekræftelse';  // First modal component
