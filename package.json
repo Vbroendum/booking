@@ -1,9 +1,12 @@
 {
   "name": "vite-react-js-tanstack-router-mantine-template",
+  "homepage": "https://github.com/Vbroendum/booking",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -23,6 +26,7 @@
     "@tanstack/react-router": "^1.82.0",
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^7.1.0",
+    "gh-pages": "^6.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0"

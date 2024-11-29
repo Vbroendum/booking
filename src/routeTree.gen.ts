@@ -17,7 +17,6 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const StartBookingLazyImport = createFileRoute('/startBooking')()
-const ProgressLazyImport = createFileRoute('/progress')()
 const OpenlearningBookingLazyImport = createFileRoute('/openlearningBooking')()
 const MineBookingerLazyImport = createFileRoute('/mineBookinger')()
 const KlasselokaleBookingLazyImport = createFileRoute('/klasselokaleBooking')()
@@ -42,12 +41,6 @@ const StartBookingLazyRoute = StartBookingLazyImport.update({
   path: '/startBooking',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/startBooking.lazy').then((d) => d.Route))
-
-const ProgressLazyRoute = ProgressLazyImport.update({
-  id: '/progress',
-  path: '/progress',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/progress.lazy').then((d) => d.Route))
 
 const OpenlearningBookingLazyRoute = OpenlearningBookingLazyImport.update({
   id: '/openlearningBooking',
@@ -249,13 +242,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpenlearningBookingLazyImport
       parentRoute: typeof rootRoute
     }
-    '/progress': {
-      id: '/progress'
-      path: '/progress'
-      fullPath: '/progress'
-      preLoaderRoute: typeof ProgressLazyImport
-      parentRoute: typeof rootRoute
-    }
     '/startBooking': {
       id: '/startBooking'
       path: '/startBooking'
@@ -283,7 +269,6 @@ export interface FileRoutesByFullPath {
   '/klasselokaleBooking': typeof KlasselokaleBookingLazyRoute
   '/mineBookinger': typeof MineBookingerLazyRoute
   '/openlearningBooking': typeof OpenlearningBookingLazyRoute
-  '/progress': typeof ProgressLazyRoute
   '/startBooking': typeof StartBookingLazyRoute
 }
 
@@ -302,7 +287,6 @@ export interface FileRoutesByTo {
   '/klasselokaleBooking': typeof KlasselokaleBookingLazyRoute
   '/mineBookinger': typeof MineBookingerLazyRoute
   '/openlearningBooking': typeof OpenlearningBookingLazyRoute
-  '/progress': typeof ProgressLazyRoute
   '/startBooking': typeof StartBookingLazyRoute
 }
 
@@ -322,7 +306,6 @@ export interface FileRoutesById {
   '/klasselokaleBooking': typeof KlasselokaleBookingLazyRoute
   '/mineBookinger': typeof MineBookingerLazyRoute
   '/openlearningBooking': typeof OpenlearningBookingLazyRoute
-  '/progress': typeof ProgressLazyRoute
   '/startBooking': typeof StartBookingLazyRoute
 }
 
@@ -343,7 +326,6 @@ export interface FileRouteTypes {
     | '/klasselokaleBooking'
     | '/mineBookinger'
     | '/openlearningBooking'
-    | '/progress'
     | '/startBooking'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -361,7 +343,6 @@ export interface FileRouteTypes {
     | '/klasselokaleBooking'
     | '/mineBookinger'
     | '/openlearningBooking'
-    | '/progress'
     | '/startBooking'
   id:
     | '__root__'
@@ -379,7 +360,6 @@ export interface FileRouteTypes {
     | '/klasselokaleBooking'
     | '/mineBookinger'
     | '/openlearningBooking'
-    | '/progress'
     | '/startBooking'
   fileRoutesById: FileRoutesById
 }
@@ -399,7 +379,6 @@ export interface RootRouteChildren {
   KlasselokaleBookingLazyRoute: typeof KlasselokaleBookingLazyRoute
   MineBookingerLazyRoute: typeof MineBookingerLazyRoute
   OpenlearningBookingLazyRoute: typeof OpenlearningBookingLazyRoute
-  ProgressLazyRoute: typeof ProgressLazyRoute
   StartBookingLazyRoute: typeof StartBookingLazyRoute
 }
 
@@ -418,7 +397,6 @@ const rootRouteChildren: RootRouteChildren = {
   KlasselokaleBookingLazyRoute: KlasselokaleBookingLazyRoute,
   MineBookingerLazyRoute: MineBookingerLazyRoute,
   OpenlearningBookingLazyRoute: OpenlearningBookingLazyRoute,
-  ProgressLazyRoute: ProgressLazyRoute,
   StartBookingLazyRoute: StartBookingLazyRoute,
 }
 
@@ -446,7 +424,6 @@ export const routeTree = rootRoute
         "/klasselokaleBooking",
         "/mineBookinger",
         "/openlearningBooking",
-        "/progress",
         "/startBooking"
       ]
     },
@@ -491,9 +468,6 @@ export const routeTree = rootRoute
     },
     "/openlearningBooking": {
       "filePath": "openlearningBooking.lazy.jsx"
-    },
-    "/progress": {
-      "filePath": "progress.lazy.jsx"
     },
     "/startBooking": {
       "filePath": "startBooking.lazy.jsx"

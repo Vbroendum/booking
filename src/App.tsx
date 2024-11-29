@@ -46,6 +46,7 @@ const context = {
         <RouterProvider
           router={router}
           context={context}
+          basepath="/booking"
         />
       </ModalsProvider>
     </MantineProvider>
