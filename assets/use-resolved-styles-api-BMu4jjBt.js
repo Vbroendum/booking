@@ -1,0 +1,1 @@
+import{A as o,ab as r,ac as v}from"./index-BmjrgQZS.js";function m({classNames:a,styles:l,props:e,stylesCtx:s}){const t=o();return{resolvedClassNames:r({theme:t,classNames:a,props:e,stylesCtx:s||void 0}),resolvedStyles:v({theme:t,styles:l,props:e,stylesCtx:s||void 0})}}export{m as u};
