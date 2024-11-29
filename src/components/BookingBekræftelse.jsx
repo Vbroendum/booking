@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { Modal, Text, Group, Button, Title, Stack } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';

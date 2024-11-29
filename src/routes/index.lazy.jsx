@@ -19,7 +19,15 @@ function Index() {
 
   return (
     <div style={{ display: "flex"}}>
-      <img src="/public/assets/image-2.webp" alt="" style={imageStyle} />
+      <div
+        style={{
+          width: '100%',
+          height: '100vh',
+          backgroundImage: 'url("public/assets/image-2.webp")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      ></div>
       <LoginForm2 />
       </div>
   );
