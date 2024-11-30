@@ -1,1 +1,0 @@
-import{j as t}from"./index-CRqD5I55.js";function o(){return t.jsx("div",{style:{backgroundColor:"#228BE6",color:"white",textAlign:"center",padding:"15px",fontWeight:"500"},children:"© 2024 CPH Business Academy"})}export{o as F};
