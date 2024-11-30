@@ -6,6 +6,7 @@ import FlashCard from '../components/FlashCard'
 import EtageSelector from '../components/EtageSelector'
 import { Grid, Title, Box, Group, Button } from '@mantine/core'
 import StepperComponent from '../components/Steps'
+import HelpModal from '../components/HelpModal';
 
 const supabase = getSupabaseClient()
 
@@ -109,6 +110,7 @@ function RouteComponent() {
             </Box>
           </Grid.Col>
         </Grid>
+        <HelpModal />
     </div>
   );
   }

@@ -97,7 +97,7 @@ function Minebooking() {
         }}
       >
         <h1>Mine Bookinger</h1>
-        {loading && <p>Loading bookings...</p>}
+        {loading && <p>Indlæser bookninger...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Show the error message if there are no bookings */}
 
         <div
@@ -113,6 +113,7 @@ function Minebooking() {
             bookings.map((booking) => (
               <MinebookingCard
                 key={booking.id}
+                date={booking.date}
                 booking={booking}
                 onCancel={handleCancelBooking}
               />

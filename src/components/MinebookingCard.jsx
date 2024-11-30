@@ -56,11 +56,11 @@ function MinebookingCard({ booking, onCancel }) {
 
         <div style={contentStyles}>
           <div style={titleStyles}>
-            <Text fw={600} size="30px">{booking.lokale || 'Valgt Lokale'}</Text>
+            <Text fw={600} size="30px">{'Valgt Lokale'}</Text>
           </div>
 
           <div>
-            <Text size="sm" c="dimmed" mb="sm"><b>Dato:</b> {booking.date || 'Ikke angivet'}</Text>
+            <Text size="sm" c="dimmed" mb="sm"><b>Dato:</b> {booking.start_date || 'Ikke angivet'}</Text>
             <Text size="sm" c="dimmed" mb="sm"><b>Tidspunkt:</b> {booking.start_time || 'Ikke angivet'} - {booking.end_time || 'Ikke angivet'}</Text>
             <Text size="sm" c="dimmed" mb="sm"><b>Lokale:</b> {booking.lokale || 'Ikke angivet'}</Text>
             <Text size="sm" c="dimmed" mb="lg"><b>Antal personer:</b> {booking.number_of_people || 'Ikke angivet'}</Text>

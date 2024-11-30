@@ -62,6 +62,7 @@ function RouteComponent() {
             end_time: context.endTimeInfo.endTime,
             number_of_people: context.numberOfPeopleInfo.numberOfPeople,
             lokale: lokalenr,  // Room number from URL
+            start_date: context.dateInfo.selected,
             user_id: user.id,  // Insert the logged-in user's ID
           }
         ]);
