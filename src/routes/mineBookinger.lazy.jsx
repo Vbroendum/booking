@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute, useRouter } from '@tanstack/react-router';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';
 import MinebookingCard from '../components/MinebookingCard';  // Ensure this component is rendering properly
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Button } from '@mantine/core';
 
 const supabase = getSupabaseClient();
 
@@ -15,6 +16,9 @@ function Minebooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchBookings() {
@@ -68,7 +72,7 @@ function Minebooking() {
 
       if (error) {
         console.error('Error deleting booking:', error.message);
-        setError('Error canceling booking');
+        setError('Noget gik galt i afmeldingen ');
         return;
       }
 
@@ -98,8 +102,16 @@ function Minebooking() {
       >
         <h1>Mine Bookinger</h1>
         {loading && <p>Indlæser bookninger...</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Show the error message if there are no bookings */}
-
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        
+        {bookings.length === 0 && !loading && !error && (
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <p>Ingen bookninger fundet</p>
+          </div>
+        )}
+        
+        
+      
         <div
           style={{
             display: 'grid',
@@ -109,7 +121,7 @@ function Minebooking() {
             margin: '20px',
           }}
         >
-          {bookings.length > 0 ? (
+          {bookings.length > 0 ? ( 
             bookings.map((booking) => (
               <MinebookingCard
                 key={booking.id}
@@ -119,7 +131,9 @@ function Minebooking() {
               />
             ))
           ) : (
-            <p></p>
+            <div style={{gridColumn: '2', textAlign: 'center', marginTop: '20px', }}>
+              <Button onClick={() => router.navigate({ to: '/startBooking' })}>Start Booking</Button>
+            </div>
           )}
         </div>
       </div>

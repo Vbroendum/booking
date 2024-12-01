@@ -2,38 +2,31 @@
 import { useState } from 'react';
 import { Modal, Text, Group, Button, Title, Stack } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
-import CalendarIcon from '/public/assets/calendar.svg';
-import ClockIcon from '/public/assets/clock.svg';
-import LocationIcon from '/public/assets/home.svg';
-import UserIcon from '/public/assets/user.svg';
-import GitIcon from '/public/assets/git-pull.svg';
+import CalendarIcon from '/src/assets/calendar.svg';
+import ClockIcon from '/src/assets/clock.svg';
+import LocationIcon from '/src/assets/home.svg';
+import UserIcon from '/src/assets/user.svg';
+import GitIcon from '/src/assets/git-pull.svg';
 import { useRouteContext } from '@tanstack/react-router';
+import { openModal } from '@mantine/modals';
 
 
-function BookingBekræftelse( { lokale }, props) {
-  const [opened, setOpened] = useState(false);
+function BookingBekræftelse( { lokale }, opened, closeModal, onConfirm, props  ) {
   const router = useRouter();
 
   const context = useRouteContext({to: "/bekræftBooking"})
   console.log(context)
 
-  console.log('Received lokale:', lokale);
   return (
-    <>
-      {/* Button to open the modal */}
-      <Group position="center">
-        <Button onClick={() => setOpened(true)}>Bekræft</Button>
-      </Group>
-
-      {/* Modal content */}
+    
       <Modal
-  opened={opened}
-  onClose={() => setOpened(false)}
-  centered
-  size="55rem"
-  radius={15}
-  title={<Text style={{ fontWeight: '600', position: 'absolute', left: '40%', top: '30%' }}>Bekræftelse af booket lokale</Text>}
->
+        opened={openModal}
+        onClose={closeModal}
+        centered
+        size="55rem"
+        radius={15}
+        title={<Text style={{ fontWeight: '600', position: 'absolute', left: '40%', top: '30%' }}>Bekræftelse af booket lokale</Text>}
+      >
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
     {/* Left Column */}
     <Stack>
@@ -57,7 +50,7 @@ function BookingBekræftelse( { lokale }, props) {
         </Text>
         <Text>
             <img src={LocationIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Lokale: </strong> {props.lokalenr || 'ikke angivet'}
+            <strong>Lokale: </strong> {lokale || 'ikke angivet'}
         </Text>
         <Text>
             <img src={UserIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
@@ -73,12 +66,12 @@ function BookingBekræftelse( { lokale }, props) {
   </div>
   <Button 
     style={{marginLeft: '20px', marginBottom: '20px'}}
-    onClick={() => router.navigate ({to: '/Minebookinger'})}>
-      Mine bookinger
+    onClick={onConfirm}>
+        Bekræft Booking
     </Button>
 </Modal>
 
-    </>
+    
   );
 }
 
