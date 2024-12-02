@@ -1,9 +1,8 @@
 import { Card, Image, Text, Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
-import Modal from './BookingBekræftelse';  // First modal component
-import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
 import PropTypes from 'prop-types'
 import { useRouteContext } from '@tanstack/react-router';
+import  BookingBekraeftelse  from './BookingBekræftelse';
 
 // Card styling for the main container
 const cardStyles = {
@@ -30,20 +29,12 @@ const titleStyles = {
   textAlign: 'center',
 };
 
-function MinebookingCardBekræft(props, lokale) {
+function MinebookingCardBekræft(props) {
   const [opened, setOpened] = useState(false); // State for the first modal (Booking Confirmation)
-  const [cancelledOpened, setCancelledOpened] = useState(false); // State for the second modal (Booking Cancelled)
   // Toggle the first modal
   const openModal = () => setOpened(true);
   const closeModal = () => setOpened(false);
 
-  // Function to open the second modal after confirmation
-  const openCancelledModal = () => {
-    setOpened(false); // Close the first modal
-    setCancelledOpened(true); // Open the second modal
-  };
-
-  const closeCancelledModal = () => setCancelledOpened(false);
 
   const context = useRouteContext({to: "/bekræftBooking"})
   console.log(context)
@@ -52,6 +43,7 @@ function MinebookingCardBekræft(props, lokale) {
     console.log('Confirming booking...');
     // Ensure this function is called correctly
     props.onConfirmBooking(); // This calls the handleBookingConfirmation in RouteComponent
+    closeModal();
   };
 
   return (
@@ -93,12 +85,18 @@ function MinebookingCardBekræft(props, lokale) {
 
           {/* Button Section */}
           <div>
-            <Button color="blue" fullWidth radius="md"  onClick={handleConfirmBooking}>
+            <Button color="blue" fullWidth radius="md"  onClick={openModal}>
               {props.buttonText || 'Bekræft booking'}
             </Button>
           </div>
         </div>
       </Card>
+      <BookingBekraeftelse
+        opened={opened}
+        closeModal={closeModal}
+        onConfirm={handleConfirmBooking}
+        lokale={props.lokale}
+      />
       </> 
   )};
 

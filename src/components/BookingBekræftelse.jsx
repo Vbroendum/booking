@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
 import { Modal, Text, Group, Button, Title, Stack } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
 import CalendarIcon from '/src/assets/calendar.svg';
@@ -8,19 +7,20 @@ import LocationIcon from '/src/assets/home.svg';
 import UserIcon from '/src/assets/user.svg';
 import GitIcon from '/src/assets/git-pull.svg';
 import { useRouteContext } from '@tanstack/react-router';
-import { openModal } from '@mantine/modals';
+import PropTypes from 'prop-types'
 
 
-function BookingBekræftelse( { lokale }, opened, closeModal, onConfirm, props  ) {
+function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
   const router = useRouter();
 
   const context = useRouteContext({to: "/bekræftBooking"})
   console.log(context)
 
+
   return (
     
       <Modal
-        opened={openModal}
+        opened={opened}
         onClose={closeModal}
         centered
         size="55rem"
@@ -75,4 +75,4 @@ function BookingBekræftelse( { lokale }, opened, closeModal, onConfirm, props  
   );
 }
 
-export default BookingBekræftelse;
+export default BookingBekraeftelse;

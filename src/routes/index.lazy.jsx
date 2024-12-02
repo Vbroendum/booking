@@ -9,14 +9,6 @@ function Index() {
   const context = useRouteContext({ from: "/" });
   console.log(context);
 
-  const imageStyle = {
-    width: "100%",
-    height: "100vh",
-    objectFit: "cover",
-  };
-
-
-
   return (
     <div style={{ display: "flex"}}>
       <div
