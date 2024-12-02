@@ -1,8 +1,11 @@
 import { Card, Image, Text, Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { useRouteContext } from '@tanstack/react-router';
-import  BookingBekraeftelse  from './BookingBekræftelse';
+import BookingBekræftelse from './BookingBekræftelse';
+import { getSupabaseClient } from '../supabase/getSupabaseClient';
+
+const supabase = getSupabaseClient();
 
 // Card styling for the main container
 const cardStyles = {
@@ -30,18 +33,47 @@ const titleStyles = {
 };
 
 function MinebookingCardBekræft(props) {
-  const [opened, setOpened] = useState(false); // State for the first modal (Booking Confirmation)
-  // Toggle the first modal
+  const [opened, setOpened] = useState(false); // State for the modal (Booking Confirmation)
+  const [imageUrl, setImageUrl] = useState(null); // State to store the image URL
+
+  // Toggle the modal
   const openModal = () => setOpened(true);
   const closeModal = () => setOpened(false);
 
+  const context = useRouteContext({ to: "/bekræftBooking" });
+  console.log(context);
 
-  const context = useRouteContext({to: "/bekræftBooking"})
-  console.log(context)
+  // Fetch the room image from Supabase based on the room number (`lokalenr`)
+  useEffect(() => {
+    if (props.lokale) {
+      fetchRoomImage(props.lokale); // Fetch image URL for the room
+    }
+  }, [props.lokale]);
+
+  // Fetch room image from the Supabase table
+  const fetchRoomImage = async (lokalenr) => {
+    try {
+      const { data, error } = await supabase
+        .from('lokale') // The table in Supabase where room info is stored
+        .select('lokaleimage') // Fetch the 'lokaleimage' for the room (use correct column name)
+        .eq('lokalenr', lokalenr) // Match by room number
+        .single(); // Ensure we get a single result (since 'lokalenr' is expected to be unique)
+
+      if (error) {
+        console.error('Error fetching image:', error.message);
+        return;
+      }
+
+      if (data) {
+        setImageUrl(data.lokaleimage); // Set the image URL from the database for the room
+      }
+    } catch (error) {
+      console.error('Error fetching room image:', error.message);
+    }
+  };
 
   const handleConfirmBooking = () => {
     console.log('Confirming booking...');
-    // Ensure this function is called correctly
     props.onConfirmBooking(); // This calls the handleBookingConfirmation in RouteComponent
     closeModal();
   };
@@ -52,7 +84,7 @@ function MinebookingCardBekræft(props) {
         {/* Image Section */}
         <div style={{ flex: '1' }}>
           <Image
-            src={props.imageSrc || 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png'}
+            src={imageUrl || props.imageSrc || ''} // Fallback to default if no image is found
             height={300}
             fit="cover"
             alt={props.altText || 'Selected Room'}
@@ -79,25 +111,36 @@ function MinebookingCardBekræft(props) {
               <b>Lokale:</b> {props.lokale}
             </Text>
             <Text size="sm" c="dimmed" mb="lg">
-              <b>Antal personer:</b> {context.numberOfPeopleInfo.numberOfPeople|| 'Ikke angivet'}
+              <b>Antal personer:</b> {context.numberOfPeopleInfo.numberOfPeople || 'Ikke angivet'}
             </Text>
           </div>
 
           {/* Button Section */}
           <div>
-            <Button color="blue" fullWidth radius="md"  onClick={openModal}>
+            <Button color="blue" fullWidth radius="md" onClick={openModal}>
               {props.buttonText || 'Bekræft booking'}
             </Button>
           </div>
         </div>
       </Card>
-      <BookingBekraeftelse
+
+      <BookingBekræftelse
         opened={opened}
         closeModal={closeModal}
         onConfirm={handleConfirmBooking}
         lokale={props.lokale}
       />
-      </> 
-  )};
+    </>
+  );
+}
+
+MinebookingCardBekræft.propTypes = {
+  imageSrc: PropTypes.string,   // Ensure this prop is a string (URL of the room image)
+  altText: PropTypes.string,    // Optional alt text for the image
+  title: PropTypes.string,      // Optional title for the room
+  lokale: PropTypes.string,     // Room number
+  buttonText: PropTypes.string, // Optional button text
+  onConfirmBooking: PropTypes.func.isRequired, // Function to confirm booking
+};
 
 export default MinebookingCardBekræft;

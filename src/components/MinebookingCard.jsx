@@ -1,8 +1,11 @@
 import { Card, Image, Text, Button } from '@mantine/core';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BookingModal from './ModalAnnuller';  // First modal component for cancellation
 import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
 import PropTypes from 'prop-types';
+import { getSupabaseClient } from '../supabase/getSupabaseClient';  // Import Supabase client
+
+const supabase = getSupabaseClient();
 
 const cardStyles = {
   margin: '20px',
@@ -29,6 +32,7 @@ const titleStyles = {
 function MinebookingCard({ booking, onCancel }) {
   const [opened, setOpened] = useState(false);
   const [cancelledOpened, setCancelledOpened] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null); // State for room image URL
 
   const openModal = () => setOpened(true);
   const closeModal = () => setOpened(false);
@@ -42,12 +46,40 @@ function MinebookingCard({ booking, onCancel }) {
 
   const closeCancelledModal = () => setCancelledOpened(false);
 
+  // Fetch room image from Supabase based on room number (`lokalenr`)
+  useEffect(() => {
+    if (booking.lokale) {
+      fetchRoomImage(booking.lokale); // Fetch image URL for the room
+    }
+  }, [booking.lokale]);
+
+  const fetchRoomImage = async (lokalenr) => {
+    try {
+      const { data, error } = await supabase
+        .from('lokale') // The table in Supabase where room info is stored
+        .select('lokaleimage') // Fetch the 'lokaleimage' for the room
+        .eq('lokalenr', lokalenr) // Match by room number
+        .single(); // Ensure we get a single result (since 'lokalenr' is expected to be unique)
+
+      if (error) {
+        console.error('Error fetching image:', error.message);
+        return;
+      }
+
+      if (data) {
+        setImageUrl(data.lokaleimage); // Set the image URL from the database for the room
+      }
+    } catch (error) {
+      console.error('Error fetching room image:', error.message);
+    }
+  };
+
   return (
     <>
       <Card style={cardStyles} shadow="sm" radius="md" withBorder>
         <div style={{ flex: '1' }}>
           <Image
-            src={booking.image_url || 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png'}
+            src={imageUrl || booking.image_url || ''}
             height={300}
             fit="cover"
             alt={booking.lokale || 'Selected Room'}

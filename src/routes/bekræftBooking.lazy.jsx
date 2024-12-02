@@ -18,8 +18,9 @@ function RouteComponent() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(2);
   const [lokalenr, setLokalenr] = useState(null);
+  const [roomImage, setRoomImage] = useState(''); // State to store the image URL
 
-  const context = useRouteContext({from: '/bekræftBooking'});
+  const context = useRouteContext({ from: '/bekræftBooking' });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -27,10 +28,33 @@ function RouteComponent() {
     console.log('Extracted lokalenr:', extractedLokalenr); // Log to confirm
     if (extractedLokalenr) {
       setLokalenr(extractedLokalenr);
+      fetchRoomImage(extractedLokalenr); // Fetch image for the room
     } else {
       console.error('No lokalenr found in the URL');
     }
   }, []);
+
+  // Fetch the image URL from the 'lokale' table based on the 'lokalenr'
+  const fetchRoomImage = async (lokalenr) => {
+    try {
+      const { data, error } = await supabase
+        .from('lokale')
+        .select('imageURL')  // Assuming the image is stored in the 'imageURL' column
+        .eq('lokalenr', lokalenr)
+        .single(); // We expect only one room based on the 'lokalenr'
+        
+      if (error) {
+        console.error('Error fetching room image:', error.message);
+        return;
+      }
+
+      if (data) {
+        setRoomImage(data.imageURL); // Store the fetched image URL
+      }
+    } catch (error) {
+      console.error('Error fetching room image:', error.message);
+    }
+  };
 
   const handleBookingConfirmation = async () => {
     try {
@@ -54,7 +78,7 @@ function RouteComponent() {
 
       console.log('User ID:', user.id); // Log user ID for debugging
 
-      // Insert booking data into Supabase
+      // Insert booking data into Supabase with imageURL
       const { data, error } = await supabase
         .from('bookings')
         .insert([
@@ -65,6 +89,7 @@ function RouteComponent() {
             lokale: lokalenr,  // Room number from URL
             start_date: context.dateInfo.selected,
             user_id: user.id,  // Insert the logged-in user's ID
+            lokaleimage: roomImage,  // Add the room image URL to the booking
           }
         ]);
 
@@ -93,9 +118,9 @@ function RouteComponent() {
       <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
         <Group position="apart" style={{ width: '100%' }}>
           {/* Tilbage Button */}
-          <Button 
-            variant="light" 
-            onClick={() => router.navigate({to: '/frontpage'})}
+          <Button
+            variant="light"
+            onClick={() => router.navigate({ to: '/frontpage' })}
             style={{ margin: '0 16px' }}
           >
             Tilbage
@@ -113,19 +138,19 @@ function RouteComponent() {
 
       <div style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: '0 auto' }}>
         <div style={{ width: '50', maxWidth: '90%' }}>
-          <MinebookingCardBekræft 
+          <MinebookingCardBekræft
             buttonText={'Bekræft booking'}
             color="blue"
             date={context.setDateInfo}
             lokale={lokalenr}
             time={context.setStartTimeInfo}
             people={context.setNumberOfPeopleInfo}
+            imageSrc={roomImage} // Pass the image URL to the card
             onConfirmBooking={confirmBooking}  // Pass the confirmBooking function here
           />
         </div>
       </div>
     </div>
-    
   );
 }
 
