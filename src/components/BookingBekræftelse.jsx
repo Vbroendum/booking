@@ -25,43 +25,47 @@ function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
   useEffect(() => {
     const fetchUserRole = async () => {
       // Get current logged-in user's UUID from Supabase Auth
-      const { data: user, error } = await supabase.auth.getUser();
-      if (error || !user) {
-        console.error('Error fetching user:', error?.message || 'User not found');
-        setUserRole('ukendt');  // Default role if no user is found
+      const { data: user, error: authError } = await supabase.auth.getUser();
+      if (authError || !user) {
+        console.error('Error fetching user:', authError?.message || 'User not found');
+        setUserRole('Ukendt');
         setLoading(false);
         return;
       }
 
+      console.log('Logged-in user:', user);  // Log the user to check their info
+
       try {
         // Query userdata based on user_id
-        const { data: userData, error } = await supabase
+        const { data: userData, error: queryError } = await supabase
           .from('userdata')
-          .select('user_id', 'is_teacher')
-          .eq('user_id', user.id) // Use the auth user ID
+          .select('user_id, is_teacher')
+          .eq('user_id', user.user.id) // Use the auth user ID
           .single();  // Expect a single result
 
-        if (error) {
-          console.error('Error fetching user data:', error.message);
-          setUserRole('ukendt');
+        if (queryError) {
+          console.error('Error fetching user data:', queryError.message);
+          setUserRole('Ukendt');
         } else {
           // Set user role based on is_teacher value
-          setUserRole(userData.is_teacher ? 'Lærer' : 'Studerende');
+          console.log('User data:', userData);  // Log the result to debug
+          setUserRole(userData?.is_teacher ? 'Lærer' : 'Studerende');
         }
       } catch (error) {
         console.error('Error during query execution:', error);
-        setUserRole('ukendt');
+        setUserRole('Ukendt');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUserRole();  // Call the function to fetch user role
+    fetchUserRole();
   }, []);
 
   if (loading) {
-    return <Text>Loading...</Text>;  // Show a loading message while fetching
+    return <Text>Loading...</Text>;
   }
+
 
     return (
       <Modal
