@@ -39,7 +39,7 @@ function RouteComponent() {
     try {
       const { data, error } = await supabase
         .from('lokale')
-        .select('imageURL')  // Assuming the image is stored in the 'imageURL' column
+        .select('lokaleimage')  // Assuming the image is stored in the 'imageURL' column
         .eq('lokalenr', lokalenr)
         .single(); // We expect only one room based on the 'lokalenr'
         

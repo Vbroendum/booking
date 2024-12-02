@@ -6,34 +6,43 @@ import { getSupabaseClient } from '../supabase/getSupabaseClient';  // Import Su
 
 const supabase = getSupabaseClient();
 
+// Card styling - image and content aligned side by side (image left, text right)
 const cardStyles = {
-  margin: '20px',
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  textAlign: 'left',
-  width: '100%',
-  padding: '10px',
+  margin: '30px',  // Adds margin
+  display: 'flex', // Enables flexbox
+  flexDirection: 'row', // Aligns content in a row (image left, content right)
+  justifyContent: 'flex-start', // Aligns content to the left
+  alignItems: 'left', // Ensures proper vertical alignment
+  textAlign: 'left', // Centers content within the flex box
 };
 
 const contentStyles = {
   display: 'flex',
   flexDirection: 'column',
-  padding: '0 40px',
-  flex: '2',
+  padding: '0 20px', // Padding for the content area
+  flex: 1, // Content area takes up most of the space
+  alignItems: 'left', // Centers the content horizontally
+  textAlign: 'left', // Ensures text is centered in the content area
 };
 
 const titleStyles = {
-  marginBottom: '20px',
-  textAlign: 'center',
+  marginBottom: '30px', // Added space below the title
+  textAlign: 'left', // Centers the title
+  fontWeight: 'bold',
+  fontSize: '30px', // Larger title font size
 };
 
-function BookingCancelledModal() {}
+function BookingCancelledModal() {
+  // You can implement this modal later if needed
+}
 
 function MinebookingCard({ booking, onCancel }) {
   const [opened, setOpened] = useState(false);
   const [cancelledOpened, setCancelledOpened] = useState(false);
   const [imageUrl, setImageUrl] = useState(null); // State for room image URL
+
+  // Fallback image in case no image is provided
+  const fallbackImage = 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png';
 
   const openModal = () => setOpened(true);
   const closeModal = () => setOpened(false);
@@ -77,16 +86,18 @@ function MinebookingCard({ booking, onCancel }) {
 
   return (
     <>
-      <Card style={cardStyles} shadow="sm" radius="md" withBorder>
+      <Card style={cardStyles} shadow="sm" padding="lg" radius="md" withBorder>
+        {/* Image Section */}
         <div style={{ flex: '1' }}>
           <Image
-            src={imageUrl || booking.image_url || ''}
-            height={300}
+            src={imageUrl || booking.image_url || fallbackImage}
+            height={250}
             fit="cover"
             alt={booking.lokale || 'Selected Room'}
           />
         </div>
 
+        {/* Content Section */}
         <div style={contentStyles}>
           <div style={titleStyles}>
             <Text fw={600} size="30px">{'Valgt Lokale'}</Text>
@@ -99,11 +110,15 @@ function MinebookingCard({ booking, onCancel }) {
             <Text size="sm" c="dimmed" mb="lg"><b>Antal personer:</b> {booking.number_of_people || 'Ikke angivet'}</Text>
           </div>
 
-          <div>
-            <Button color="red" fullWidth radius="md" onClick={openModal}>
-              Afmeld booking
-            </Button>
-          </div>
+          <Button
+            color="red"
+            fullWidth
+            mt="md"
+            radius="md"
+            onClick={openModal}
+          >
+            Afmeld booking
+          </Button>
         </div>
       </Card>
 
