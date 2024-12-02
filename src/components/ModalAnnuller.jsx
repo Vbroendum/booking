@@ -1,5 +1,5 @@
 // BookingModal.jsx
-import { Modal, Text, Button, Group } from '@mantine/core';
+import { Modal, Button, Group } from '@mantine/core';
 
 function BookingModal({ opened, onClose, onConfirm, title, bodyContent }) {
   return (

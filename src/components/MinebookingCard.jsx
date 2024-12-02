@@ -1,7 +1,6 @@
 import { Card, Image, Text, Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import BookingModal from './ModalAnnuller';  // First modal component for cancellation
-import BookingCancelledModal from './ModalBekræftelse';  // Second modal component for cancellation confirmation
 import PropTypes from 'prop-types';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';  // Import Supabase client
 
@@ -28,6 +27,8 @@ const titleStyles = {
   marginBottom: '20px',
   textAlign: 'center',
 };
+
+function BookingCancelledModal() {}
 
 function MinebookingCard({ booking, onCancel }) {
   const [opened, setOpened] = useState(false);
