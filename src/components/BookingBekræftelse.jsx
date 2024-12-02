@@ -7,18 +7,63 @@ import LocationIcon from '/src/assets/home.svg';
 import UserIcon from '/src/assets/user.svg';
 import GitIcon from '/src/assets/git-pull.svg';
 import { useRouteContext } from '@tanstack/react-router';
+import { getSupabaseClient } from '../supabase/getSupabaseClient';
 import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react';
+
+const supabase = getSupabaseClient();
 
 
 function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
+  const [userRole, setUserRole] = useState('');
+  const [loading, setLoading] = useState(true);  // Track loading state
   const router = useRouter();
 
   const context = useRouteContext({to: "/bekræftBooking"})
   console.log(context)
 
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      // Get current logged-in user's UUID from Supabase Auth
+      const { data: user, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        console.error('Error fetching user:', error?.message || 'User not found');
+        setUserRole('ukendt');  // Default role if no user is found
+        setLoading(false);
+        return;
+      }
 
-  return (
-    
+      try {
+        // Query userdata based on user_id
+        const { data: userData, error } = await supabase
+          .from('userdata')
+          .select('user_id', 'is_teacher')
+          .eq('user_id', user.id) // Use the auth user ID
+          .single();  // Expect a single result
+
+        if (error) {
+          console.error('Error fetching user data:', error.message);
+          setUserRole('ukendt');
+        } else {
+          // Set user role based on is_teacher value
+          setUserRole(userData.is_teacher ? 'Lærer' : 'Studerende');
+        }
+      } catch (error) {
+        console.error('Error during query execution:', error);
+        setUserRole('ukendt');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserRole();  // Call the function to fetch user role
+  }, []);
+
+  if (loading) {
+    return <Text>Loading...</Text>;  // Show a loading message while fetching
+  }
+
+    return (
       <Modal
         opened={opened}
         onClose={closeModal}
@@ -58,7 +103,7 @@ function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
         </Text>
         <Text>
             <img src={GitIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Booket af:</strong> 
+            <strong>Booket af:</strong> {userRole}
         </Text>
     </Stack>
     
@@ -72,7 +117,7 @@ function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
 </Modal>
 
     
-  );
-}
+  )};
+
 
 export default BookingBekraeftelse;
