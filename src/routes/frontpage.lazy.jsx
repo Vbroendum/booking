@@ -40,7 +40,7 @@ function RouteComponent() {
             navigation="/startBooking"
           />
         </div>
-      </div>z
+      </div>
       <Footer />
     </div>
   );
