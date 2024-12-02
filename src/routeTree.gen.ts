@@ -25,7 +25,6 @@ const GruppelokaleBookingLazyImport = createFileRoute('/gruppelokaleBooking')()
 const FrontpageLazyImport = createFileRoute('/frontpage')()
 const DiverseBookingLazyImport = createFileRoute('/diverseBooking')()
 const BekrftBookingLazyImport = createFileRoute('/bekræftBooking')()
-const AfmeldBookingerLazyImport = createFileRoute('/afmeldBookinger')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -95,14 +94,6 @@ const BekrftBookingLazyRoute = BekrftBookingLazyImport.update({
   import('./routes/bekræftBooking.lazy').then((d) => d.Route),
 )
 
-const AfmeldBookingerLazyRoute = AfmeldBookingerLazyImport.update({
-  id: '/afmeldBookinger',
-  path: '/afmeldBookinger',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/afmeldBookinger.lazy').then((d) => d.Route),
-)
-
 const AboutLazyRoute = AboutLazyImport.update({
   id: '/about',
   path: '/about',
@@ -131,13 +122,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/afmeldBookinger': {
-      id: '/afmeldBookinger'
-      path: '/afmeldBookinger'
-      fullPath: '/afmeldBookinger'
-      preLoaderRoute: typeof AfmeldBookingerLazyImport
       parentRoute: typeof rootRoute
     }
     '/bekræftBooking': {
@@ -211,7 +195,6 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
-  '/afmeldBookinger': typeof AfmeldBookingerLazyRoute
   '/bekræftBooking': typeof BekrftBookingLazyRoute
   '/diverseBooking': typeof DiverseBookingLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
@@ -226,7 +209,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
-  '/afmeldBookinger': typeof AfmeldBookingerLazyRoute
   '/bekræftBooking': typeof BekrftBookingLazyRoute
   '/diverseBooking': typeof DiverseBookingLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
@@ -242,7 +224,6 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
-  '/afmeldBookinger': typeof AfmeldBookingerLazyRoute
   '/bekræftBooking': typeof BekrftBookingLazyRoute
   '/diverseBooking': typeof DiverseBookingLazyRoute
   '/frontpage': typeof FrontpageLazyRoute
@@ -259,7 +240,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/afmeldBookinger'
     | '/bekræftBooking'
     | '/diverseBooking'
     | '/frontpage'
@@ -273,7 +253,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/afmeldBookinger'
     | '/bekræftBooking'
     | '/diverseBooking'
     | '/frontpage'
@@ -287,7 +266,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/afmeldBookinger'
     | '/bekræftBooking'
     | '/diverseBooking'
     | '/frontpage'
@@ -303,7 +281,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AboutLazyRoute: typeof AboutLazyRoute
-  AfmeldBookingerLazyRoute: typeof AfmeldBookingerLazyRoute
   BekrftBookingLazyRoute: typeof BekrftBookingLazyRoute
   DiverseBookingLazyRoute: typeof DiverseBookingLazyRoute
   FrontpageLazyRoute: typeof FrontpageLazyRoute
@@ -318,7 +295,6 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AboutLazyRoute: AboutLazyRoute,
-  AfmeldBookingerLazyRoute: AfmeldBookingerLazyRoute,
   BekrftBookingLazyRoute: BekrftBookingLazyRoute,
   DiverseBookingLazyRoute: DiverseBookingLazyRoute,
   FrontpageLazyRoute: FrontpageLazyRoute,
@@ -342,7 +318,6 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/afmeldBookinger",
         "/bekræftBooking",
         "/diverseBooking",
         "/frontpage",
@@ -359,9 +334,6 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.lazy.jsx"
-    },
-    "/afmeldBookinger": {
-      "filePath": "afmeldBookinger.lazy.jsx"
     },
     "/bekræftBooking": {
       "filePath": "bekræftBooking.lazy.jsx"
