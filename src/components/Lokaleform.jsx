@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import BookingAlert from './BookingAlert';
 import TimeSelect from './timeSelect';
 import { useRouteContext } from '@tanstack/react-router';
+import CustomCalendar from './CustomCalendar';
 
 export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
     const [numberOfPeople, setNumberOfPeople] = useState(1);
@@ -23,6 +24,9 @@ export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
       context.setNumberOfPeopleInfo({ numberOfPeople });
     }, [numberOfPeople, context]);
     return (
+      <div style={{display: 'flex', justifyContent: 'space-between', gap: '400px'}}>
+      <CustomCalendar
+      style={{ marginLeft: "24px" }} />
       <div style={inputStyle}>
         <NumberInput
           size="md"
@@ -49,6 +53,7 @@ export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
           Næste
         </Button>
         </Group>
+        </div>
       </div>
     );
   }
