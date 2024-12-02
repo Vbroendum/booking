@@ -4,7 +4,7 @@ import BookingModal from './ModalAnnuller';  // First modal component for cancel
 import PropTypes from 'prop-types';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';  // Import Supabase client
 
-const supabase = getSupabaseClient();
+const supabase = getSupabaseClient()
 
 // Card styling - image and content aligned side by side (image left, text right)
 const cardStyles = {

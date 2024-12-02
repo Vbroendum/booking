@@ -1,7 +1,7 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import FlashCard from "../components/FlashCard"
 import Header from "../components/Header"
 import Footer from '../components/Footer';
+import FrontPageFlashCard from '../components/FrontPageFlashCard';
 
 export const Route = createLazyFileRoute('/frontpage')({
   component: RouteComponent,
@@ -25,19 +25,21 @@ function RouteComponent() {
       >
         <h1>Book et lokale eller se dine bookinger.</h1>
         <div style={{display: 'flex', gap: '150px', justifyContent: "space-evenly"}}>
-          <FlashCard
+          <FrontPageFlashCard
             title="Se dine bookinger"
             imageUrl={'https://epgjtuypadrnxeldurle.supabase.co/storage/v1/object/public/lokale-images/gruppelokale.webp?'}
             button="Se booking"
             color="blue"
             navigation="/mineBookinger"
+            buttonText='Se booking'
           />
-          <FlashCard
+          <FrontPageFlashCard
             title="Book et lokale"
             imageUrl={'https://epgjtuypadrnxeldurle.supabase.co/storage/v1/object/public/lokale-images/gruppelokale.webp'}
             button="Book"
             color="green"
             navigation="/startBooking"
+            buttonText='Book'
           />
         </div>
       </div>
