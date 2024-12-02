@@ -59,8 +59,8 @@ function TimeSelect() {
     <Group style={{flexDirection: "row", justifyContent: "center, width"}}>
       <Select
         style={{width: "48.25%"}}
-        label="Start Time"
-        placeholder="Select start time"
+        label="Start tidspunkt"
+        placeholder="Vælg start tidspunkt"
         data={startTimeOptions}
         value={startTime}
         onChange={handleStartTimeChange} // Use the handler
@@ -68,8 +68,8 @@ function TimeSelect() {
       />
       <Select
         style={{width: "48.25%"}}
-        label="End Time"
-        placeholder="Select end time"
+        label="Slut tidspunkt"
+        placeholder="Vælg start tidspunkt"
         data={endTimeOptions}
         value={endTime}
         onChange={handleEndTimeChange} // Use the handler
