@@ -79,6 +79,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         data={filteredEndTimeOptions}
         value={endTime}
         onChange={handleEndTimeChange} // Use the handler
+        disabled={!startTime}
         clearable
       />
     </Group>
