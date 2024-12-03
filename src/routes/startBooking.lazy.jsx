@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import StepperComponent from '../components/Steps';
 import { Group, Button, } from '@mantine/core'
+import CustomCalendar from '../components/CustomCalendar';
 
 export const Route = createLazyFileRoute('/startBooking')({
   component: StartBooking,
@@ -13,12 +14,18 @@ export const Route = createLazyFileRoute('/startBooking')({
 function StartBooking() {
   const router = useRouter()
   const [selectedLokale, setSelectedLokale] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
 
 
   const handleNavigate = () => {
     if (!selectedLokale) {
       alert('Vælg venligst et lokale først.');
+      return;
+    }
+
+    if (!selectedDate) {
+      alert('Vælg venligst en dato først.');
       return;
     }
 
@@ -90,10 +97,16 @@ function StartBooking() {
       </div>
     <div style={bookingStyle}>
 
+    <CustomCalendar
+    setSelectedDate={setSelectedDate}
+    style={{ marginLeft: "24px" }}
+    />
+
     <LokaleForm
     setSelectedLokale={setSelectedLokale}
     handleNavigate={handleNavigate}
     />
+    
 
     </div>
     <Footer />

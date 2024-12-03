@@ -7,7 +7,7 @@ import { useRouteContext } from '@tanstack/react-router';
 dayjs.extend(localeData);
 dayjs.locale('da');
 
-function CustomCalendar() {
+function CustomCalendar({ setSelectedDate }) {
   const [selected, setSelected] = useState(null); // Store a single date instead of an array
 
   const context = useRouteContext({to: "/bekræftBooking"})
@@ -15,6 +15,7 @@ function CustomCalendar() {
   const handleSelect = (date) => {
     const formattedDate = dayjs(date).format('D. MMMM YYYY')
     setSelected(formattedDate); // Always set the selected date to the newly clicked date
+    setSelectedDate(formattedDate); // Update the parent component's state
     console.log('Date selected:', formattedDate)
   };
 
@@ -26,6 +27,7 @@ function CustomCalendar() {
   
   return (
     <Calendar
+    setSelectedDate={setSelectedDate}
       size="xl"
       minDate={new Date()}
       getDayProps={(date) => ({
