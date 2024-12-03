@@ -32,7 +32,6 @@ export default function StepperComponent({ activeStep, setActiveStep,  }) {
         <Stepper.Step />
         <Stepper.Step />
         <Stepper.Step />
-        <Stepper.Step />
         <Stepper.Completed />
       </Stepper>
 
