@@ -65,7 +65,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
   return (
     <Group style={{flexDirection: "row", justifyContent: "center, width"}}>
       <Select
-        style={{width: "48.25%"}}
+        style={{width: "47.5%"}}
         label="Start tidspunkt"
         placeholder="Vælg start tidspunkt"
         data={startTimeOptions}
@@ -74,7 +74,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         clearable
       />
       <Select
-        style={{width: "48.25%"}}
+        style={{width: "47.5%"}}
         label="Slut tidspunkt"
         placeholder="Vælg start tidspunkt"
         data={filteredEndTimeOptions}
