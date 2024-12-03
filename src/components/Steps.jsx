@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Stepper } from '@mantine/core';
 import { useNavigate } from '@tanstack/react-router';
 
