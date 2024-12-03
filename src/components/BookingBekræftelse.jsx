@@ -100,7 +100,7 @@ function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
         </Text>
         <Text>
             <img src={UserIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>{context.numberOfPeopleInfo.numberOfPeople}</strong> 
+            <strong>Antal personer:</strong> {context.numberOfPeopleInfo.numberOfPeople}
         </Text>
         <Text>
             <img src={GitIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
