@@ -70,7 +70,7 @@ FrontPageFlashCard.propTypes = {
   color: PropTypes.string,
   navigation: PropTypes.string.isRequired,
   imageUrl: PropTypes.string,  // Ensure imageUrl is passed correctly
-  description: PropTypes.string.isRequired,  // Use string for a simple description
+
 };
 
 export default FrontPageFlashCard;

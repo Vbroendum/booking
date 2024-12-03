@@ -31,6 +31,8 @@ export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, se
           description="Vælg hvor mange personer i skal være i lokalet."
           placeholder="Antal personer i lokalet"
           min={1}
+          max={99}
+          clampBehavior="strict"
           value={numberOfPeople}
           onChange={(value) => setNumberOfPeople(value)}
         />
