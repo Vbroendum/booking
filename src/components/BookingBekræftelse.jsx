@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Modal, Text, Group, Button, Title, Stack } from '@mantine/core';
-import { useRouter } from '@tanstack/react-router';
+import { Modal, Text, Button, Title, Stack } from '@mantine/core';
 import CalendarIcon from '/src/assets/calendar.svg';
 import ClockIcon from '/src/assets/clock.svg';
 import LocationIcon from '/src/assets/home.svg';
@@ -8,7 +7,6 @@ import UserIcon from '/src/assets/user.svg';
 import GitIcon from '/src/assets/git-pull.svg';
 import { useRouteContext } from '@tanstack/react-router';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';
-import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react';
 
 const supabase = getSupabaseClient();
@@ -17,7 +15,6 @@ const supabase = getSupabaseClient();
 function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
   const [userRole, setUserRole] = useState('');
   const [loading, setLoading] = useState(true);  // Track loading state
-  const router = useRouter();
 
   const context = useRouteContext({to: "/bekræftBooking"})
   console.log(context)

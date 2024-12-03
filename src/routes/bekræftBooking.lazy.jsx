@@ -6,7 +6,6 @@ import { Group, Button } from '@mantine/core';
 import MinebookingCardBekræft from '../components/MinebookingCardBekræft';
 import { useRouteContext } from '@tanstack/react-router';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';
-import { openModal } from '@mantine/modals';
 
 const supabase = getSupabaseClient();
 
