@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 import 'dayjs/locale/da'; 

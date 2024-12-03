@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { Select, Group } from '@mantine/core';
 import { useRouteContext } from '@tanstack/react-router';

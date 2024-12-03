@@ -46,8 +46,8 @@ function Minebooking() {
           setError('Error fetching bookings: ' + bookingsError.message);
         } else if (data && data.length === 0) {
           // If no bookings are found, set the error message
-          console.log('Ingen bookninger fundet for denne bruger');
-          setError('Ingen bookninger fundet');
+          console.log('Ingen bookinger fundet for denne bruger');
+          setError('Ingen bookinger fundet');
         } else {
           setBookings(data); // Store the fetched bookings in state
         }
@@ -101,12 +101,12 @@ function Minebooking() {
         }}
       >
         <h1>Mine Bookinger</h1>
-        {loading && <p>Indlæser bookninger...</p>}
+        {loading && <p>Indlæser bookinger...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
         
         {bookings.length === 0 && !loading && !error && (
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <p>Ingen bookninger fundet</p>
+            <p>Ingen bookinger fundet</p>
           </div>
         )}
         
