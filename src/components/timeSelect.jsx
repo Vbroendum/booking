@@ -22,12 +22,16 @@ const generateTimeOptions = (minTime, maxTime) => {
 };
 
 const startTimeOptions = generateTimeOptions('08:00', '14:00');
-const endTimeOptions = generateTimeOptions('08:00', '17:00');
+const endTimeOptions = generateTimeOptions('08:15', '17:00');
 
 function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const context = useRouteContext({ from: "/startBooking" });
+
+  const filteredEndTimeOptions = endTimeOptions.filter(
+    (option) => !startTime || option.value > startTime
+  )
 
   // Update context with startTime
   useEffect(() => {
@@ -72,7 +76,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         style={{width: "48.25%"}}
         label="Slut tidspunkt"
         placeholder="Vælg start tidspunkt"
-        data={endTimeOptions}
+        data={filteredEndTimeOptions}
         value={endTime}
         onChange={handleEndTimeChange} // Use the handler
         clearable
