@@ -24,7 +24,7 @@ const generateTimeOptions = (minTime, maxTime) => {
 const startTimeOptions = generateTimeOptions('08:00', '14:00');
 const endTimeOptions = generateTimeOptions('08:00', '17:00');
 
-function TimeSelect() {
+function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const context = useRouteContext({ from: "/startBooking" });
@@ -46,12 +46,14 @@ function TimeSelect() {
   // Handler for start time change
   const handleStartTimeChange = (value) => {
     setStartTime(value);
+    setSelectedStartTime(value); // Update the parent component's state
     console.log('Start Time:', value);
   };
 
   // Handler for end time change
   const handleEndTimeChange = (value) => {
     setEndTime(value);
+    setSelectedEndTime(value); // Update the parent component's state
     console.log('End Time:', value);
   };
 

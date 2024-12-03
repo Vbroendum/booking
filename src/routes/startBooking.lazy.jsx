@@ -15,6 +15,8 @@ function StartBooking() {
   const router = useRouter()
   const [selectedLokale, setSelectedLokale] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedStartTime, setSelectedStartTime] = useState(null);
+  const [selectedEndTime, setSelectedEndTime] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
 
 
@@ -26,6 +28,16 @@ function StartBooking() {
 
     if (!selectedDate) {
       alert('Vælg venligst en dato først.');
+      return;
+    }
+
+    if (!selectedStartTime) {
+      alert('Vælg venligst et start tidspunkt først.');
+      return;
+    }
+
+    if (!selectedEndTime) {
+      alert('Vælg venligst et slut tidspunkt først.');
       return;
     }
 
@@ -104,6 +116,8 @@ function StartBooking() {
 
     <LokaleForm
     setSelectedLokale={setSelectedLokale}
+    setSelectedStartTime={setSelectedStartTime}
+    setSelectedEndTime={setSelectedEndTime}
     handleNavigate={handleNavigate}
     />
     

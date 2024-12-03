@@ -3,10 +3,10 @@ import { NumberInput, Button, Group  } from '@mantine/core';
 import LokaleInput from './LokaleInput';
 import { useState, useEffect } from 'react';
 import BookingAlert from './BookingAlert';
-import TimeSelect from './timeSelect';
+import TimeSelect from './TimeSelect';
 import { useRouteContext } from '@tanstack/react-router';
 
-export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
+export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, setSelectedEndTime, handleNavigate}) {
     const [numberOfPeople, setNumberOfPeople] = useState(1);
 
     const context = useRouteContext({from : "/startBooking"})
@@ -38,7 +38,10 @@ export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
           numberOfPeople={numberOfPeople}
           onLokaleSelect={setSelectedLokale} // Pass callback to get selected lokale
         />
-        <TimeSelect />
+        <TimeSelect
+        setSelectedStartTime={setSelectedStartTime}
+        setSelectedEndTime={setSelectedEndTime} 
+        />
         <BookingAlert />
         <Group justify="flex-end" mt="md">
         <Button
@@ -52,4 +55,3 @@ export default function LokaleForm({ setSelectedLokale, handleNavigate}) {
         </div>
     );
   }
-  
