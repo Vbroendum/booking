@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
+import 'dayjs/locale/da'; 
 import { useState, useEffect } from 'react';
 import { Calendar } from '@mantine/dates';
 import { useRouteContext } from '@tanstack/react-router';
 
 dayjs.extend(localeData);
-dayjs.locale('da');
+dayjs.locale('da'); 
 
 function CustomCalendar({ setSelectedDate }) {
   const [selected, setSelected] = useState(null);
@@ -28,10 +29,11 @@ function CustomCalendar({ setSelectedDate }) {
   return (
     <Calendar
       size="xl"
-      minDate={new Date()} // Disables dates before today automatically
+      minDate={new Date()}
+      locale="da" 
       getDayProps={(date) => {
         const isBeforeToday = dayjs(date).isBefore(dayjs(), 'day');
-        const isWeekend = [0, 6].includes(dayjs(date).day()); // 0 = Sunday, 6 = Saturday
+        const isWeekend = [0, 6].includes(dayjs(date).day());
 
         return {
           disabled: isBeforeToday || isWeekend,
