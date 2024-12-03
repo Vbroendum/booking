@@ -8,32 +8,37 @@ dayjs.extend(localeData);
 dayjs.locale('da');
 
 function CustomCalendar({ setSelectedDate }) {
-  const [selected, setSelected] = useState(null); // Store a single date instead of an array
+  const [selected, setSelected] = useState(null);
 
-  const context = useRouteContext({to: "/bekræftBooking"})
+  const context = useRouteContext({ to: "/bekræftBooking" });
 
   const handleSelect = (date) => {
-    const formattedDate = dayjs(date).format('D. MMMM YYYY')
-    setSelected(formattedDate); // Always set the selected date to the newly clicked date
-    setSelectedDate(formattedDate); // Update the parent component's state
-    console.log('Date selected:', formattedDate)
+    const formattedDate = dayjs(date).format('D. MMMM YYYY');
+    setSelected(formattedDate);
+    setSelectedDate(formattedDate);
+    console.log('Date selected:', formattedDate);
   };
 
   useEffect(() => {
     if (selected) {
-      context.setDateInfo({ selected }); // Update the date info in context
+      context.setDateInfo({ selected });
     }
   }, [selected, context]);
-  
+
   return (
     <Calendar
-    setSelectedDate={setSelectedDate}
       size="xl"
-      minDate={new Date()}
-      getDayProps={(date) => ({
-        selected: selected && dayjs(date).format('D. MMMM YYYY') === selected, // Highlight the selected date
-        onClick: () => handleSelect(date),
-      })}
+      minDate={new Date()} // Disables dates before today automatically
+      getDayProps={(date) => {
+        const isBeforeToday = dayjs(date).isBefore(dayjs(), 'day');
+        const isWeekend = [0, 6].includes(dayjs(date).day()); // 0 = Sunday, 6 = Saturday
+
+        return {
+          disabled: isBeforeToday || isWeekend,
+          selected: selected && dayjs(date).format('D. MMMM YYYY') === selected,
+          onClick: !isBeforeToday && !isWeekend ? () => handleSelect(date) : undefined,
+        };
+      }}
     />
   );
 }
