@@ -6,6 +6,7 @@ import { Group, Button } from '@mantine/core';
 import MinebookingCardBekræft from '../components/MinebookingCardBekræft';
 import { useRouteContext } from '@tanstack/react-router';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';
+import Footer from '../components/Footer';
 
 const supabase = getSupabaseClient();
 
@@ -17,38 +18,36 @@ function RouteComponent() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(2);
   const [lokalenr, setLokalenr] = useState(null);
-  const [roomImage, setRoomImage] = useState(''); //brugt til at lagre lokalebillede
+  const [roomImage, setRoomImage] = useState(''); // Used to store the room image
 
   const context = useRouteContext({ from: '/bekræftBooking' });
 
-  // en useEffect som laver en ny URL ud fra vores lokale table i vores database, således at når vi trykker på et lokale fra en tidligere side, f.eks lokale 3.5 laver den i virkeligheden en ny URL som bliver taget ud fra lokalenr kolonne i tabellen
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const extractedLokalenr = params.get('lokalenr');
     if (extractedLokalenr) {
       setLokalenr(extractedLokalenr);
-      fetchRoomImage(extractedLokalenr); // henter billede for lokalet
+      fetchRoomImage(extractedLokalenr);
     } else {
       console.error('No lokalenr found in the URL');
     }
   }, []);
 
-  // Henter billede url fra lokalet baseret på lokalenr 
   const fetchRoomImage = async (lokalenr) => {
     try {
       const { data, error } = await supabase
         .from('lokale')
-        .select('lokaleimage')  // Vælger det som står i lokaleimage kolonne
+        .select('lokaleimage')
         .eq('lokalenr', lokalenr)
-        .single(); // vi forventer at der kun er 1 lokale med det lokalenr 
-        
+        .single();
+
       if (error) {
         console.error('Error fetching room image:', error.message);
         return;
       }
 
       if (data) {
-        setRoomImage(data.imageURL); // Lagre det hentede billede
+        setRoomImage(data.imageURL);
       }
     } catch (error) {
       console.error('Error fetching room image:', error.message);
@@ -57,45 +56,38 @@ function RouteComponent() {
 
   const handleBookingConfirmation = async () => {
     try {
-      // Sikre at Supabase client er correct startet
       if (!supabase) {
         console.error('Supabase client is not initialized');
         return;
       }
 
-      // Checker om brugeren er logget ind
-      const { data: { user }, error: userError } = await supabase.auth.getUser();  // Ny version af supabase, siger vi skal bruge getUser 
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
       if (userError) {
         console.error('Error getting user:', userError.message);
         return;
       }
 
       if (!user) {
-        console.error('No user is logged in'); // laver en consol meddelelse der siger at brugeren ikke er logget ind
+        console.error('No user is logged in');
         return;
       }
 
-      // sætter booking data ind i tabellen kaldt bookings med billede fra lokaletabellen
       const { data, error } = await supabase
         .from('bookings')
-        .insert([
-          {
-            start_time: context.startTimeInfo.startTime, //henter start tid fra context som kommer fra startBooking
-            end_time: context.endTimeInfo.endTime, //henter slut tid fra context som kommer fra startBooking
-            number_of_people: context.numberOfPeopleInfo.numberOfPeople, //henter antal af personer fra context som kommer fra startBooking
-            lokale: lokalenr,  // lokalenr koloonne fra tabel
-            start_date: context.dateInfo.selected, // Den vaglte dato fra kalender på startBooking
-            user_id: user.id,  // indsætter brugeren som er logget ind i tabellen
-            lokaleimage: roomImage,  // tilføjer lokalebillede til bookingtabellen, sådan vi kan hente det på mine bookinger
-          }
-        ]);
+        .insert([{
+          start_time: context.startTimeInfo.startTime,
+          end_time: context.endTimeInfo.endTime,
+          number_of_people: context.numberOfPeopleInfo.numberOfPeople,
+          lokale: lokalenr,
+          start_date: context.dateInfo.selected,
+          user_id: user.id,
+          lokaleimage: roomImage,
+        }]);
 
-      // Handle errors from the insert
       if (error) {
         console.error('Error inserting booking:', error.message);
       } else {
         console.log('Booking successful:', data);
-        // Navigate to the user's booking page (or another page of your choice)
         router.navigate({ to: '/mineBookinger' });
       }
     } catch (error) {
@@ -105,16 +97,15 @@ function RouteComponent() {
 
   const confirmBooking = () => {
     console.log('Confirm booking clicked');
-    handleBookingConfirmation(); // Ensure this gets called
+    handleBookingConfirmation();
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header />
 
       <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
         <Group position="apart" style={{ width: '100%' }}>
-          {/* Tilbage Button */}
           <Button
             variant="light"
             onClick={() => router.navigate({ to: '/frontpage' })}
@@ -123,18 +114,14 @@ function RouteComponent() {
             Tilbage
           </Button>
 
-          {/* Stepper */}
           <div style={{ display: 'flex', justifyContent: 'center', width: '90%' }}>
-            <StepperComponent 
-              activeStep={activeStep} 
-              setActiveStep={setActiveStep} 
-            />
+            <StepperComponent activeStep={activeStep} setActiveStep={setActiveStep} />
           </div>
         </Group>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: '0 auto' }}>
-        <div style={{ width: '50', maxWidth: '90%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: '0 auto', flex: 1 }}>
+        <div style={{ width: '50%', maxWidth: '90%' }}>
           <MinebookingCardBekræft
             buttonText={'Bekræft booking'}
             color="blue"
@@ -142,11 +129,21 @@ function RouteComponent() {
             lokale={lokalenr}
             time={context.setStartTimeInfo}
             people={context.setNumberOfPeopleInfo}
-            imageSrc={roomImage} // Pass the image URL to the card
-            onConfirmBooking={confirmBooking}  // Pass the confirmBooking function here
+            imageSrc={roomImage}
+            onConfirmBooking={confirmBooking}
           />
         </div>
       </div>
+
+      {/* Fixed footer */}
+      <Footer style={{
+        position: 'fixed',
+        bottom: 0,
+        width: '100%',
+        backgroundColor: 'white',
+        zIndex: 1000,
+        padding: '10px 0',
+      }} />
     </div>
   );
 }
