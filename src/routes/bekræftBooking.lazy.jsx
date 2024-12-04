@@ -17,30 +17,30 @@ function RouteComponent() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(2);
   const [lokalenr, setLokalenr] = useState(null);
-  const [roomImage, setRoomImage] = useState(''); // State to store the image URL
+  const [roomImage, setRoomImage] = useState(''); //brugt til at lagre lokalebillede
 
   const context = useRouteContext({ from: '/bekræftBooking' });
 
+  // en useEffect som laver en ny URL ud fra vores lokale table i vores database, således at når vi trykker på et lokale fra en tidligere side, f.eks lokale 3.5 laver den i virkeligheden en ny URL som bliver taget ud fra lokalenr kolonne i tabellen
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const extractedLokalenr = params.get('lokalenr');
-    console.log('Extracted lokalenr:', extractedLokalenr); // Log to confirm
     if (extractedLokalenr) {
       setLokalenr(extractedLokalenr);
-      fetchRoomImage(extractedLokalenr); // Fetch image for the room
+      fetchRoomImage(extractedLokalenr); // henter billede for lokalet
     } else {
       console.error('No lokalenr found in the URL');
     }
   }, []);
 
-  // Fetch the image URL from the 'lokale' table based on the 'lokalenr'
+  // Henter billede url fra lokalet baseret på lokalenr 
   const fetchRoomImage = async (lokalenr) => {
     try {
       const { data, error } = await supabase
         .from('lokale')
-        .select('lokaleimage')  // Assuming the image is stored in the 'imageURL' column
+        .select('lokaleimage')  // Vælger det som står i lokaleimage kolonne
         .eq('lokalenr', lokalenr)
-        .single(); // We expect only one room based on the 'lokalenr'
+        .single(); // vi forventer at der kun er 1 lokale med det lokalenr 
         
       if (error) {
         console.error('Error fetching room image:', error.message);
@@ -48,7 +48,7 @@ function RouteComponent() {
       }
 
       if (data) {
-        setRoomImage(data.imageURL); // Store the fetched image URL
+        setRoomImage(data.imageURL); // Lagre det hentede billede
       }
     } catch (error) {
       console.error('Error fetching room image:', error.message);
@@ -57,38 +57,36 @@ function RouteComponent() {
 
   const handleBookingConfirmation = async () => {
     try {
-      // Ensure that Supabase client is correctly initialized
+      // Sikre at Supabase client er correct startet
       if (!supabase) {
         console.error('Supabase client is not initialized');
         return;
       }
 
-      // Check if user is logged in (with the new method)
-      const { data: { user }, error: userError } = await supabase.auth.getUser();  // Correct method for v2.x.x
+      // Checker om brugeren er logget ind
+      const { data: { user }, error: userError } = await supabase.auth.getUser();  // Ny version af supabase, siger vi skal bruge getUser 
       if (userError) {
         console.error('Error getting user:', userError.message);
         return;
       }
 
       if (!user) {
-        console.error('No user is logged in');
+        console.error('No user is logged in'); // laver en consol meddelelse der siger at brugeren ikke er logget ind
         return;
       }
 
-      console.log('User ID:', user.id); // Log user ID for debugging
-
-      // Insert booking data into Supabase with imageURL
+      // sætter booking data ind i tabellen kaldt bookings med billede fra lokaletabellen
       const { data, error } = await supabase
         .from('bookings')
         .insert([
           {
-            start_time: context.startTimeInfo.startTime,
-            end_time: context.endTimeInfo.endTime,
-            number_of_people: context.numberOfPeopleInfo.numberOfPeople,
-            lokale: lokalenr,  // Room number from URL
-            start_date: context.dateInfo.selected,
-            user_id: user.id,  // Insert the logged-in user's ID
-            lokaleimage: roomImage,  // Add the room image URL to the booking
+            start_time: context.startTimeInfo.startTime, //henter start tid fra context som kommer fra startBooking
+            end_time: context.endTimeInfo.endTime, //henter slut tid fra context som kommer fra startBooking
+            number_of_people: context.numberOfPeopleInfo.numberOfPeople, //henter antal af personer fra context som kommer fra startBooking
+            lokale: lokalenr,  // lokalenr koloonne fra tabel
+            start_date: context.dateInfo.selected, // Den vaglte dato fra kalender på startBooking
+            user_id: user.id,  // indsætter brugeren som er logget ind i tabellen
+            lokaleimage: roomImage,  // tilføjer lokalebillede til bookingtabellen, sådan vi kan hente det på mine bookinger
           }
         ]);
 
