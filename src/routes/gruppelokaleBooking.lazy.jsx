@@ -53,7 +53,7 @@ function RouteComponent() {
   }, [selectedEtage])
 
     return (
-      <div style={{ height: '100vh', overflowX: 'hidden' }}> {/* Make the container non-scrollable */}
+      <div style={{ display: 'flex', flexDirection: 'column' }}> {/* Full height and column layout */}
         <Header />
 
         <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
@@ -75,14 +75,16 @@ function RouteComponent() {
           </div>
         </Group>
       </div>
-          <Grid gutter="md" style={{ alignItems: 'flex-start' }}>
-            {/* Left side: FlashCards */}
-            <Grid.Col span={10}>
-              <Title order={1} align="left" style={{ marginBottom: '16px', marginLeft: '32px' }}>
-                Gruppelokale
-              </Title>
-              <Grid gutter="lg">
-                {lokaler.length > 0 ? (
+      
+      <div style={{ flex: 1, overflowY: "hidden", overflowX: "hidden" }}> {/* Allow content to scroll while keeping the footer fixed */}
+        <Grid gutter="md" style={{ alignItems: 'flex-start' }}>
+          {/* Left side: FlashCards */}
+          <Grid.Col span={10}>
+            <Title order={1} align="left" style={{ marginBottom: '16px', marginLeft: '32px' }}>
+              Gruppelokale
+            </Title>
+            <Grid gutter="lg">
+              {lokaler.length > 0 ? (
                 lokaler.map((lokale) => (
                   <Grid.Col span={4} key={lokale.id}>
                     <FlashCard
@@ -96,23 +98,24 @@ function RouteComponent() {
                 ))
               ) :(
                 <Grid.Col span={12}>
-            <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
-            Ingen lokaler tilgængelig
-            </Title>
-            </Grid.Col>
+                  <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
+                    Ingen lokaler tilgængelig
+                  </Title>
+                </Grid.Col>
               )}
-              </Grid>
-            </Grid.Col>
+            </Grid>
+          </Grid.Col>
     
-            {/* Right side: EtageSelector */}
-            <Grid.Col span={2}>
-              <Box style={{ position: 'sticky', top: '16px' }}>
-                <EtageSelector setSelectedEtage={setSelectedEtage} />
-              </Box>
-            </Grid.Col>
-          </Grid>
-          <HelpModal />
+          {/* Right side: EtageSelector */}
+          <Grid.Col span={2}>
+            <Box style={{ position: 'sticky', top: '16px' }}>
+              <EtageSelector setSelectedEtage={setSelectedEtage} />
+            </Box>
+          </Grid.Col>
+        </Grid>
       </div>
-    );
-    }
 
+      <HelpModal />
+    </div>
+  );
+}
