@@ -93,7 +93,7 @@ function HelpPopover() {
               },
             }}
           />
-          <p style={{ color: 'red', textAlign: 'left' }}>
+          <p style={{ color: 'white', textAlign: 'left' }}>
             Chatbotten er ikke tilgængelig lige nu.
           </p>
         </Popover.Dropdown>
