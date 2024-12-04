@@ -10,6 +10,7 @@ const stylingCard = {
   justifyContent: 'space-between',// Ensures content is spaced out (button at the bottom)
   height: '370px',               // Set a fixed height for the card to ensure consistency
   textAlign: 'left',             // Aligns text to the left
+  maxWidth: '333px',             // Sets a maximum width for the card
 };
 
 // Frontpage FlashCard Component
