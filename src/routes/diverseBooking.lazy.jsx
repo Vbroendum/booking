@@ -74,7 +74,7 @@ function RouteComponent() {
           </div>
         </Group>
       </div>
-        <Grid gutter="md" style={{ alignItems: 'flex-start' }}>
+        <Grid gutter="md" style={{ alignItems: 'flex-start', overflowX: "hidden", overflowY: "hidden"}}>
           {/* Left side: FlashCards */}
           <Grid.Col span={10}>
             <Title order={1} align="left" style={{ marginBottom: '16px', marginLeft: '32px' }}>
