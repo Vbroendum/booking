@@ -11,6 +11,7 @@ export const Route = createLazyFileRoute('/startBooking')({
   component: StartBooking,
 })
 
+// states for selectedLokale, selectedDate, selectedStartTime, selectedEndTime, activeStep
 function StartBooking() {
   const router = useRouter()
   const [selectedLokale, setSelectedLokale] = useState(null);
@@ -20,27 +21,29 @@ function StartBooking() {
   const [activeStep, setActiveStep] = useState(0);
 
 
+  // Funktion til at navigere til næste side når alle krav er opfyldt
   const handleNavigate = () => {
-    if (!selectedLokale) {
+    if (!selectedLokale) { // Laver en alert hvis 'selectedLokale' ikke har en værdi
       alert('Vælg venligst et lokale først.');
       return;
     }
 
-    if (!selectedDate) {
+    if (!selectedDate) { // Laver en alert hvis 'selectedDate' ikke har en værdi
       alert('Vælg venligst en dato først.');
       return;
     }
 
-    if (!selectedStartTime) {
+    if (!selectedStartTime) { // Laver en alert hvis 'selectedStartTime' ikke har en værdi
       alert('Vælg venligst et start tidspunkt først.');
       return;
     }
 
-    if (!selectedEndTime) {
+    if (!selectedEndTime) { // Laver en alert hvis 'selectedEndTime' ikke har en værdi
       alert('Vælg venligst et slut tidspunkt først.');
       return;
     }
 
+    // routeMap som fortæller hvilke værdier peger til hvilke routes
     const routeMap = {
       Gruppelokale: '/gruppeLokaleBooking',
       Klasselokale: '/klasselokaleBooking',
@@ -67,22 +70,6 @@ function StartBooking() {
     justifyContent: "space-between",
     height: "85vh"
   }
-
-  /*const stepperStyle = {
-    marginTop: "24px", 
-    marginBottom: "24px", 
-    width: "70%",
-    alignContent: "center",
-    marginLeft: "auto",
-    marginRight: "auto"
-  }*/
-
-  /*const steps = [
-    { label: 'Step 1' },
-    { label: 'Step 2'},
-    { label: 'Step 3' },
-    { label: 'Step 4' },
-  ];*/
 
 
   return (

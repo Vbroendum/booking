@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createLazyFileRoute, useRouter } from '@tanstack/react-router';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';
-import MinebookingCard from '../components/MinebookingCard';  // Ensure this component is rendering properly
+import MinebookingCard from '../components/MinebookingCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@mantine/core';
@@ -20,22 +20,22 @@ function Minebooking() {
 
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect(() => { // henter bookinger fra backenden
     async function fetchBookings() {
       try {
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        const { data: { user }, error: userError } = await supabase.auth.getUser(); // Henter brugeren fra Supabase
         if (userError) {
           console.error('Error fetching user:', userError);
           setError('Error fetching user');
           return;
         }
 
-        if (!user) {
+        if (!user) { // Tjekker om brugeren er logget ind
           setError('No user logged in');
           return;
         }
 
-        console.log('Authenticated user:', user.id); // Check the user ID
+        console.log('Authenticated user:', user.id); // Checker bruger id
 
         const { data, error: bookingsError } = await supabase
           .from('bookings')
@@ -45,11 +45,11 @@ function Minebooking() {
         if (bookingsError) {
           setError('Error fetching bookings: ' + bookingsError.message);
         } else if (data && data.length === 0) {
-          // If no bookings are found, set the error message
+          // Hvis ingen bookinger er fundet, sætter vi fejlmeddelelsen
           console.log('Ingen bookinger fundet for denne bruger');
           setError('Ingen bookinger fundet');
         } else {
-          setBookings(data); // Store the fetched bookings in state
+          setBookings(data); // Gemmer de hentede bookinger i state
         }
       } catch (error) {
         setError('An unexpected error occurred');
@@ -63,7 +63,7 @@ function Minebooking() {
 
   const handleCancelBooking = async (bookingId) => {
     try {
-      console.log('Attempting to delete booking with ID:', bookingId); // Log the booking ID
+      console.log('Attempting to delete booking with ID:', bookingId); // Logger booking ID i konsollen
 
       const { data, error } = await supabase
         .from('bookings')
@@ -76,9 +76,9 @@ function Minebooking() {
         return;
       }
 
-      console.log('Booking successfully canceled:', data); // Log the result of the deletion
+      console.log('Booking successfully canceled:', data); // Logger resultatet af afmeldingen i konsollen
 
-      // Update local state to remove the canceled booking from the UI
+      // Opdaterer local state for at fjerne den aflyste booking fra UI
       setBookings((prevBookings) => prevBookings.filter(booking => booking.id !== bookingId));
     } catch (error) {
       console.error('Unexpected error while canceling booking:', error);
