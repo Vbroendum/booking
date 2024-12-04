@@ -28,7 +28,7 @@ function RouteComponent() {
           <FrontPageFlashCard
             title="Se dine bookinger"
             imageUrl={'https://epgjtuypadrnxeldurle.supabase.co/storage/v1/object/public/lokale-images/gruppelokale.webp?'}
-            button="Se booking"
+            button="Se bookinger"
             color="blue"
             navigation="/mineBookinger"
             buttonText='Se booking'
