@@ -1,105 +1,125 @@
 import React, { useState } from 'react';
-import { Popover, TextInput, Button } from '@mantine/core';
+import { Popover, Textarea, Button, Text } from '@mantine/core';
+import { getSupabaseClient } from '../supabase/getSupabaseClient';
+
+const supabase = getSupabaseClient();
 
 function HelpPopover() {
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [feedbackStatus, setFeedbackStatus] = useState(null); // For managing feedback status message
 
-  const togglePopover = () => setPopoverOpen((prev) => !prev);
+  const togglePopover = () => {
+    setPopoverOpen((prev) => !prev);
+    if (feedbackStatus) {
+      setFeedbackStatus(null); // Reset feedbackStatus when the popover is opened again
+    }
+  };
+
+  const sendFeedback = async () => {
+    setLoading(true);
+
+    try {
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError) throw new Error(userError.message);
+
+      if (!user?.id) throw new Error('User ID is missing or invalid');
+
+      const { error: insertError } = await supabase
+        .from('feedback')
+        .insert({
+          username_id: user.id, // This is a UUID now
+          hjælp_feedback: message, // Feedback is text, not UUID
+          Email: user.email, // Assuming you're storing user email
+        });
+
+      if (insertError) throw new Error(insertError.message);
+
+      setFeedbackStatus('Din besked er nu blevet sendt'); // Set feedback status message
+      setMessage(''); // Clear the message
+
+      // Close the popover after a short delay
+      setTimeout(() => {
+        setPopoverOpen(false); // Close the popover after showing feedback status
+      }, 2000);
+
+    } catch (error) {
+      console.error('Error submitting feedback:', error.message);
+      setFeedbackStatus('Kunne ikke sende din besked. Prøv igen.'); // Show error message
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div>
-      {/* Popover with the button styled the same */}
+    <>
       <Popover
         opened={isPopoverOpen}
         onClose={() => setPopoverOpen(false)}
-        position="right" // Popover appears to the right of the button
+        position="right"
         withArrow
-        width={350} // Increase the modal width for better fit
-        style={{
-          position: 'absolute',
-          top: '75vh', // Position button to 75% from top of the viewport
-          right: '25px',
-          zIndex: 1001,
-          backgroundColor: '#228BE6',
-          color: 'white',
-          height: '75px'
-           // Ensure the popover appears above other content
-        }}
+        width={350}
       >
         <Popover.Target>
-          <Button
+          {/* Custom Button with White Text and Blue Background */}
+          <div
             onClick={togglePopover}
             style={{
-              position: 'fixed', // Fix the button relative to the viewport
-              top: '75vh', // Fixed position of the button
-              right: '25px', // Align it to the right
-              padding: '25px',
-              backgroundColor: 'blue',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
+              position: 'fixed',
+              top: '75vh',
+              right: '25px',
+              padding: '20px',
+              backgroundColor: '#228BE6', // Blue color for the button
+              color: 'white', // Text color white
               fontSize: '18px',
-              zIndex: 1000,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              minWidth: '150px',
-              textAlign: 'center',
+              fontWeight: 'bold', // Make text bold for visibility
+              textAlign: 'center', // Center align the text
+              borderRadius: '8px', // Rounded corners for the button
+              cursor: 'pointer', // Change cursor to pointer
+              zIndex: 1000, // Ensure button is above other content
             }}
           >
-            Brug for hjælp?
-          </Button>
+            Har du feedback?
+          </div>
         </Popover.Target>
 
-        {/* Popover Dropdown */}
         <Popover.Dropdown
           style={{
-            backgroundColor: '#228BE6', 
+            backgroundColor: '#228BE6',
             padding: '20px',
             borderRadius: '8px',
-            width: '30%',
-            boxSizing: 'border-box',
           }}
         >
-          <h2
-            style={{
-              textAlign: 'left',
-              fontSize: '18px',
-              marginBottom: '10px',
-              color: 'white',
-            }}
-          >
-            Skriv til os, hvis du har brug for hjælp
+          <h2 style={{ color: 'white', marginTop: '0', marginBottom: '10px' }}>
+            Del din feedback med os, så kigger vi på det
           </h2>
-          <p style={{ textAlign: 'left', marginBottom: '20px', color: 'white' }}>
-            Så vender vi tilbage hurtigst muligt.
-          </p>
-
-          {/* TextInput with custom styling */}
-          <TextInput
+          {/* Textarea with autosize enabled */}
+          <Textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Skriv din besked her..."
-            style={{
-              backgroundColor: '#D9D9D9 !important', // Set the background color of the text input to match the moda
-              color: '#868E96', // Text color inside the input field
-              fontSize: '16px',
-              height: '75px',
-              width: '100%',
-              marginBottom: '12px',
-              '&:focus': {
-                borderColor: '#007BFF', // Optional: highlight the border when focused
-              },
-            }}
+            style={{ marginBottom: '12px' }}
+            autosize // Enable autosize for automatic resizing
+            minRows={3} // Minimum rows to display even when input is empty
+            maxRows={6} // Maximum rows to limit excessive growth
           />
-          <p style={{ color: 'white', textAlign: 'left' }}>
-            Chatbotten er ikke tilgængelig lige nu.
-          </p>
+          {feedbackStatus && (
+            <Text style={{ color: feedbackStatus.includes('Kunne ikke') ? 'red' : 'white', marginBottom: '12px' }}>
+              {feedbackStatus}
+            </Text>
+          )}
+          <Button onClick={sendFeedback} color="green" fullWidth loading={loading}>
+            Send Besked
+          </Button>
         </Popover.Dropdown>
       </Popover>
-    </div>
+    </>
   );
 }
 
-export default HelpPopover
+export default HelpPopover;
