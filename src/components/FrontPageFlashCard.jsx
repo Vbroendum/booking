@@ -3,38 +3,36 @@ import { Card, Image, Text, Button, Group } from '@mantine/core';
 import { useRouter } from '@tanstack/react-router';
 import PropTypes from 'prop-types';
 
-// Card styling
 const stylingCard = {
-  margin: '20px',                // Adds margin
-  display: 'flex',               // Enables flexbox
-  flexDirection: 'column',       // Aligns content in a column
-  justifyContent: 'space-between',// Ensures content is spaced out (button at the bottom)
-  height: '370px',               // Set a fixed height for the card to ensure consistency
-  textAlign: 'left',             // Aligns text to the left
-  maxWidth: '333px',             // Sets a maximum width for the card
+  margin: '20px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  height: '370px',
+  textAlign: 'left',
+  maxWidth: '333px',
 };
 
-// Frontpage FlashCard Component
 function FrontPageFlashCard({ title, imageUrl, description, buttonText, color, navigation }) {
   const router = useRouter();
 
-  // Fallback image in case imageUrl is not provided
+  // Standardbillede, hvis imageUrl ikke er angivet
   const fallbackImage = 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png';
 
   return (
     <Card style={stylingCard} shadow="sm" padding="lg" radius="md" withBorder>
-      {/* Card Image Section */}
+      {/* Billede-sektion */}
       <Card.Section>
         <Image
-          src={imageUrl || fallbackImage}  // Use the fallback if imageUrl is missing
-          height={250}                      // Set a fixed height for the image
-          width="100%"                      // Ensure it stretches to fill the container's width
-          alt="Lokale image"
-          style={{ objectFit: 'cover' }}    // Ensures the image covers the area without distortion
+          src={imageUrl || fallbackImage}
+          height={250}
+          width="100%"
+          alt="Lokale billede"
+          style={{ objectFit: 'cover' }}
         />
       </Card.Section>
 
-      {/* Card Content Section */}
+      {/* Indhold-sektion */}
       <Group justify="space-between" mt="md" mb="xs">
         <Text fw={500} size="18px">
           {title}
@@ -45,34 +43,32 @@ function FrontPageFlashCard({ title, imageUrl, description, buttonText, color, n
         {description}
       </Text>
 
-      {/* Button Section */}
+      {/* Knap-sektion */}
       <Button
-  color={color || 'blue'}
-  fullWidth
-  mt="auto"
-  radius="md"
-  onClick={() => router.navigate({ to: navigation })}
-  styles={{
-    root: {
-      color: 'white',  // Makes the text black
-    }
-  }}
->
-  {buttonText}
-</Button>
-
+        color={color || 'blue'}
+        fullWidth
+        mt="auto"
+        radius="md"
+        onClick={() => router.navigate({ to: navigation })}
+        styles={{
+          root: {
+            color: 'white',
+          },
+        }}
+      >
+        {buttonText}
+      </Button>
     </Card>
   );
 }
 
-// Prop validation to ensure correct data types are passed
+// Prop-types for validering af data
 FrontPageFlashCard.propTypes = {
   title: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
   color: PropTypes.string,
   navigation: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string,  // Ensure imageUrl is passed correctly
-
+  imageUrl: PropTypes.string,
 };
 
 export default FrontPageFlashCard;
