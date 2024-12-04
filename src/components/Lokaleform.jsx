@@ -53,7 +53,7 @@ export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, se
         <Button
           style={{ marginTop: "24px", alignContent: "end" }}
           variant="filled"
-          onClick={handleNavigate}
+          onClick={handleNavigate} {/* en prop vi passer fra route som styrer, hvor vi bliver sendt hen, da vi skal sendes til 4 forskellige sider */}
         >
           Næste
         </Button>
