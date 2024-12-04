@@ -21,7 +21,7 @@ function RouteComponent() {
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch data from the backend
+    // Henter data fra backenden
     const fetchLokaler = async () => {
       try {
          let query = supabase
