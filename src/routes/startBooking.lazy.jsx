@@ -59,8 +59,8 @@ function StartBooking() {
 
   const bookingStyle = {
     display: "flex",
-    marginLeft: "300px",
-    marginRight: "40px",
+    marginLeft: "200px",
+    marginRight: "150px",
     paddingBottom: "150px",
     flexDirection: "row",
     alignItems: "center",
@@ -111,7 +111,7 @@ function StartBooking() {
 
     <CustomCalendar
     setSelectedDate={setSelectedDate}
-    style={{ marginLeft: "24px" }}
+    style={{ marginLeft: "0px" }}
     />
 
     <LokaleForm
