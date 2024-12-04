@@ -6,6 +6,9 @@ import BookingAlert from './BookingAlert';
 import TimeSelect from './TimeSelect';
 import { useRouteContext } from '@tanstack/react-router';
 
+// Vi har lifted state i den her component som ligger i startBooking.lazy.jsx, fordi vi skal bruge flere elementer fra denne component 
+// som vi så derfor passer som props fra route til denne component
+// 
 export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, setSelectedEndTime, handleNavigate}) {
     const [numberOfPeople, setNumberOfPeople] = useState(1);
 
@@ -16,12 +19,13 @@ export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, se
       width: "30%",
     };
 
-    console.log('antal personer', numberOfPeople)
-
+    // grunden til vi har sat useEffect på contexten er grundet konsollen i vores browser gav os et "Bad useState usage" og ved at bruger useEffect som loader contexten efter siden er loaded er DOM'en glad
     useEffect(() => {
-      // Update context when numberOfPeople changes
+      // Opdatere context når numberOfPeople ændres 
       context.setNumberOfPeopleInfo({ numberOfPeople });
     }, [numberOfPeople, context]);
+
+
     return (
       <div style={inputStyle}>
         <NumberInput

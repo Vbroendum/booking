@@ -6,34 +6,34 @@ import { getSupabaseClient } from '../supabase/getSupabaseClient';  // Import Su
 
 const supabase = getSupabaseClient()
 
-// Card styling - image and content aligned side by side (image left, text right)
+// Card styling - Billede og indhold aligned side mod side (billede til venstre og tekst til højre) 
 const cardStyles = {
-  margin: '30px',  // Adds margin
-  display: 'flex', // Enables flexbox
-  flexDirection: 'row', // Aligns content in a row (image left, content right)
-  justifyContent: 'flex-start', // Aligns content to the left
-  alignItems: 'left', // Ensures proper vertical alignment
-  textAlign: 'left', // Centers content within the flex box
+  margin: '30px',  
+  display: 'flex', 
+  flexDirection: 'row', 
+  justifyContent: 'flex-start', 
+  alignItems: 'left', 
+  textAlign: 'left', 
 };
 
 const contentStyles = {
   display: 'flex',
   flexDirection: 'column',
-  padding: '0 20px', // Padding for the content area
-  flex: 1, // Content area takes up most of the space
-  alignItems: 'left', // Centers the content horizontally
-  textAlign: 'left', // Ensures text is centered in the content area
+  padding: '0 20px', 
+  flex: 1, 
+  alignItems: 'left', 
+  textAlign: 'left', 
 };
 
 const titleStyles = {
-  marginBottom: '30px', // Added space below the title
-  textAlign: 'left', // Centers the title
+  marginBottom: '30px', 
+  textAlign: 'left', 
   fontWeight: 'bold',
-  fontSize: '30px', // Larger title font size
+  fontSize: '30px', 
 };
 
 function BookingCancelledModal() {
-  // You can implement this modal later if needed
+  
 }
 
 function MinebookingCard({ booking, onCancel }) {
@@ -41,7 +41,7 @@ function MinebookingCard({ booking, onCancel }) {
   const [cancelledOpened, setCancelledOpened] = useState(false);
   const [imageUrl, setImageUrl] = useState(null); // State for room image URL
 
-  // Fallback image in case no image is provided
+  // Fallback billede, i tilfælde der ikke er et billede tilgængeligt
   const fallbackImage = 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png';
 
   const openModal = () => setOpened(true);
@@ -50,34 +50,33 @@ function MinebookingCard({ booking, onCancel }) {
   const openCancelledModal = () => {
     setOpened(false);
     setCancelledOpened(true);
-    console.log('Canceling booking with ID:', booking.id); // Log the booking ID
-    onCancel(booking.id); // Pass the booking ID to onCancel
+    onCancel(booking.id); // Sender booking id til knappen for cancelledModal til onCancel prop
   };
 
   const closeCancelledModal = () => setCancelledOpened(false);
 
-  // Fetch room image from Supabase based on room number (`lokalenr`)
+  // Fetch Request til lokaleimage fra Supabase baseret på 'lokalenr' kolonne 
   useEffect(() => {
     if (booking.lokale) {
-      fetchRoomImage(booking.lokale); // Fetch image URL for the room
+      fetchRoomImage(booking.lokale); // Fetch Billede URL for lokalet 
     }
   }, [booking.lokale]);
 
   const fetchRoomImage = async (lokalenr) => {
     try {
       const { data, error } = await supabase
-        .from('lokale') // The table in Supabase where room info is stored
-        .select('lokaleimage') // Fetch the 'lokaleimage' for the room
-        .eq('lokalenr', lokalenr) // Match by room number
-        .single(); // Ensure we get a single result (since 'lokalenr' is expected to be unique)
+        .from('lokale') // Tabellen i vores Supabase hvor lokaleinfo er lagret 
+        .select('lokaleimage') // Henter lokaleimage til lokalet 
+        .eq('lokalenr', lokalenr) // matcher med lokalenr fra tabellen
+        .single(); //Sikrer at vi får et enkelt resultat eftersom 'lokalenr' forventes at være unik 
 
       if (error) {
-        console.error('Error fetching image:', error.message);
+        console.error('Error fetching image:', error.message); //fejlbesked i console hvis der er problemer med at hente billede URL 
         return;
       }
 
       if (data) {
-        setImageUrl(data.lokaleimage); // Set the image URL from the database for the room
+        setImageUrl(data.lokaleimage); // Sætter billedet fra databasen til lokalet 
       }
     } catch (error) {
       console.error('Error fetching room image:', error.message);
@@ -103,8 +102,8 @@ function MinebookingCard({ booking, onCancel }) {
             <Text fw={600} size="30px">{'Valgt Lokale'}</Text>
           </div>
 
-          <div>
-            <Text size="sm" c="dimmed" mb="sm"><b>Dato:</b> {booking.start_date || 'Ikke angivet'}</Text>
+          <div> {/* her bruges vores insert statement til booking table, som vi passer som en prop fra route til MineBookinger */}
+            <Text size="sm" c="dimmed" mb="sm"><b>Dato:</b> {booking.start_date || 'Ikke angivet'}</Text> 
             <Text size="sm" c="dimmed" mb="sm"><b>Tidspunkt:</b> {booking.start_time || 'Ikke angivet'} - {booking.end_time || 'Ikke angivet'}</Text>
             <Text size="sm" c="dimmed" mb="sm"><b>Lokale:</b> {booking.lokale || 'Ikke angivet'}</Text>
             <Text size="sm" c="dimmed" mb="lg"><b>Antal personer:</b> {booking.number_of_people || 'Ikke angivet'}</Text>

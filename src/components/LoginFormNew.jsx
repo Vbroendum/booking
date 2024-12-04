@@ -9,14 +9,14 @@ export default function LoginForm2() {
     initialValues: {
       email: '',
       password: '',
-      remember: false, // If you want to use "Husk mig" functionality
+      remember: false, // For at få "husk mig" til at fungerer, at brugeren kan forblive logget ind i længere tid
     },
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'ugyldig email'),
       password: (value) => (value.length > 0 ? null : 'Adgangskode kan ikke være tom'),
     },
   });
-
+// asynkron const som henter data fra vores supabase Auth, kravet her er vi manuelt sætter brugerdata ind, da vi ikke har en signup side
   const handleLogin = async (values) => {
     const supabase = getSupabaseClient();
     const { email, password } = values;
@@ -28,7 +28,7 @@ export default function LoginForm2() {
       options: { remember: values.remember } });
       if (error) throw error;
       
-      // Redirect to the frontpage on successful login
+      // Hvis login er successfuld fører den til frontpage, og ellers melder den fejl alt afhængig af fejlen, enten forkert email eller forkert adgangskode
       router.navigate({ to: '/frontpage' });
     } catch (error) {
       console.error('Login error:', error.message);
@@ -36,6 +36,7 @@ export default function LoginForm2() {
     }
   };
   
+  //basic login formular med Mantine input components der tager imod email og adgangskode
     return (
         <div style={{width: "100%", margin: "24px", alignContent: "center"}}>
             <h1>EFIF</h1>

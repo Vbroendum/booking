@@ -5,7 +5,7 @@ import { useNavigate } from '@tanstack/react-router';
 function MinebookingCardAfmeld(props) {
   const navigate = useNavigate();
 
-  // Handle navigation on button click
+  // Behandler navigation når man trykker på knap 
   const handleCancelBooking = () => {
     navigate(props.cancelPath || '/afmeldBookinger');
   };

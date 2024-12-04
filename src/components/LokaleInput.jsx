@@ -3,6 +3,8 @@ import { Input, InputBase, Combobox, useCombobox } from '@mantine/core';
 
 export default LokaleInput;
 
+
+// et array til vores combobox (component fra Matine), til de lokaler vi skal bruge
 const lokale = ['Gruppelokale', 'Klasselokale', 'Open Learning', 'Diverse'];
 
 function LokaleInput({ numberOfPeople, onLokaleSelect }) {
@@ -11,15 +13,16 @@ function LokaleInput({ numberOfPeople, onLokaleSelect }) {
     });
   
     const [value, setValue] = useState(null);
-  
+  // laver const lokale til et item, som vi bruger som value prop i vores combobox
     const options = lokale.map((item) => {
       let style = {};
       let disabled = false;
   
-      // Disable 'Klasselokale' if numberOfPeople < 6
+      // gør det umuligt for brugeren at vælge 'Klasselokale' hvis numberOfPeople < 6 som også kan ses af brugeren fra vores BookingAlert.jsx component
       if (item === 'Klasselokale' && numberOfPeople < 6) {
         style = { color: 'gray', pointerEvents: 'none', cursor: 'not-allowed' };
         disabled = true;
+        // Hvis numberOfPeople er > 6 kan 'Klasselokale herefter vælges, og hvis et item i dropdown bliver valgt, vil det blive blå baggrund, og hvid text
       } else if (item === value) {
         style = { backgroundColor: '#1c7ed6', color: 'white' };
       }
