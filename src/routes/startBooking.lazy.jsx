@@ -127,4 +127,3 @@ function StartBooking() {
   </div>
   )
 }
-
