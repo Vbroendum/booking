@@ -1,17 +1,17 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
-import Header from "../components/Header"
+import { createLazyFileRoute } from '@tanstack/react-router';
+import Header from "../components/Header";
 import Footer from '../components/Footer';
 import FrontPageFlashCard from '../components/FrontPageFlashCard';
 
 export const Route = createLazyFileRoute('/frontpage')({
   component: RouteComponent,
-})
-
+});
 
 function RouteComponent() {
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}> {/* Ensure the parent takes full height */}
       <Header />
+      
       <div
         style={{
           fontSize: "25px",
@@ -19,12 +19,12 @@ function RouteComponent() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100vh', // Full viewport height
-          textAlign: 'center', // Align text in the center of the h1
+          flex: 1, // This ensures the content takes available space
+          textAlign: 'center', 
         }}
       >
         <h1>Book et lokale eller se dine bookinger.</h1>
-        <div style={{display: 'flex', gap: '150px', justifyContent: "space-evenly"}}>
+        <div style={{ display: 'flex', gap: '150px', justifyContent: "space-evenly" }}>
           <FrontPageFlashCard
             title="Se dine bookinger"
             imageUrl={'https://epgjtuypadrnxeldurle.supabase.co/storage/v1/object/public/lokale-images/gruppelokale.webp?'}
@@ -43,8 +43,14 @@ function RouteComponent() {
           />
         </div>
       </div>
-      <Footer />
+      
+      <Footer style={{ 
+        position: 'relative', 
+        bottom: 0, 
+        width: '100%', 
+        backgroundColor: 'white', 
+        zIndex: 1000 
+      }} />
     </div>
   );
 }
-

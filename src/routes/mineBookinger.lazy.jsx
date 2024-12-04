@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createLazyFileRoute, useRouter } from '@tanstack/react-router';
 import { getSupabaseClient } from '../supabase/getSupabaseClient';
-import MinebookingCard from '../components/MinebookingCard';  // Ensure this component is rendering properly
+import MinebookingCard from '../components/MinebookingCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '@mantine/core';
@@ -16,7 +16,6 @@ function Minebooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
 
   const router = useRouter();
 
@@ -45,7 +44,6 @@ function Minebooking() {
         if (bookingsError) {
           setError('Error fetching bookings: ' + bookingsError.message);
         } else if (data && data.length === 0) {
-          // If no bookings are found, set the error message
           console.log('Ingen bookinger fundet for denne bruger');
           setError('Ingen bookinger fundet');
         } else {
@@ -87,8 +85,9 @@ function Minebooking() {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}> {/* Full viewport height */}
       <Header />
+      
       <div
         style={{
           fontSize: '25px',
@@ -96,8 +95,10 @@ function Minebooking() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100vh',
+          flex: 1, // This ensures the content area fills the space available
           textAlign: 'center',
+          overflowY: 'auto', // Enable scrolling when content overflows
+          paddingBottom: '50px', // Allow space for the footer
         }}
       >
         <h1>Mine Bookinger</h1>
@@ -109,9 +110,7 @@ function Minebooking() {
             <p>Ingen bookinger fundet</p>
           </div>
         )}
-        
-        
-      
+
         <div
           style={{
             display: 'grid',
@@ -131,13 +130,21 @@ function Minebooking() {
               />
             ))
           ) : (
-            <div style={{gridColumn: '2', textAlign: 'center', marginTop: '20px', }}>
+            <div style={{gridColumn: '2', textAlign: 'center', marginTop: '20px' }}>
               <Button onClick={() => router.navigate({ to: '/startBooking' })}>Start Booking</Button>
             </div>
           )}
         </div>
       </div>
-      <Footer />
+      
+      {/* Footer is now fixed at the bottom */}
+      <Footer style={{ 
+        position: 'relative', 
+        bottom: 0, 
+        width: '100%', 
+        backgroundColor: 'white', 
+        zIndex: 1000 
+      }} />
     </div>
   );
 }
