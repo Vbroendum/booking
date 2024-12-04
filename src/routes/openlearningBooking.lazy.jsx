@@ -54,7 +54,7 @@ function RouteComponent() {
     <div>
       <Header />
 
-      <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center', }}>
         <Group position="apart" style={{ width: '100%' }}>
           {/* Tilbage Button */}
           <Button 
@@ -73,7 +73,7 @@ function RouteComponent() {
           </div>
         </Group>
       </div>
-        <Grid gutter="md" style={{ alignItems: 'flex-start' }}>
+        <Grid gutter="md" style={{ alignItems: 'flex-start', overflowX: "hidden", overflowY: "hidden"}}>
           {/* Left side: FlashCards */}
           <Grid.Col span={10}>
             <Title order={1} align="left" style={{ marginBottom: '16px', marginLeft: '32px' }}>
