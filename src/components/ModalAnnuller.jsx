@@ -9,8 +9,8 @@ function BookingModal({ opened, onClose, onConfirm, title, bodyContent }) {
       title={title}
       centered
       styles={{
-        modal: { width: '500px' }, // Set consistent modal width
-        closeButton: { right: '10px', top: '10px' }, // Optional: close button positioning
+        modal: { width: '500px' }, // Sætter en konsekvent bredde på modalen
+        closeButton: { right: '10px', top: '10px' }, // Positionering af lukke knappen (x knappen)
       }}
     >
       <div style={{ marginBottom: '20px' }}>{bodyContent}</div>

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { TimeInput } from '@mantine/dates';
 
 function TimeRangePicker() {
-  const [startTime, setStartTime] = useState(null); // State for start time
-  const [endTime, setEndTime] = useState(null); // State for end time
+  const [startTime, setStartTime] = useState(null); // State for start tid
+  const [endTime, setEndTime] = useState(null); // State for slut tid
 
+  // håndterer tidsændring af start tidspunkt
   const handleStartTimeChange = (value) => {
     setStartTime(value);
     if (endTime) {
@@ -20,6 +21,7 @@ function TimeRangePicker() {
     }
   };
 
+  // håndterer tidsændring af slut tidspunkt
   const handleEndTimeChange = (value) => {
     setEndTime(value);
     if (startTime) {

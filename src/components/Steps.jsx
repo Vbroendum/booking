@@ -7,10 +7,10 @@ export default function StepperComponent({ activeStep, setActiveStep,  }) {
   
   const handleStepClick = (step) => {
     if (step === 0) {
-      // If it's the first step, navigate to the previous page
-      navigate(-1);  // Go back to the previous page
+      // Hvis man er på det første trin, navigerer man til den forrige side
+      navigate(-1);  // Går tilbage til forrige side
     } else {
-      setActiveStep(step);  // Otherwise, just change the active step
+      setActiveStep(step);  // Ellers ændres det aktive trin bare
     }
   };
   

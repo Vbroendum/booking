@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { Select, Group } from '@mantine/core';
 import { useRouteContext } from '@tanstack/react-router';
 
-// Generate an array of time options in 24-hour format with 15-minute intervals and specified restrictions
+
+// Genererer et array af tidsmuligheder i 24-timers format med 15-minutters intervaller
 const generateTimeOptions = (minTime, maxTime) => {
   const times = [];
   const [minHour, minMinute] = minTime.split(':').map(Number);
   const [maxHour, maxMinute] = maxTime.split(':').map(Number);
 
-  // Loop through time and add intervals of 15 minutes
+  // Looper igennem tiderne og tilføjer intervaller af 15 minutter
   for (let hour = minHour; hour <= maxHour; hour++) {
     const startMinute = hour === minHour ? minMinute : 0;
     const endMinute = hour === maxHour ? maxMinute : 60;
@@ -22,6 +23,7 @@ const generateTimeOptions = (minTime, maxTime) => {
   return times;
 };
 
+// Sætter valgte start -og sluttider
 const startTimeOptions = generateTimeOptions('08:00', '14:00');
 const endTimeOptions = generateTimeOptions('08:15', '17:00');
 
@@ -34,32 +36,30 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
     (option) => !startTime || option.value > startTime
   )
 
-  // Update context with startTime
+  // Gemmer starttidspunktet i context
   useEffect(() => {
     if (startTime) {
       context.setStartTimeInfo({ startTime });
     }
   }, [startTime, context]);
 
-  // Update context with endTime
+  // Gemmer sluttidspunktet i context
   useEffect(() => {
     if (endTime) {
       context.setEndTimeInfo({ endTime });
     }
   }, [endTime, context]);
 
-  // Handler for start time change
+  // Håndterer ændring af starttidspunkt
   const handleStartTimeChange = (value) => {
     setStartTime(value);
-    setSelectedStartTime(value); // Update the parent component's state
-    console.log('Start Time:', value);
+    setSelectedStartTime(value); // Opdaterer forældrekomponentens tilstand
   };
 
-  // Handler for end time change
+  // Håndterer ændring af sluttidspunkt
   const handleEndTimeChange = (value) => {
     setEndTime(value);
-    setSelectedEndTime(value); // Update the parent component's state
-    console.log('End Time:', value);
+    setSelectedEndTime(value); // Opdaterer forældrekomponentens tilstand
   };
 
   return (
@@ -70,7 +70,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         placeholder="Vælg start tidspunkt"
         data={startTimeOptions}
         value={startTime}
-        onChange={handleStartTimeChange} // Use the handler
+        onChange={handleStartTimeChange} // Benytter handleren af starttidspunktets ændring
         clearable
       />
       <Select
@@ -79,7 +79,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         placeholder="Vælg start tidspunkt"
         data={filteredEndTimeOptions}
         value={endTime}
-        onChange={handleEndTimeChange} // Use the handler
+        onChange={handleEndTimeChange} // Benytter handleren af sluttidspunktets ændring
         disabled={!startTime}
         clearable
       />

@@ -9,7 +9,7 @@ const StepperNavigation = ({ activeStep, setActiveStep, backRoute = '/'}) => {
 
 <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
         <Group position="apart" style={{ width: '100%' }}>
-          {/* Tilbage Button */}
+          {/* Tilbage knap */}
           <Button 
             variant="light" 
             onClick={() => router.navigate({to: backRoute})}
