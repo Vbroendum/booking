@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react';
 import { Calendar } from '@mantine/dates';
 import { useRouteContext } from '@tanstack/react-router';
 
-dayjs.extend(localeData);
-dayjs.locale('da'); 
+dayjs.extend(localeData); //"dayjs.extend(localeData)" Udvider dayjs med funktionalitet til at arbejde med lokalitetsdata (fx sprog og datofunktioner)
+dayjs.locale('da'); //"dayjs.locale('da')" Sætter dayjs til at bruge dansk som sprog, hvilket betyder, at måneder og ugedage vil blive vist på dansk.
 
 function CustomCalendar({ setSelectedDate }) {
   const [selected, setSelected] = useState(null);

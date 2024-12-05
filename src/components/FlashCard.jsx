@@ -3,12 +3,12 @@ import { useRouter } from '@tanstack/react-router';
 import PropTypes from 'prop-types';
 
 const stylingCard = {
-  margin: '20px',                // Adds margin
-  display: 'flex',               // Enables flexbox
-  flexDirection: 'column',       // Aligns content in a column
-  justifyContent: 'space-between',// Ensures content is spaced out (button at the bottom)
-  height: '450px',               // Set a fixed height for the card to ensure consistency
-  textAlign: 'left',             // Aligns text to the left
+  margin: '20px',                
+  display: 'flex',               
+  flexDirection: 'column',       
+  justifyContent: 'space-between',
+  height: '450px',               
+  textAlign: 'left',             
 };
 
 function FlashCard({ title, imageUrl, description = [], button, color, navigation }) {
@@ -21,11 +21,11 @@ function FlashCard({ title, imageUrl, description = [], button, color, navigatio
     <Card style={stylingCard} shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
         <Image
-          src={imageUrl || fallbackImage}  // Use the fallback if imageUrl is missing
-          height={250}                      // Set a fixed height for the image
-          width="100%"                      // Ensure it stretches to fill the container's width
+          src={imageUrl || fallbackImage}  
+          height={250}                      
+          width="100%"                      
           alt="Lokale image"
-          style={{ objectFit: 'cover' }}    // Ensures the image covers the area without distortion
+          style={{ objectFit: 'cover' }}    
         />
       </Card.Section>
 
@@ -41,13 +41,12 @@ function FlashCard({ title, imageUrl, description = [], button, color, navigatio
         ) : null}
       </Text>
 
-      {/* Button is always positioned at the bottom of the card */}
       <Button
         color={color || 'blue'}
         fullWidth
-        mt="auto"                       // Pushes the button to the bottom of the card
+        mt="auto"                       
         radius="md"
-        onClick={() => router.navigate({ to: navigation })}  // Ensure navigation path is valid
+        onClick={() => router.navigate({ to: navigation })}  
       >
         {button}
       </Button>
