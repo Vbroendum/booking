@@ -62,7 +62,7 @@ function RouteComponent() {
             variant="light" 
             onClick={() => router.navigate({to: '/startBooking'})}
             style={{ margin: '0 16px' }}>
-            Tilbage
+            Genstart booking
           </Button>
 
           {/* Stepper */}

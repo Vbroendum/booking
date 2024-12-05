@@ -11,8 +11,8 @@ const stylingCard = {
   textAlign: 'left',             
 };
 
-function FlashCard({ title, imageUrl, description = [], button, color, navigation }) {
-  const router = useRouter();
+function FlashCard({ title, imageUrl, description = [], button, color, navigation }) { //en liste a props som genbruges til komponentet
+  const router = useRouter(); // useRouter() er en hook som giver adgang til routeren for at navigere mellem sider
 
   // Fallback image in case imageUrl is not provided
   const fallbackImage = 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png';
@@ -34,9 +34,11 @@ function FlashCard({ title, imageUrl, description = [], button, color, navigatio
       </Group>
 
       <Text size="sm" mb="md">
-        {description.length > 0 ? (
-          description.map((item, index) => (
-            <li key={index}>{item}</li>
+        {description.length > 0 ? ( // "description.length > 0" tjekker, om description har mindst et element. Hvis ja, rendere listen med <li>-elementer. Hvis nej, returneres null
+          description.map((item, index) => ( 
+            //"description.map()"" går igennem hvert element i description-arrayet
+            //"item" er hvert element i arrayet, som bliver vist som tekst i listen
+            <li key={index}>{item}</li> //"<li key={index}>" opretter et listepunkt for hvert element i description
           ))
         ) : null}
       </Text>
@@ -47,6 +49,9 @@ function FlashCard({ title, imageUrl, description = [], button, color, navigatio
         mt="auto"                       
         radius="md"
         onClick={() => router.navigate({ to: navigation })}  
+        //"onClick" aktiveres, når brugeren klikker på elementet
+        //"router.navigate()" ændrer den aktuelle rute til en ny URL
+        //"{ to: navigation }" Angiver destinationen 
       >
         {button}
       </Button>
@@ -54,14 +59,14 @@ function FlashCard({ title, imageUrl, description = [], button, color, navigatio
   );
 }
 
-// Prop validation to make sure correct data types are passed
+//"propTypes" sikrer, at de data, der sendes til komponenten, er af den rigtige type
 FlashCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  button: PropTypes.string.isRequired,
-  color: PropTypes.string,
-  navigation: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string,  // Ensure imageUrl is passed correctly
-  description: PropTypes.arrayOf(PropTypes.string),  // Array of strings for description
+  title: PropTypes.string.isRequired, //title skal være en streng (string), og den er påkrævet (kan ikke være undefined eller null)
+  button: PropTypes.string.isRequired, //button skal være en streng (string), og den er også påkrævet
+  color: PropTypes.string, //color skal være en streng (string), men den er ikke påkrævet. Det betyder, at den kan være undefined
+  navigation: PropTypes.string.isRequired, //navigation skal være en streng (string), og den er påkrævet
+  imageUrl: PropTypes.string,  //imageUrl skal være en streng (string), men det er ikke nødvendigt at sende en værdi. Hvis ikke angivet, vil det være undefined
+  description: PropTypes.arrayOf(PropTypes.string), //description skal være en array, hvor hvert element i arrayet er en streng (string). Dette er ikke påkrævet, og hvis ikke angivet, vil det være en tom array ([]) som standard
 };
 
 export default FlashCard;

@@ -108,11 +108,11 @@ function RouteComponent() {
         <Group position="apart" style={{ width: '100%' }}>
           <Button
             variant="light"
-            onClick={() => router.navigate({ to: '/frontpage' })}
+            onClick={() => router.navigate({ to: '/startBooking' })}
             style={{ margin: '0 16px' }}
           >
-            Tilbage
-          </Button>
+            Genstart Booking
+          </Button> 
 
           <div style={{ display: 'flex', justifyContent: 'center', width: '90%' }}>
             <StepperComponent activeStep={activeStep} setActiveStep={setActiveStep} />

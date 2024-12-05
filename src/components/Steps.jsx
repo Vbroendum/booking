@@ -1,19 +1,14 @@
-/* eslint-disable react/prop-types */
 import { Stepper } from '@mantine/core';
-import { useNavigate } from '@tanstack/react-router';
 
-export default function StepperComponent({ activeStep, setActiveStep,  }) {
-  const navigate = useNavigate();
-  
+export default function StepperComponent({ activeStep, setActiveStep }) {
   const handleStepClick = (step) => {
     if (step === 0) {
-      // Hvis man er på det første trin, navigerer man til den forrige side
-      navigate(-1);  // Går tilbage til forrige side
+      // If on the first step, no need to go back further
+      setActiveStep(0);  // Keeps the step at step 0
     } else {
-      setActiveStep(step);  // Ellers ændres det aktive trin bare
+      setActiveStep(step);  // Updates the active step for other steps
     }
   };
-  
 
   return (
     <div style={{ margin: '40px auto', width: '70%', textAlign: 'center' }}>
@@ -35,7 +30,6 @@ export default function StepperComponent({ activeStep, setActiveStep,  }) {
         <Stepper.Step />
         <Stepper.Completed />
       </Stepper>
-
     </div>
   );
 }
