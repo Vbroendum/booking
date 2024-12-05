@@ -54,7 +54,7 @@ export default function LoginForm2() {
                 style={{marginTop: "24px" }} 
                 required
                 withAsterisk
-                label="Password"
+                label="Adgangskode"
                 placeholder="Indtast kodeord"
                 {...form.getInputProps('password')}
                 />
