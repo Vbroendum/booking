@@ -20,7 +20,7 @@ function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
   //useState opretter en state-variabel kaldet "loading"
   //loading indikere om komponentet er i en loading/indlæsnings tilstand
   //setLoading er en funktion som ændre værdien af "loading"
-  //Datatypen er en Boolean (True eller false)
+  //Datatypen er en Boolean (True,false eller null)
   const [loading, setLoading] = useState(true);  
 //useRouteContext anvendes til at hente routing-kontekst "to/bekræftBooking" angiver at funktionen forbereder eller henter data relateret til "/bekræftBooking"
 //context-variablen modtager information om den aktuelle eller kommende rute. Dette kan være nyttigt hvis der er behov for at vide hvor brugeren navigere hen (fx hvilken rute der er den næste), eller for at interagere fx hvis "/bekræftBooking" forventer noget særligt data.
@@ -96,44 +96,44 @@ function BookingBekraeftelse( { lokale, opened, closeModal, onConfirm }) {
     
     
 
-    {/* Right Column */}
+    {/* Right Column */} {/* */}
     <div style={{justifyContent: 'flex-end'}}>
     <Stack>
         <Title style={{marginLeft: '106px', fontWeight: '500', fontSize: '24px'}}>Detaljer:</Title>
         <Text>
             <img src={CalendarIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            // "context" er et objekt der indeholder data om booking detaljer
+            {/*  "context" er et objekt der indeholder data om booking detaljer*/} 
             <strong>Dato:</strong> {context.dateInfo.selected.toString()}
-            //"dateInfo" er en understruktur i "context" der gemmer informationer relateret til dato
-            //"selected" indeholder den valgte dato for booking
-            //"toString()" konverter værdien til en tekststreng. Når "selected" er et Date-objekt, gør "toString()" det til en læsbar strengpræsentation af datoen
+            {/*"context" er et objekt der indeholder data om booking detaljer  */} {/*"dateInfo" er en understruktur i "context" der gemmer informationer relateret til dato */}
+            {/* "selected" indeholder den valgte dato for booking*/}
+           {/* "toString()" konverter værdien til en tekststreng. Når "selected" er et Date-objekt, gør "toString()" det til en læsbar strengpræsentation af datoen*/} 
         </Text>
         <Text>
             <img src={ClockIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            //"context" er en variabel der indeholder information om booking detaljer.  
-            //Tidligere i koden blev context hentet fra funktionen useRouteContext(), hvilket betyder, at den indeholder data, som er blevet samlet undervejs, fx bookingdato, tidspunkt og antal personer
+           {/* "context" er en variabel der indeholder information om booking detaljer.*/}   
+           {/* Tidligere i koden blev context hentet fra funktionen useRouteContext(), hvilket betyder, at den indeholder data, som er blevet samlet undervejs, fx bookingdato, tidspunkt og antal personer*/} 
             <strong>Tidspunkt:</strong> {context.startTimeInfo.startTime} - {context.endTimeInfo.endTime}
-            //"context.startTimeInfo" er et objekt, der indeholder oplysninger om starttidspunktet for bookingen.
-            //"startTime" er selve værdigen for starttidspunktet
-            //Det fungerer på samme måde for endTimeInfo & endTime
+            {/*"context.startTimeInfo" er et objekt, der indeholder oplysninger om starttidspunktet for bookingen. */}
+            {/*"startTime" er selve værdigen for starttidspunktet */}
+            {/*Det fungerer på samme måde for endTimeInfo & endTime */}
         </Text>
         <Text>
             <img src={LocationIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Lokale: </strong> {lokale || 'ikke angivet'} //Vist med et "LocationIcon" og det valgte lokale, som er angivet i "lokale"-variablen.
+            <strong>Lokale: </strong> {lokale || 'ikke angivet'} {/* Vist med et "LocationIcon" og det valgte lokale, som er angivet i "lokale"-variablen.*/} 
         </Text>
         <Text>
             <img src={UserIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Antal personer:</strong> {context.numberOfPeopleInfo.numberOfPeople} //Vist med et "UserIcon" og antallet af personer, som er hentet fra context.numberOfPeopleInfo.numberOfPeople.
+            <strong>Antal personer:</strong> {context.numberOfPeopleInfo.numberOfPeople}{/* Vist med et "UserIcon" og antallet af personer, som er hentet fra context.numberOfPeopleInfo.numberOfPeople.*/} 
         </Text>
         <Text>
             <img src={GitIcon} alt="Calendar" style={{ width: '20px', marginLeft: '80px', marginRight: '8px' }} />
-            <strong>Booket af:</strong> {userRole} //Vist med et "GitIcon" og den rolle, som brugeren har fx "lærer" eller "studerende", som er angivet i "userRole".
+            <strong>Booket af:</strong> {userRole}{/*Vist med et "GitIcon" og den rolle, som brugeren har fx "lærer" eller "studerende", som er angivet i "userRole". */}
         </Text>
     </Stack>
     
     </div>
   </div>
-  //En Button med teksten "Bekræft Booking". Når denne knap klikkes, kaldes funktionen "onConfirm", som håndterer bekræftelsen af bookingen dette opdatere så vores Supabase database som så viser at lokalet er booket.
+ {/* En Button med teksten "Bekræft Booking". Når denne knap klikkes, kaldes funktionen "onConfirm", som håndterer bekræftelsen af bookingen dette opdatere så vores Supabase database som så viser at lokalet er booket.*/}
   <Button 
     style={{marginLeft: '20px', marginBottom: '20px'}}
     onClick={onConfirm}>
