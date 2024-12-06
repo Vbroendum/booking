@@ -42,6 +42,7 @@ function LokaleInput({ numberOfPeople, onLokaleSelect }) {
   
     return (
       <Combobox
+        style={{ marginBottom: "10px" }}
         size="md"
         label="Lokaletype"
         description="Vælg hvilket type lokale I skal bruge."

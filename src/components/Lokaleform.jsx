@@ -29,6 +29,7 @@ export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, se
     return (
       <div style={inputStyle}>
         <NumberInput
+          style={{ marginBottom: "10px" }}
           size="md"
           label="Antal personer"
           withAsterisk
@@ -45,8 +46,8 @@ export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, se
           onLokaleSelect={setSelectedLokale} // Pass callback to get selected lokale
         />
         <TimeSelect
-        setSelectedStartTime={setSelectedStartTime}
-        setSelectedEndTime={setSelectedEndTime} 
+          setSelectedStartTime={setSelectedStartTime}
+          setSelectedEndTime={setSelectedEndTime} 
         />
         <BookingAlert />
         <Group justify="flex-end" mt="md">
