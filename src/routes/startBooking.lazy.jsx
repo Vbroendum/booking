@@ -100,7 +100,6 @@ function StartBooking() {
 
     <CustomCalendar
     setSelectedDate={setSelectedDate}
-    style={{ marginLeft: "1000px" }}
     />
 
     <LokaleForm

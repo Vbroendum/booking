@@ -76,7 +76,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
       <Select
         style={{width: "47.5%"}}
         label="Slut tidspunkt"
-        placeholder="Vælg start tidspunkt"
+        placeholder="Vælg slut tidspunkt"
         data={filteredEndTimeOptions}
         value={endTime}
         onChange={handleEndTimeChange} // Benytter handleren af sluttidspunktets ændring
