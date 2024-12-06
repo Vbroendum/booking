@@ -15,7 +15,7 @@ export default function EtageSelector ({ setSelectedEtage }) { //"setSelectedEta
       <Radio.Group
       name="Etagevælger" //"name="Etagevælger"" navnet på radiogruppen
       label="Etage" //"label="Etage"" er overskriften, der vises over radioknapperne
-      description="Vælg den etage du vil være på"
+      description="Sorter efter den etage du vil være på"
       onChange={(value) => setSelectedEtage(value)} //"onChange" håndterer ændringer. Når brugeren vælger en etage, sender den værdien til "setSelectedEtage" 
     >
     <Group mt="xl" style={{flexDirection: "column", justifyContent:"flex-start"}}>
