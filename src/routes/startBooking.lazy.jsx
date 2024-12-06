@@ -85,7 +85,8 @@ function StartBooking() {
           <Button 
             variant="light" 
             onClick={() => router.navigate({to: '/frontpage'})}
-            style={{ margin: '0 16px', position: 'absolute' }}>
+            style={{ margin: '0 16px', position: 'absolute' }}
+            >
             Afbryd booking
           </Button>
 

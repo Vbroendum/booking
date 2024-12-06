@@ -60,7 +60,8 @@ function RouteComponent() {
           <Button 
             variant="light" 
             onClick={() => router.navigate({to: '/startBooking'})}
-            style={{ margin: '0 16px' }}>
+            style={{ margin: '0 16px', position: 'absolute' }}
+            >
             Genstart booking
           </Button>
 
