@@ -67,7 +67,7 @@ function RouteComponent() {
           </Button>
 
           {/* Stepper */}
-          <div style={{ display: 'flex', justifyContent: 'center', width: '90%' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
             <StepperComponent 
               activeStep={activeStep} 
               setActiveStep={setActiveStep} 
