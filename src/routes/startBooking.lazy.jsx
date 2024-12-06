@@ -15,6 +15,8 @@ function StartBooking() {
   const router = useRouter()
   const [selectedLokale, setSelectedLokale] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedStartTime, setSelectedStartTime] = useState(null);
+  const [selectedEndTime, setSelectedEndTime] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
 
 
@@ -104,6 +106,8 @@ function StartBooking() {
 
     <LokaleForm
     setSelectedLokale={setSelectedLokale}
+    setSelectedStartTime={setSelectedStartTime}
+    setSelectedEndTime={setSelectedEndTime} 
     handleNavigate={handleNavigate}
     />
     
