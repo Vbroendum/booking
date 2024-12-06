@@ -6,7 +6,7 @@ import FlashCard from '../components/FlashCard';
 import EtageSelector from '../components/EtageSelector';
 import { Grid, Title, Box, Group, Button } from '@mantine/core';
 import StepperComponent from '../components/Steps';
-import HelpModal from '../components/HelpModal'; // Import the HelpModal component
+import HelpModal from '../components/HelpModal';
 
 const supabase = getSupabaseClient();
 
@@ -21,7 +21,7 @@ function RouteComponent() {
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch data from the backend
+    // Henter data fra backenden
     const fetchLokaler = async () => {
       try {
         let query = supabase
@@ -55,14 +55,14 @@ function RouteComponent() {
       <Header />
 
       {/* Stepper and Back Button */}
-      <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center', }}>
+      <div style={{ marginTop: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
         <Group position="apart" style={{ width: '100%' }}>
           {/* Tilbage Button */}
           <Button 
             variant="light" 
             onClick={() => router.navigate({to: '/startBooking'})}
-            style={{ margin: '0 16px' }}
-          >
+            style={{ margin: '0 16px', position: 'absolute' }}
+            >
             Genstart booking
           </Button>
 
@@ -76,7 +76,7 @@ function RouteComponent() {
         </Group>
       </div>
 
-      <Grid gutter="md" style={{ alignItems: 'flex-start', overflowX: "hidden", overflowY: "hidden" }}>
+      <Grid gutter="md" style={{ alignItems: 'flex-start' }}>
         {/* Left side: FlashCards */}
         <Grid.Col span={10}>
           <Title order={1} align="left" style={{ marginBottom: '16px', marginLeft: '32px' }}>
