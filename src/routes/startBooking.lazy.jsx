@@ -31,6 +31,21 @@ function StartBooking() {
       return;
     }
 
+    if (!selectedStartTime) {
+      alert('Vælg venligst en starttid først.');
+      return;
+    }
+
+    if (!selectedEndTime) {
+      alert('Vælg venligst en sluttid først');
+      return;
+    }
+
+    if (selectedStartTime >= selectedEndTime) {
+      alert('Sluttidspunktet skal være senere end starttidspunktet.');
+      return;
+    }
+
     const routeMap = {
       Gruppelokale: '/gruppeLokaleBooking',
       Klasselokale: '/klasselokaleBooking',
