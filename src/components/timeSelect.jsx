@@ -72,6 +72,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         value={startTime}
         onChange={handleStartTimeChange} // Benytter handleren af starttidspunktets ændring
         clearable
+        closeOnChange
       />
       <Select
         style={{width: "47.5%"}}
@@ -82,6 +83,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         onChange={handleEndTimeChange} // Benytter handleren af sluttidspunktets ændring
         disabled={!startTime}
         clearable
+        closeOnChange
       />
     </Group>
   );
