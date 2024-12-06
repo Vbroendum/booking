@@ -32,6 +32,7 @@ function CustomCalendar({ setSelectedDate }) {
       size="xl"
       minDate={new Date()}
       locale="da"
+      maxDate={dayjs().add(1, 'year').toDate()}
       getDayProps={(date) => {
         const isBeforeToday = dayjs(date).isBefore(dayjs(), 'day');
         const isWeekend = [0, 6].includes(dayjs(date).day());
