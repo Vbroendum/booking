@@ -68,6 +68,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         style={{width: "47.5%"}}
         label="Start tidspunkt"
         placeholder="Vælg start tidspunkt"
+        withAsterisk
         data={startTimeOptions}
         value={startTime}
         onChange={handleStartTimeChange} // Benytter handleren af starttidspunktets ændring
@@ -78,6 +79,7 @@ function TimeSelect({ setSelectedStartTime, setSelectedEndTime }) {
         style={{width: "47.5%"}}
         label="Slut tidspunkt"
         placeholder="Vælg slut tidspunkt"
+        withAsterisk
         data={filteredEndTimeOptions}
         value={endTime}
         onChange={handleEndTimeChange} // Benytter handleren af sluttidspunktets ændring
