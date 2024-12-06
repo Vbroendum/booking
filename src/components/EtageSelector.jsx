@@ -13,7 +13,6 @@ export default function EtageSelector ({ setSelectedEtage }) { //"setSelectedEta
   return (
       <div style={containerStyling}>
       <Radio.Group
-      withAsterisk //"withAsterisk" viser en stjerne for at angive, at valget er obligatorisk
       name="Etagevælger" //"name="Etagevælger"" navnet på radiogruppen
       label="Etage" //"label="Etage"" er overskriften, der vises over radioknapperne
       description="Vælg den etage du vil være på"
