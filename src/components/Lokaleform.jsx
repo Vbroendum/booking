@@ -29,7 +29,7 @@ export default function LokaleForm({ setSelectedLokale, setSelectedStartTime, se
     return (
       <div style={inputStyle}>
         <NumberInput
-          style={{ marginBottom: "10px" }}
+          style={{ marginBottom: "15px" }}
           size="md"
           label="Antal personer"
           withAsterisk
