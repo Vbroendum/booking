@@ -16,6 +16,7 @@ export default function StepperComponent({ activeStep, setActiveStep }) {
       <Stepper
         active={activeStep}
         onStepClick={handleStepClick}
+        allowNextStepsSelect={false}
         styles={{
           stepLabel: {
             display: 'none', // Hides the labels
