@@ -47,12 +47,13 @@ function StartBooking() {
 
   const bookingStyle = {
     display: "flex",
-    marginLeft: "300px",
-    marginRight: "40px",
+    marginLeft: "150px",
+    marginRight: "150px",
     paddingBottom: "150px",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    gap: "300px",
     height: "85vh"
   }
 
@@ -87,7 +88,7 @@ function StartBooking() {
           </Button>
 
           {/* Stepper */}
-          <div style={{ display: 'flex', justifyContent: 'center', width: '90%' }}>
+          <div style={{ width: '100%' }}>
             <StepperComponent 
               activeStep={activeStep} 
               setActiveStep={setActiveStep} 
@@ -99,7 +100,7 @@ function StartBooking() {
 
     <CustomCalendar
     setSelectedDate={setSelectedDate}
-    style={{ marginLeft: "24px" }}
+    style={{ marginLeft: "1000px" }}
     />
 
     <LokaleForm
