@@ -74,15 +74,6 @@ function StartBooking() {
     height: "85vh"
   }
 
-  const stepperStyle = {
-    marginTop: "24px", 
-    marginBottom: "24px", 
-    width: "70%",
-    alignContent: "center",
-    marginLeft: "auto",
-    marginRight: "auto"
-  }
-
   /*const steps = [
     { label: 'Step 1' },
     { label: 'Step 2'},
