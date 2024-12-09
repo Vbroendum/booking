@@ -111,7 +111,7 @@ function RouteComponent() {
             onClick={() => router.navigate({ to: '/startBooking' })}
             style={{ margin: '0 16px', position: 'absolute' }}
           >
-            Genstart Booking
+            Genstart booking
           </Button> 
 
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
