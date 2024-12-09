@@ -22,7 +22,7 @@ function StartBooking() {
 
   const handleNavigate = () => {
     if (!selectedLokale) {
-      alert('Vælg venligst et lokale først.');
+      alert('Vælg venligst et lokaletype først.');
       return;
     }
 
