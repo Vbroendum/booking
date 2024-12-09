@@ -82,6 +82,8 @@ function RouteComponent() {
               Diverse lokaler
             </Title>
             <Grid gutter="lg">
+
+              {/* Mapper over alle entries i tabellen lokaler, og laver et flashcard component til hver entry der er lig med diverse lokaler, og lægger kolonnerne ind i de props fra flashcard */}
               {lokaler.length > 0 ? (
               lokaler.map((lokale) => (
                 <Grid.Col span={4} key={lokale.id}>
@@ -96,6 +98,9 @@ function RouteComponent() {
               ))
             ) : (
               <Grid.Col span={12}>
+                {/* Hvis der ingen lokaler er tilgængelig, vil denne blive vist, i vores tilfælde har vi et filtersystem som kigger efter etage. 
+                Og er der ingen værdier der bliver returned med den etage man vælger, kommer denne istedet for flashcards med lokaler. 
+                Dette ville også kunne bruges, hvis man laver en funktion der gør det umuligt at booke et lokale, hvis det i forvejen er booket inden for tidsrammen */}
             <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
             Ingen lokaler tilgængelig
             </Title>

@@ -85,6 +85,7 @@ function RouteComponent() {
               Gruppelokale
             </Title>
             <Grid gutter="lg">
+              {/* Mapper over de items der er i lokale tabellen og laver et flashcard component, for hver entry der er i mappet fra lokaletabellen*/}
               {lokaler.length > 0 ? (
                 lokaler.map((lokale) => (
                   <Grid.Col span={4} key={lokale.id}>
@@ -99,6 +100,7 @@ function RouteComponent() {
                 ))
               ) :(
                 <Grid.Col span={12}>
+                  {/* Hvis der ingen lokaler er tilgængeligt, bliver denne vist. Da vi har en filtreringskomponent som kører Fetch igen med den nye rettelse i forhold til etage i vores tilfælge */}
                   <Title order={3} align="left" style={{ color: 'gray', marginTop: '24px', marginLeft: '32px' }}>
                     Ingen lokaler tilgængelig
                   </Title>
