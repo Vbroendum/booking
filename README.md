@@ -40,3 +40,5 @@ Supabase JS client has been installed as an npm package using [their guide](http
 And then in this project, the few boilerplate lines of code to initialize the client has been hidden away in [getSupabaseClient.js](src/supabase/getSupabaseClient.js)
 
 Edit the 2 variables: `SUPABASE_URL` and `PUBLIC_ANON_KEY`, to match the values from your Supabase project.
+
+Link to view the file: https://vbroendum.github.io/booking/
