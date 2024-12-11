@@ -41,4 +41,3 @@ And then in this project, the few boilerplate lines of code to initialize the cl
 
 Edit the 2 variables: `SUPABASE_URL` and `PUBLIC_ANON_KEY`, to match the values from your Supabase project.
 
-Link to view the file: https://vbroendum.github.io/booking/
